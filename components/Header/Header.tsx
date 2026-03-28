@@ -1,4 +1,5 @@
 import {getT} from 'next-i18next/server';
+import LangDropdown from './LangDropdown';
 import NavLink from './NavLink';
 
 const Header = async () => {
@@ -7,7 +8,7 @@ const Header = async () => {
 	return (
 		<header className="shadow-sm">
 			<div className="container container-lg">
-				<div className="grid grid-cols-[1fr_auto_1fr]">
+				<div className="grid grid-cols-[1fr_auto_1fr] items-center">
 					<div />
 					<nav>
 						<ul className="flex items-center gap-5">
@@ -34,7 +35,9 @@ const Header = async () => {
 							</li>
 						</ul>
 					</nav>
-					<div />
+					<div className="justify-self-end">
+						<LangDropdown />
+					</div>
 				</div>
 			</div>
 		</header>

@@ -15,6 +15,7 @@ const VARIANT_TO_ELEMENT_MAP: Record<Variant, ElementType> = {
 	h3: 'h3',
 	h4: 'h4',
 	body1: 'p',
+	body2: 'p',
 	inherit: 'span',
 } as const;
 
@@ -57,6 +58,11 @@ const VARIANT_TO_STYLES_MAP: Record<
 		weight: 'normal',
 		color: 'backgroundForeground',
 	},
+	body2: {
+		size: 'sm',
+		weight: 'normal',
+		color: 'backgroundForeground',
+	},
 	inherit: {
 		size: 'inherit',
 		weight: 'inherit',
@@ -72,6 +78,7 @@ const SIZE_TO_CLASS_NAME_MAP: Record<Size, string> = {
 	'5xl': 'text-5xl max-lg:text-4xl max-md:text-3xl max-xs:text-2xl max-xxs:text-xl',
 	'2xl': 'text-2xl max-lg:text-xl max-md:text-lg max-xs:text-base max-xxs:text-sm',
 	base: 'text-base max-xs:text-sm max-xxs:text-xs',
+	sm: 'text-sm',
 	inherit: '[font-size:inherit]',
 } as const;
 

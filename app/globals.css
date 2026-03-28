@@ -36,3 +36,25 @@
 	--color-warning: var(--color-dark-yellow);
 	--color-warning-foreground: var(--color-brown);
 }
+
+button {
+	cursor: pointer;
+}
+
+.container {
+	width: 100%;
+	margin: 0 auto;
+	padding: 0 16px;
+}
+
+.container-sm {
+	max-width: 1056px;
+}
+
+.container-md {
+	max-width: 1312px;
+}
+
+.container-lg {
+	max-width: 1472px;
+}
