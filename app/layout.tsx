@@ -42,6 +42,7 @@ export default async function RootLayout({
 		<html lang="en" className={`${inter.variable} h-full antialiased`}>
 			<body className="bg-background text-background-foreground min-h-full">
 				<I18nProvider language={lng} resources={resources}>
+					<Header />
 					<main>{children}</main>
 				</I18nProvider>
 			</body>
