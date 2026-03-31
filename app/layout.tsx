@@ -1,21 +1,12 @@
 import {Header} from '@/components';
+import i18nConfig from '@/i18n.config';
 import type {Metadata} from 'next';
+import {I18nProvider} from 'next-i18next/client';
+import {getResources, getT, initServerI18next} from 'next-i18next/server';
 import {Inter} from 'next/font/google';
 import './globals.css';
-import {I18nProvider} from 'next-i18next/client';
-import {
-	generateI18nStaticParams,
-	getResources,
-	getT,
-	initServerI18next,
-} from 'next-i18next/server';
-import i18nConfig from '@/i18n.config';
 
 initServerI18next(i18nConfig);
-
-export async function generateStaticParams() {
-	return generateI18nStaticParams();
-}
 
 const inter = Inter({
 	subsets: ['latin', 'cyrillic'],
@@ -29,23 +20,18 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
 	children,
-	params,
-}: Readonly<{
-	children: React.ReactNode;
-	params: Promise<{lng: string}>;
-}>) {
-	const {lng} = await params;
-	const {i18n} = await getT();
+}: Readonly<{children: React.ReactNode}>) {
+	const {i18n, lng} = await getT();
 	const resources = getResources(i18n);
 
 	return (
-		<html lang="en" className={`${inter.variable} h-full antialiased`}>
-			<body className="bg-background text-background-foreground min-h-full">
-				<I18nProvider language={lng} resources={resources}>
+		<I18nProvider language={lng} resources={resources}>
+			<html lang={lng} className={`${inter.variable} h-full antialiased`}>
+				<body className="bg-background text-background-foreground min-h-full">
 					<Header />
 					<main>{children}</main>
-				</I18nProvider>
-			</body>
-		</html>
+				</body>
+			</html>
+		</I18nProvider>
 	);
 }
