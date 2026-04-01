@@ -1,6 +1,7 @@
 import {getT} from 'next-i18next/server';
 import LangDropdown from './LangDropdown';
 import NavLink from './NavLink';
+import ShoppingBag from './ShoppingBag';
 
 const Header = async () => {
 	const {t} = await getT('header');
@@ -35,8 +36,9 @@ const Header = async () => {
 							</li>
 						</ul>
 					</nav>
-					<div className="justify-self-end">
+					<div className="justify-self-end flex items-center gap-4">
 						<LangDropdown />
+						<ShoppingBag />
 					</div>
 				</div>
 			</div>
