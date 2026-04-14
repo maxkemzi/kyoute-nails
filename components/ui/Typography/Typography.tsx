@@ -32,6 +32,7 @@ interface Props {
 	align?: Align;
 	truncate?: boolean;
 	noWrap?: boolean;
+	italic?: boolean;
 	children?: ReactNode;
 }
 
@@ -43,6 +44,7 @@ const Typography = (props: Props) => {
 		align,
 		truncate,
 		noWrap,
+		italic,
 		children,
 	} = props;
 
@@ -68,6 +70,7 @@ const Typography = (props: Props) => {
 				align && ALIGN_TO_CLASS_NAME_MAP[align],
 				truncate && 'truncate',
 				noWrap && 'text-nowrap',
+				italic && 'italic',
 				className,
 			)}
 		>
