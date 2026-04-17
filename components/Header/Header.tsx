@@ -12,7 +12,7 @@ const Header = async () => {
 				<div className="grid grid-cols-[1fr_auto_1fr] items-center">
 					<div />
 					<nav>
-						<ul className="flex items-center gap-5">
+						<ul className="flex items-center gap-7">
 							<li>
 								<NavLink href="/">{t('navbar.home')}</NavLink>
 							</li>

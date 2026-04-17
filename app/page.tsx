@@ -1,6 +1,5 @@
-import {Typography} from '@/components/ui';
+import {Logo, Typography} from '@/components/ui';
 import Image from 'next/image';
-import Link from 'next/link';
 import {Instagram} from 'react-feather';
 import NailsImage from './NailsImage';
 
@@ -32,13 +31,7 @@ const Home = () => {
 						</div>
 						<div className="container container-sm">
 							<div className="flex items-center justify-between">
-								<Image
-									className="pt-3 pb-2"
-									width={286}
-									height={56}
-									src="./logo.svg"
-									alt="logo"
-								/>
+								<Logo className="pt-3 pb-2" />
 								<a
 									href="https://www.instagram.com/kyoute_nailsriga"
 									target="_blank"

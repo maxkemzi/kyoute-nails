@@ -1,4 +1,4 @@
-import {Header} from '@/components';
+import {Footer, Header} from '@/components';
 import i18nConfig from '@/i18n.config';
 import type {Metadata} from 'next';
 import {I18nProvider} from 'next-i18next/client';
@@ -30,6 +30,7 @@ export default async function RootLayout({
 				<body className="bg-background text-background-foreground min-h-full">
 					<Header />
 					<main>{children}</main>
+					<Footer />
 				</body>
 			</html>
 		</I18nProvider>
