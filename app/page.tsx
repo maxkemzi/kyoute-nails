@@ -39,9 +39,13 @@ const Home = () => {
 									src="./logo.svg"
 									alt="logo"
 								/>
-								<Link href="https://www.instagram.com/kyoute_nailsriga">
+								<a
+									href="https://www.instagram.com/kyoute_nailsriga"
+									target="_blank"
+									rel="noreferrer noopenner"
+								>
 									<Instagram className="text-primary" size={36} />
-								</Link>
+								</a>
 							</div>
 						</div>
 						<div className="relative flex items-center px-12">
