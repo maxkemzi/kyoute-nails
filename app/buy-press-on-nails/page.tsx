@@ -1,11 +1,11 @@
 import {NailsCard} from '@/components';
-import {Typography} from '@/components/ui';
+import {Section, Typography} from '@/components/ui';
 import SortDropdown from './SortDropdown';
 import Image from 'next/image';
 
 const BuyPressOnNails = async () => {
 	return (
-		<section className="py-20">
+		<Section>
 			<div className="container container-md">
 				<Typography
 					className="text-center mb-9"
@@ -39,7 +39,7 @@ const BuyPressOnNails = async () => {
 					/>
 				</div>
 			</div>
-		</section>
+		</Section>
 	);
 };
 

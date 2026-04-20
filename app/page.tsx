@@ -1,11 +1,11 @@
-import {Logo, Typography} from '@/components/ui';
+import {Logo, Section, Typography} from '@/components/ui';
 import Image from 'next/image';
 import {Instagram} from 'react-feather';
 import NailsImage from './NailsImage';
 
 const Home = () => {
 	return (
-		<section>
+		<div>
 			<div className="pt-12">
 				<div className="container container-lg">
 					<div className="relative bg-secondary rounded-full flex">
@@ -63,7 +63,7 @@ const Home = () => {
 					</div>
 				</div>
 			</div>
-			<div className="py-20">
+			<Section>
 				<div className="container container-md">
 					<div className="mb-20 text-center">
 						<Typography
@@ -113,8 +113,8 @@ const Home = () => {
 						/>
 					</div>
 				</div>
-			</div>
-		</section>
+			</Section>
+		</div>
 	);
 };
 

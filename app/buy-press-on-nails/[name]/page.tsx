@@ -1,11 +1,11 @@
-import {Button, Typography} from '@/components/ui';
+import {Button, Section, Typography} from '@/components/ui';
 import Image from 'next/image';
 
 const PressOnNailsDetails = () => {
 	return (
-		<section className="py-20">
+		<Section>
 			<div className="container container-md">
-				<div className="flex gap-16 max-xl:gap-9 max-md:flex-col max-md:gap-7">
+				<div className="flex gap-16 max-lg:gap-9 max-md:flex-col max-md:gap-7">
 					<div className="flex-1 rounded-3xl overflow-hidden">
 						<Image
 							className="w-full h-auto object-contain"
@@ -34,7 +34,7 @@ const PressOnNailsDetails = () => {
 					</div>
 				</div>
 			</div>
-		</section>
+		</Section>
 	);
 };
 
