@@ -1,20 +1,29 @@
 import {ReactNode} from 'react';
 import {Typography} from '../Typography';
+import {Variant} from './types';
+import {twMerge} from 'tailwind-merge';
 
 interface Props {
 	children?: ReactNode;
+	className?: string;
+	variant?: Variant;
 }
 
 const Button = (props: Props) => {
-	const {children} = props;
+	const {children, className, variant = 'solid'} = props;
 
 	return (
 		<button
-			className="bg-background shadow-sm py-3.5 px-7 transition-colors rounded-xl duration-300 hover:bg-primary hover:text-primary-foreground"
+			className={twMerge(
+				'shadow-sm py-3.5 px-7 rounded-xl',
+				variant === 'solid' && 'bg-primary text-primary-foreground',
+				variant === 'outline' &&
+					'bg-background border border-background-foreground transition-colors duration-300 hover:border-primary hover:bg-primary hover:text-primary-foreground',
+				className,
+			)}
 			type="button"
 		>
 			<Typography
-				className="transition-colors duration-300"
 				as="span"
 				weight="semibold"
 				textTransform="uppercase"
