@@ -2,22 +2,29 @@ import {ReactNode} from 'react';
 import {Typography} from '../Typography';
 
 interface Props {
+	typographyClassName?: string;
 	children?: ReactNode;
 	onSelect?: () => void;
 	isDisabled?: boolean;
 }
 
-const DropdownItem = ({children, onSelect, isDisabled}: Props) => {
+const DropdownItem = ({
+	typographyClassName,
+	children,
+	onSelect,
+	isDisabled,
+}: Props) => {
 	return (
 		<li>
 			<button
-				className="px-2 py-1 hover:text-primary"
+				className="w-full text-left px-2 py-1 hover:text-primary"
 				onClick={onSelect}
 				disabled={isDisabled}
 			>
 				<Typography
+					className={typographyClassName}
 					variant="body2"
-					textTransform="uppercase"
+					textTransform="capitalize"
 					color="inherit"
 				>
 					{children}

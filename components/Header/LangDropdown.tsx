@@ -50,12 +50,14 @@ const LangDropdown = () => {
 			{langDropdownIsOpen ? (
 				<Dropdown className="absolute left-0 top-[calc(100%+6px)]">
 					<DropdownItem
+						typographyClassName="uppercase"
 						onSelect={handleSelectLang('en')}
 						isDisabled={i18n.language === 'en'}
 					>
 						EN
 					</DropdownItem>
 					<DropdownItem
+						typographyClassName="uppercase"
 						onSelect={handleSelectLang('ru')}
 						isDisabled={i18n.language === 'ru'}
 					>

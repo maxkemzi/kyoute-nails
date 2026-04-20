@@ -27,9 +27,9 @@ export default async function RootLayout({
 	return (
 		<I18nProvider language={lng} resources={resources}>
 			<html lang={lng} className={`${inter.variable} h-full antialiased`}>
-				<body className="bg-background text-background-foreground min-h-full">
+				<body className="flex flex-col bg-background text-background-foreground min-h-full">
 					<Header />
-					<main>{children}</main>
+					<main className="grow">{children}</main>
 					<Footer />
 				</body>
 			</html>
