@@ -10,6 +10,8 @@
 	--color-green: #6fae6a;
 	--color-blue: #5b8def;
 	--color-dark-yellow: #f4b740;
+
+	--breakpoint-xs: 30rem;
 }
 
 @theme inline {
