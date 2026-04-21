@@ -29,7 +29,7 @@ export default async function RootLayout({
 			<html lang={lng} className={`${inter.variable} h-full antialiased`}>
 				<body className="flex flex-col bg-background text-background-foreground min-h-full">
 					<Header />
-					<main className="grow">{children}</main>
+					<main className="flex-1 flex flex-col">{children}</main>
 					<Footer />
 				</body>
 			</html>

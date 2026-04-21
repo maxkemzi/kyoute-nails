@@ -1,8 +1,18 @@
 import {ReactNode} from 'react';
+import {twMerge} from 'tailwind-merge';
 
-const Section = ({children}: {children: ReactNode}) => {
+interface Props {
+	className?: string;
+	children: ReactNode;
+}
+
+const Section = ({className, children}: Props) => {
 	return (
-		<section className="py-20 max-lg:py-16 max-md:py-12">{children}</section>
+		<section
+			className={twMerge('py-20 max-lg:py-16 max-md:py-12', className)}
+		>
+			{children}
+		</section>
 	);
 };
 
