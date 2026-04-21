@@ -40,12 +40,28 @@ const AboutMe = () => {
 					<Typography className="mb-6" variant="h3" weight="bold">
 						Certificates
 					</Typography>
-					<div className="grid grid-cols-6 gap-4 max-md:grid-cols-2 max-xs:grid-cols-1">
-						<div className="col-span-3 bg-background-foreground/75 h-62.5 rounded-3xl max-md:col-span-1" />
-						<div className="col-span-3 bg-background-foreground/75 h-62.5 rounded-3xl max-md:col-span-1" />
-						<div className="col-span-2 bg-background-foreground/75 h-62.5 rounded-3xl max-md:col-span-1" />
-						<div className="col-span-2 bg-background-foreground/75 h-62.5 rounded-3xl max-md:col-span-1" />
-						<div className="col-span-2 bg-background-foreground/75 h-62.5 rounded-3xl max-md:col-span-1" />
+					<div className="relative grid grid-cols-6 gap-4 max-md:grid-cols-2 max-xs:grid-cols-1">
+						<div className="col-span-3 bg-background-foreground h-62.5 rounded-3xl max-md:col-span-1" />
+						<div className="col-span-3 bg-background-foreground h-62.5 rounded-3xl max-md:col-span-1" />
+						<div className="col-span-2 bg-background-foreground h-62.5 rounded-3xl max-md:col-span-1" />
+						<div className="col-span-2 bg-background-foreground h-62.5 rounded-3xl max-md:col-span-1" />
+						<div className="col-span-2 bg-background-foreground h-62.5 rounded-3xl max-md:col-span-1" />
+
+						<Image
+							className="absolute -right-1 -top-1 -translate-y-1/2 translate-x-1/2 -rotate-90 -scale-x-100 -z-1"
+							width={53}
+							height={48}
+							src="./double-leaf.svg"
+							alt="leaf"
+						/>
+
+						<Image
+							className="absolute -left-1 -bottom-1 translate-y-1/2 -translate-x-1/2 -rotate-12 -z-1"
+							width={53}
+							height={48}
+							src="./double-leaf.svg"
+							alt="leaf"
+						/>
 					</div>
 				</div>
 			</div>
