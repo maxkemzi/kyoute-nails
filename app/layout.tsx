@@ -5,6 +5,7 @@ import {I18nProvider} from 'next-i18next/client';
 import {getResources, getT, initServerI18next} from 'next-i18next/server';
 import {Inter} from 'next/font/google';
 import './globals.css';
+import {CartProvider} from '@/lib/shopify/cartContext';
 
 initServerI18next(i18nConfig);
 
@@ -28,9 +29,11 @@ export default async function RootLayout({
 		<I18nProvider language={lng} resources={resources}>
 			<html lang={lng} className={`${inter.variable} h-full antialiased`}>
 				<body className="flex flex-col bg-background text-background-foreground min-h-full">
-					<Header />
-					<main className="flex-1 flex flex-col">{children}</main>
-					<Footer />
+					<CartProvider>
+						<Header />
+						<main className="flex-1 flex flex-col">{children}</main>
+						<Footer />
+					</CartProvider>
 				</body>
 			</html>
 		</I18nProvider>

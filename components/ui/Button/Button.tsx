@@ -7,10 +7,12 @@ interface Props {
 	children?: ReactNode;
 	className?: string;
 	variant?: Variant;
+	isDisabled?: boolean;
+	onClick?: () => void;
 }
 
 const Button = (props: Props) => {
-	const {children, className, variant = 'solid'} = props;
+	const {children, className, variant = 'solid', isDisabled, onClick} = props;
 
 	return (
 		<button
@@ -22,6 +24,8 @@ const Button = (props: Props) => {
 				className,
 			)}
 			type="button"
+			disabled={isDisabled}
+			onClick={onClick}
 		>
 			<Typography
 				as="span"

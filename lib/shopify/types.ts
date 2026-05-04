@@ -36,3 +36,48 @@ export interface ProductsResponse {
 export interface ProductResponse {
 	product: ShopifyProduct | null;
 }
+export interface CartLine {
+	id: string;
+	quantity: number;
+	merchandise: {
+		id: string;
+		title: string;
+		price: ShopifyPrice;
+		product: {
+			title: string;
+			handle: string;
+			images: {edges: {node: ShopifyImage}[]};
+		};
+	};
+}
+
+export interface Cart {
+	id: string;
+	checkoutUrl: string;
+	totalQuantity: number;
+	cost: {
+		totalAmount: ShopifyPrice;
+		subtotalAmount: ShopifyPrice;
+	};
+	lines: {edges: {node: CartLine}[]};
+}
+
+export interface CartResponse {
+	cart: Cart | null;
+}
+
+export interface CartCreateResponse {
+	cartCreate: {cart: Cart};
+}
+
+export interface CartLinesAddResponse {
+	cartLinesAdd: {cart: Cart};
+}
+
+export interface CartLinesUpdateResponse {
+	cartLinesUpdate: {cart: Cart};
+}
+
+export interface CartLinesRemoveResponse {
+	cartLinesRemove: {cart: Cart};
+}

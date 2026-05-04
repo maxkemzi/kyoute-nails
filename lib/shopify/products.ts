@@ -1,3 +1,5 @@
+'use server';
+
 import {shopifyFetch} from './client';
 import type {ShopifyProduct, ProductsResponse, ProductResponse} from './types';
 

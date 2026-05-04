@@ -23,21 +23,7 @@ const BuyPressOnNails = async () => {
 				</div>
 				<div className="relative grid grid-cols-3 gap-7 max-lg:grid-cols-2 max-sm:grid-cols-1">
 					{products.map(product => {
-						const image = product.images.edges[0]?.node;
-						const {amount, currencyCode} =
-							product.priceRange.minVariantPrice;
-
-						return (
-							<NailsCard
-								key={product.id}
-								image={{
-									url: image.url,
-									alt: image.altText ?? undefined,
-								}}
-								title={product.title}
-								price={formatPrice(amount, currencyCode)}
-							/>
-						);
+						return <NailsCard key={product.id} product={product} />;
 					})}
 
 					<Image
