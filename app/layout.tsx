@@ -1,4 +1,4 @@
-import {Footer, Header} from '@/components';
+import {CartSidebar, Footer, Header} from '@/components';
 import i18nConfig from '@/i18n.config';
 import type {Metadata} from 'next';
 import {I18nProvider} from 'next-i18next/client';
@@ -32,6 +32,7 @@ export default async function RootLayout({
 					<CartProvider>
 						<Header />
 						<main className="flex-1 flex flex-col">{children}</main>
+						<CartSidebar />
 						<Footer />
 					</CartProvider>
 				</body>

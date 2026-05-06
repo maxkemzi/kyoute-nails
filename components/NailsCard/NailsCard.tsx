@@ -25,8 +25,9 @@ const NailsCard = ({product}: Props) => {
 					objectFit="cover"
 					alt={image.altText || title}
 				/>
-				<div className="absolute inset-0 z-10 bg-background-foreground/35 flex items-center justify-center transition-opacity opacity-0 group-hover:opacity-100">
+				<div className="absolute inset-0 bg-background-foreground/35 flex items-center justify-center transition-opacity opacity-0 group-hover:opacity-100">
 					<AddToCartButton
+						className="z-10"
 						variantId={variant.id}
 						availableForSale={variant.availableForSale}
 					/>

@@ -21,16 +21,20 @@ const CART_ID_KEY = 'shopify_cart_id';
 
 interface CartContextValue {
 	cart: Cart | null;
+	isOpen: boolean;
 	isLoading: boolean;
 	addItem: (variantId: string, quantity?: number) => Promise<void>;
 	updateItem: (lineId: string, quantity: number) => Promise<void>;
 	removeItem: (lineId: string) => Promise<void>;
+	openCart: () => void;
+	closeCart: () => void;
 }
 
 const CartContext = createContext<CartContextValue | null>(null);
 
 export function CartProvider({children}: {children: ReactNode}) {
 	const [cart, setCart] = useState<Cart | null>(null);
+	const [isOpen, setIsOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 
 	// Load or create cart on mount
@@ -81,8 +85,22 @@ export function CartProvider({children}: {children: ReactNode}) {
 		[cart],
 	);
 
+	const openCart = () => setIsOpen(true);
+	const closeCart = () => setIsOpen(false);
+
 	return (
-		<CartContext value={{cart, isLoading, addItem, updateItem, removeItem}}>
+		<CartContext
+			value={{
+				cart,
+				isOpen,
+				isLoading,
+				addItem,
+				updateItem,
+				removeItem,
+				openCart,
+				closeCart,
+			}}
+		>
 			{children}
 		</CartContext>
 	);

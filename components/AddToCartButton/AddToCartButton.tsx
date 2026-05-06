@@ -4,11 +4,12 @@ import {useCart} from '@/lib/shopify/cartContext';
 import {Button} from '../ui';
 
 interface Props {
+	className?: string;
 	variantId: string;
 	availableForSale: boolean;
 }
 
-const AddToCartButton = ({variantId, availableForSale}: Props) => {
+const AddToCartButton = ({className, variantId, availableForSale}: Props) => {
 	const {addItem, isLoading} = useCart();
 
 	if (!availableForSale) {
@@ -21,6 +22,7 @@ const AddToCartButton = ({variantId, availableForSale}: Props) => {
 
 	return (
 		<Button
+			className={className}
 			onClick={() => addItem(variantId)}
 			isDisabled={isLoading}
 			variant="outline"
