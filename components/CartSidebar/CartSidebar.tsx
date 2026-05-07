@@ -7,9 +7,11 @@ import {twJoin} from 'tailwind-merge';
 import {Button, Typography} from '../ui';
 import {useEffect} from 'react';
 import {formatPrice} from '@/lib/shopify/utils';
+import Link from 'next/link';
 
 const CartSidebar = () => {
-	const {cart, isOpen, closeCart} = useCart();
+	const {cart, isOpen, closeCart, updateItem, removeItem, isLoading} =
+		useCart();
 
 	useEffect(() => {
 		document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -59,45 +61,59 @@ const CartSidebar = () => {
 							<Typography>Your bag is empty.</Typography>
 						</div>
 					) : (
-						lines.map(node => {
-							const {id, merchandise, quantity} = node;
-
-							const title = merchandise.product.title;
-							const image = merchandise.product.images.edges[0].node;
-							const {amount, currencyCode} = merchandise.price;
+						lines.map(line => {
+							const {product, price} = line.merchandise;
+							const image = product.images.edges[0].node;
 
 							return (
-								<div key={id} className="flex gap-4">
-									<div className="relative w-16 h-16">
+								<div key={line.id} className="flex gap-4">
+									<Link
+										className="relative w-16 h-16 shrink-0"
+										href={`/buy-press-on-nails/${product.handle}`}
+										onClick={closeCart}
+									>
 										<Image
 											className="rounded-lg object-cover"
 											src={image.url}
 											fill
-											alt={image.altText ?? title}
+											alt={image.altText ?? product.title}
 										/>
-									</div>
+									</Link>
 									<div className="flex-1 flex flex-col justify-between">
 										<div className="flex justify-between gap-4 mb-2">
 											<Typography weight="medium">
-												{title}
+												{product.title}
 											</Typography>
-											<button>
+											<button
+												onClick={() => removeItem(line.id)}
+												type="button"
+											>
 												<Trash className="text-primary" size={16} />
 											</button>
 										</div>
 
 										<div className="flex justify-between gap-4">
 											<div className="flex gap-2.5 items-center">
-												<button className="relative w-4 h-4 border border-primary rounded-md flex justify-center items-center">
+												<button
+													className="relative w-4 h-4 border border-primary rounded-md flex justify-center items-center"
+													onClick={() =>
+														updateItem(line.id, line.quantity - 1)
+													}
+												>
 													<Minus
 														className="text-primary"
 														size={12}
 													/>
 												</button>
 
-												<Typography>{quantity}</Typography>
+												<Typography>{line.quantity}</Typography>
 
-												<button className="relative w-4 h-4 border border-primary rounded-md flex justify-center items-center">
+												<button
+													className="relative w-4 h-4 border border-primary rounded-md flex justify-center items-center"
+													onClick={() =>
+														updateItem(line.id, line.quantity + 1)
+													}
+												>
 													<Plus
 														className="text-primary"
 														size={12}
@@ -105,7 +121,10 @@ const CartSidebar = () => {
 												</button>
 											</div>
 											<Typography weight="medium">
-												{formatPrice(amount, currencyCode)}
+												{formatPrice(
+													price.amount,
+													price.currencyCode,
+												)}
 											</Typography>
 										</div>
 									</div>
