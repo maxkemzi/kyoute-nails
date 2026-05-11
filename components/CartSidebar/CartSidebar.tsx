@@ -8,6 +8,7 @@ import {Button, Typography} from '../ui';
 import {useEffect} from 'react';
 import {formatPrice} from '@/lib/shopify/utils';
 import Link from 'next/link';
+import {TEMP_LINE_PREFIX} from '@/lib/shopify/constants';
 
 const CartSidebar = () => {
 	const {cart, isOpen, closeCart, updateItem, removeItem, isLoading} =
@@ -28,7 +29,7 @@ const CartSidebar = () => {
 		return () => window.removeEventListener('keydown', onKey);
 	}, [closeCart]);
 
-	const lines = cart?.lines.edges.map(({node}) => node) ?? [];
+	const lines = cart?.lines.edges.map(({node}) => node).reverse() ?? [];
 
 	return (
 		<>
@@ -61,76 +62,110 @@ const CartSidebar = () => {
 							<Typography>Your bag is empty.</Typography>
 						</div>
 					) : (
-						lines.map(line => {
-							const {product, price} = line.merchandise;
-							const image = product.images.edges[0].node;
+						<div className="flex flex-col gap-4">
+							{lines.map(line => {
+								const {product, price} = line.merchandise;
+								const image = product.images.edges[0]?.node;
+								const isTemp = line.id.startsWith(TEMP_LINE_PREFIX);
 
-							return (
-								<div key={line.id} className="flex gap-4">
-									<Link
-										className="relative w-16 h-16 shrink-0"
-										href={`/buy-press-on-nails/${product.handle}`}
-										onClick={closeCart}
-									>
-										<Image
-											className="rounded-lg object-cover"
-											src={image.url}
-											fill
-											alt={image.altText ?? product.title}
-										/>
-									</Link>
-									<div className="flex-1 flex flex-col justify-between">
-										<div className="flex justify-between gap-4 mb-2">
-											<Typography weight="medium">
-												{product.title}
-											</Typography>
-											<button
-												onClick={() => removeItem(line.id)}
-												type="button"
+								return (
+									<div key={line.id} className="flex gap-4">
+										{!isTemp && image ? (
+											<Link
+												className="relative w-16 h-16 shrink-0 rounded-lg overflow-hidden"
+												href={`/buy-press-on-nails/${product.handle}`}
+												onClick={closeCart}
 											>
-												<Trash className="text-primary" size={16} />
-											</button>
-										</div>
+												<Image
+													className="object-cover"
+													src={image.url}
+													fill
+													alt={image.altText ?? product.title}
+												/>
+											</Link>
+										) : (
+											<div className="w-16 h-16 shrink-0 animate-pulse bg-background-foreground/35 rounded-lg" />
+										)}
 
-										<div className="flex justify-between gap-4">
-											<div className="flex gap-2.5 items-center">
-												<button
-													className="relative w-4 h-4 border border-primary rounded-md flex justify-center items-center"
-													onClick={() =>
-														updateItem(line.id, line.quantity - 1)
-													}
-												>
-													<Minus
-														className="text-primary"
-														size={12}
-													/>
-												</button>
+										<div className="flex-1 flex flex-col justify-between">
+											{!isTemp ? (
+												<>
+													<div className="flex justify-between gap-4 mb-2">
+														<Typography weight="medium">
+															{product.title}
+														</Typography>
+														<button
+															onClick={() => removeItem(line.id)}
+															type="button"
+														>
+															<Trash
+																className="text-primary"
+																size={16}
+															/>
+														</button>
+													</div>
 
-												<Typography>{line.quantity}</Typography>
+													<div className="flex justify-between gap-4">
+														<div className="flex gap-2.5 items-center">
+															<button
+																className="relative w-4 h-4 border border-primary rounded-md flex justify-center items-center"
+																onClick={() =>
+																	updateItem(
+																		line.id,
+																		line.quantity - 1,
+																	)
+																}
+															>
+																<Minus
+																	className="text-primary"
+																	size={12}
+																/>
+															</button>
 
-												<button
-													className="relative w-4 h-4 border border-primary rounded-md flex justify-center items-center"
-													onClick={() =>
-														updateItem(line.id, line.quantity + 1)
-													}
-												>
-													<Plus
-														className="text-primary"
-														size={12}
-													/>
-												</button>
-											</div>
-											<Typography weight="medium">
-												{formatPrice(
-													price.amount,
-													price.currencyCode,
-												)}
-											</Typography>
+															<Typography>
+																{line.quantity}
+															</Typography>
+
+															<button
+																className="relative w-4 h-4 border border-primary rounded-md flex justify-center items-center"
+																onClick={() =>
+																	updateItem(
+																		line.id,
+																		line.quantity + 1,
+																	)
+																}
+															>
+																<Plus
+																	className="text-primary"
+																	size={12}
+																/>
+															</button>
+														</div>
+														<Typography weight="medium">
+															{formatPrice(
+																price.amount,
+																price.currencyCode,
+															)}
+														</Typography>
+													</div>
+												</>
+											) : (
+												<>
+													<div className="flex-1 flex justify-between gap-4 mb-2">
+														<div className="flex-1 bg-background-foreground/35 animate-pulse rounded-lg" />
+														<div className="flex-1 bg-background-foreground/35 animate-pulse rounded-lg" />
+													</div>
+													<div className="flex-1 flex justify-between gap-4">
+														<div className="flex-1 bg-background-foreground/35 animate-pulse rounded-lg" />
+														<div className="flex-1 bg-background-foreground/35 animate-pulse rounded-lg" />
+													</div>
+												</>
+											)}
 										</div>
 									</div>
-								</div>
-							);
-						})
+								);
+							})}
+						</div>
 					)}
 				</div>
 
@@ -138,12 +173,16 @@ const CartSidebar = () => {
 					<div className="px-7 py-4 shadow-[0_-1px_3px_0_rgb(0,0,0,0.1),0_-1px_2px_-1px_rgb(0,0,0,0.1)]">
 						<div className="flex justify-between gap-4 mb-4">
 							<Typography weight="semibold">Subtotal:</Typography>
-							<Typography weight="semibold">
-								{formatPrice(
-									cart.cost.subtotalAmount.amount,
-									cart.cost.subtotalAmount.currencyCode,
-								)}
-							</Typography>
+							{isLoading ? (
+								<div className="w-16 h-6 bg-background-foreground/35 animate-pulse rounded-lg" />
+							) : (
+								<Typography weight="semibold">
+									{formatPrice(
+										cart.cost.subtotalAmount.amount,
+										cart.cost.subtotalAmount.currencyCode,
+									)}
+								</Typography>
+							)}
 						</div>
 						<Button className="w-full mb-2">Checkout</Button>
 						<Typography className="flex justify-center items-center gap-2">

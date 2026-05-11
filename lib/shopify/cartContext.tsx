@@ -9,7 +9,7 @@ import {
 	useRef,
 	useState,
 } from 'react';
-import {Cart} from './types';
+import {Cart, CartLine} from './types';
 import {
 	addToCart,
 	createCart,
@@ -17,7 +17,8 @@ import {
 	removeFromCart,
 	updateCartLine,
 } from './cart';
-import {useDebouncedCallback} from '@/hooks';
+import {TEMP_LINE_PREFIX} from './constants';
+import {useDebouncedCallback} from 'use-debounce';
 
 const CART_ID_KEY = 'shopify_cart_id';
 
@@ -38,7 +39,7 @@ export function CartProvider({children}: {children: ReactNode}) {
 	const [cart, setCart] = useState<Cart | null>(null);
 	const [isOpen, setIsOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
-	const pendingQuantities = useRef<Map<string, number>>(new Map());
+	const [quantity, setQuantity] = useState(0);
 
 	// Load or create cart on mount
 	useEffect(() => {
@@ -62,6 +63,7 @@ export function CartProvider({children}: {children: ReactNode}) {
 		async (variantId: string, quantity = 1) => {
 			if (!cart) return;
 
+			openCart();
 			setCart(prev => {
 				if (!prev) return prev;
 
@@ -88,10 +90,27 @@ export function CartProvider({children}: {children: ReactNode}) {
 					};
 				}
 
-				return prev;
-			});
+				const tempLine: CartLine = {
+					id: `${TEMP_LINE_PREFIX}${variantId}`,
+					quantity,
+					merchandise: {
+						id: variantId,
+						title: 'Loading...',
+						price: {amount: '0', currencyCode: 'EUR'},
+						product: {
+							title: 'Loading...',
+							handle: '',
+							images: {edges: []},
+						},
+					},
+				};
 
-			openCart();
+				return {
+					...prev,
+					totalQuantity: prev.totalQuantity + quantity,
+					lines: {edges: [{node: tempLine}, ...prev.lines.edges]},
+				};
+			});
 
 			setIsLoading(true);
 			try {
@@ -109,35 +128,47 @@ export function CartProvider({children}: {children: ReactNode}) {
 
 	const debouncedUpdateCartLine = useDebouncedCallback(
 		async (cartId: string, lineId: string) => {
-			const quantity = pendingQuantities.current.get(lineId);
-			if (quantity === undefined) return;
-			pendingQuantities.current.delete(lineId);
-
-			setIsLoading(true);
 			try {
 				const updated = await updateCartLine(cartId, lineId, quantity);
 				setCart(updated);
 			} catch {
 				const reverted = await getCart(cartId);
 				if (reverted) setCart(reverted);
-			} finally {
-				setIsLoading(false);
 			}
 		},
-		600,
+		300,
 	);
 
 	const updateItem = useCallback(
 		async (lineId: string, quantity: number) => {
 			if (!cart) return;
 
-			pendingQuantities.current.set(lineId, quantity);
+			setQuantity(quantity);
 
 			setCart(prev => {
 				if (!prev) return prev;
 
 				return {
 					...prev,
+					cost: {
+						...prev.cost,
+						subtotalAmount: {
+							...prev.cost.subtotalAmount,
+							amount: prev.lines.edges
+								.reduce(
+									(sum, {node}) =>
+										node.id === lineId
+											? sum +
+												quantity *
+													Number(node.merchandise.price.amount)
+											: sum +
+												node.quantity *
+													Number(node.merchandise.price.amount),
+									0,
+								)
+								.toFixed(2),
+						},
+					},
 					totalQuantity: prev.lines.edges.reduce(
 						(sum, {node}) =>
 							node.id === lineId
