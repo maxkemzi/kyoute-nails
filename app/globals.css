@@ -10,6 +10,7 @@
 	--color-green: #6fae6a;
 	--color-blue: #5b8def;
 	--color-dark-yellow: #f4b740;
+	--color-muted-gray: #c4b49a;
 
 	--breakpoint-xs: 30rem;
 }
@@ -37,6 +38,9 @@
 
 	--color-warning: var(--color-dark-yellow);
 	--color-warning-foreground: var(--color-brown);
+
+	--color-disabled: var(--color-muted-gray);
+	--color-disabled-foreground: var(--color-light-yellow);
 }
 
 button {

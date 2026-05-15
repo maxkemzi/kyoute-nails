@@ -1,15 +1,23 @@
 'use client';
 
 import {useCart} from '@/lib/shopify/cartContext';
-import {Button} from '../ui';
+import {Button, ButtonVariant} from '../ui';
 
 interface Props {
 	className?: string;
 	variantId: string;
 	availableForSale: boolean;
+	buttonVariant?: ButtonVariant;
 }
 
-const AddToCartButton = ({className, variantId, availableForSale}: Props) => {
+const AddToCartButton = (props: Props) => {
+	const {
+		className,
+		variantId,
+		availableForSale,
+		buttonVariant = 'outline',
+	} = props;
+
 	const {addItem, loadingItems} = useCart();
 
 	if (!availableForSale) {
@@ -25,9 +33,9 @@ const AddToCartButton = ({className, variantId, availableForSale}: Props) => {
 			className={className}
 			onClick={() => addItem(variantId)}
 			isDisabled={loadingItems.has(variantId)}
-			variant="outline"
+			variant={buttonVariant}
 		>
-			{loadingItems.has(variantId) ? 'Adding...' : 'Add to cart'}
+			Add to cart
 		</Button>
 	);
 };
