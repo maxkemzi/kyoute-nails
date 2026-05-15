@@ -1,5 +1,3 @@
-'use server';
-
 import {shopifyFetch} from './client';
 import {
 	Cart,
@@ -85,6 +83,7 @@ export async function updateCartLine(
 	cartId: string,
 	lineId: string,
 	quantity: number,
+	signal?: AbortSignal,
 ): Promise<Cart> {
 	const mutation = `
 	 mutation UpdateCart($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
@@ -93,10 +92,14 @@ export async function updateCartLine(
 		}
 	 }
   `;
-	const data = await shopifyFetch<CartLinesUpdateResponse>(mutation, {
-		cartId,
-		lines: [{id: lineId, quantity}],
-	});
+	const data = await shopifyFetch<CartLinesUpdateResponse>(
+		mutation,
+		{
+			cartId,
+			lines: [{id: lineId, quantity}],
+		},
+		signal,
+	);
 	return data.cartLinesUpdate.cart;
 }
 

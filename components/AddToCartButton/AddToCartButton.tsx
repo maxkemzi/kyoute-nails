@@ -10,7 +10,7 @@ interface Props {
 }
 
 const AddToCartButton = ({className, variantId, availableForSale}: Props) => {
-	const {addItem, isLoading} = useCart();
+	const {addItem, loadingItems} = useCart();
 
 	if (!availableForSale) {
 		return (
@@ -24,10 +24,10 @@ const AddToCartButton = ({className, variantId, availableForSale}: Props) => {
 		<Button
 			className={className}
 			onClick={() => addItem(variantId)}
-			isDisabled={isLoading}
+			isDisabled={loadingItems.has(variantId)}
 			variant="outline"
 		>
-			{isLoading ? 'Adding...' : 'Add to cart'}
+			{loadingItems.has(variantId) ? 'Adding...' : 'Add to cart'}
 		</Button>
 	);
 };

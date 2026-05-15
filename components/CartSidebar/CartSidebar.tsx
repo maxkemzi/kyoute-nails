@@ -6,12 +6,12 @@ import {Lock, Minus, Plus, Trash, X} from 'react-feather';
 import {twJoin} from 'tailwind-merge';
 import {Button, Typography} from '../ui';
 import {useEffect} from 'react';
-import {formatPrice} from '@/lib/shopify/utils';
+import {formatPrice} from '@/lib/shopify/helpers';
 import Link from 'next/link';
 import {TEMP_LINE_PREFIX} from '@/lib/shopify/constants';
 
 const CartSidebar = () => {
-	const {cart, isOpen, closeCart, updateItem, removeItem, isLoading} =
+	const {cart, isOpen, closeCart, updateItem, removeItem, isAddingNewItem} =
 		useCart();
 
 	useEffect(() => {
@@ -173,7 +173,7 @@ const CartSidebar = () => {
 					<div className="px-7 py-4 shadow-[0_-1px_3px_0_rgb(0,0,0,0.1),0_-1px_2px_-1px_rgb(0,0,0,0.1)]">
 						<div className="flex justify-between gap-4 mb-4">
 							<Typography weight="semibold">Subtotal:</Typography>
-							{isLoading ? (
+							{isAddingNewItem ? (
 								<div className="w-16 h-6 bg-background-foreground/35 animate-pulse rounded-lg" />
 							) : (
 								<Typography weight="semibold">

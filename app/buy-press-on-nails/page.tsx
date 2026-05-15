@@ -3,7 +3,6 @@ import {Section, Typography} from '@/components/ui';
 import {getProducts} from '@/lib/shopify/products';
 import Image from 'next/image';
 import SortDropdown from './SortDropdown';
-import {formatPrice} from '@/lib/shopify/utils';
 
 const BuyPressOnNails = async () => {
 	const products = await getProducts();

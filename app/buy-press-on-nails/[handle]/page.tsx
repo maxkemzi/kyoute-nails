@@ -1,6 +1,6 @@
 import {Button, Section, Typography} from '@/components/ui';
 import {getProductByHandle} from '@/lib/shopify/products';
-import {formatPrice} from '@/lib/shopify/utils';
+import {formatPrice} from '@/lib/shopify/helpers';
 import Image from 'next/image';
 import {notFound} from 'next/navigation';
 

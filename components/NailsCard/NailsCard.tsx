@@ -1,5 +1,5 @@
 import {ShopifyProduct} from '@/lib/shopify/types';
-import {formatPrice} from '@/lib/shopify/utils';
+import {formatPrice} from '@/lib/shopify/helpers';
 import Image from 'next/image';
 import Link from 'next/link';
 import {AddToCartButton} from '../AddToCartButton';

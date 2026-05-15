@@ -9,7 +9,6 @@ import {
 	useRef,
 	useState,
 } from 'react';
-import {Cart, CartLine} from './types';
 import {
 	addToCart,
 	createCart,
@@ -18,14 +17,22 @@ import {
 	updateCartLine,
 } from './cart';
 import {TEMP_LINE_PREFIX} from './constants';
-import {useDebouncedCallback} from 'use-debounce';
+import {Cart, CartLine} from './types';
+import {
+	applyAddTempLine,
+	applyRemoveLine,
+	applyUpdateLine,
+	isRetryableError,
+	withRetry,
+} from './helpers';
 
 const CART_ID_KEY = 'shopify_cart_id';
 
 interface CartContextValue {
 	cart: Cart | null;
 	isOpen: boolean;
-	isLoading: boolean;
+	loadingItems: Set<string>;
+	isAddingNewItem: boolean;
 	addItem: (variantId: string, quantity?: number) => Promise<void>;
 	updateItem: (lineId: string, quantity: number) => Promise<void>;
 	removeItem: (lineId: string) => Promise<void>;
@@ -38,199 +45,188 @@ const CartContext = createContext<CartContextValue | null>(null);
 export function CartProvider({children}: {children: ReactNode}) {
 	const [cart, setCart] = useState<Cart | null>(null);
 	const [isOpen, setIsOpen] = useState(false);
-	const [isLoading, setIsLoading] = useState(false);
-	const [quantity, setQuantity] = useState(0);
+	const [loadingItems, setLoadingItems] = useState<Set<string>>(new Set());
+	const [isAddingNewItem, setIsAddingNewItem] = useState(false);
+	const abortControllers = useRef<Map<string, AbortController>>(new Map());
+	const pendingRemovals = useRef<Set<string>>(new Set());
 
 	// Load or create cart on mount
 	useEffect(() => {
-		async function initCart() {
+		const initCart = async () => {
 			const storedId = localStorage.getItem(CART_ID_KEY);
 			if (storedId) {
 				const existing = await getCart(storedId);
-				if (existing) return setCart(existing);
+				if (existing) {
+					setCart(existing);
+					return;
+				}
+				localStorage.removeItem(CART_ID_KEY);
 			}
 			const newCart = await createCart();
 			localStorage.setItem(CART_ID_KEY, newCart.id);
 			setCart(newCart);
-		}
+		};
 		initCart();
 	}, []);
 
-	const openCart = () => setIsOpen(true);
-	const closeCart = () => setIsOpen(false);
+	const openCart = useCallback(() => setIsOpen(true), []);
+	const closeCart = useCallback(() => setIsOpen(false), []);
 
-	const addItem = useCallback(
-		async (variantId: string, quantity = 1) => {
-			if (!cart) return;
+	const addLoadingItem = useCallback((id: string) => {
+		setLoadingItems(prev => new Set(prev).add(id));
+	}, []);
 
-			openCart();
-			setCart(prev => {
-				if (!prev) return prev;
+	const removeLoadingItem = useCallback((id: string) => {
+		setLoadingItems(prev => {
+			const next = new Set(prev);
+			next.delete(id);
+			return next;
+		});
+	}, []);
 
-				const existingEdge = prev.lines.edges.find(
-					({node}) => node.merchandise.id === variantId,
-				);
+	const getAbortController = useCallback((id: string) => {
+		abortControllers.current.get(id)?.abort();
+		const controller = new AbortController();
+		abortControllers.current.set(id, controller);
+		return controller;
+	}, []);
 
-				if (existingEdge) {
-					return {
-						...prev,
-						totalQuantity: prev.totalQuantity + quantity,
-						lines: {
-							edges: prev.lines.edges.map(({node}) =>
-								node.merchandise.id === variantId
-									? {
-											node: {
-												...node,
-												quantity: node.quantity + quantity,
-											},
-										}
-									: {node},
-							),
-						},
-					};
-				}
-
-				const tempLine: CartLine = {
-					id: `${TEMP_LINE_PREFIX}${variantId}`,
-					quantity,
-					merchandise: {
-						id: variantId,
-						title: 'Loading...',
-						price: {amount: '0', currencyCode: 'EUR'},
-						product: {
-							title: 'Loading...',
-							handle: '',
-							images: {edges: []},
-						},
-					},
-				};
-
-				return {
-					...prev,
-					totalQuantity: prev.totalQuantity + quantity,
-					lines: {edges: [{node: tempLine}, ...prev.lines.edges]},
-				};
-			});
-
-			setIsLoading(true);
-			try {
-				const updated = await addToCart(cart.id, variantId, quantity);
-				setCart(updated);
-			} catch (e) {
-				const reverted = await getCart(cart.id);
-				if (reverted) setCart(reverted);
-			} finally {
-				setIsLoading(false);
+	const cleanupController = useCallback(
+		(id: string, controller: AbortController) => {
+			if (abortControllers.current.get(id) === controller) {
+				abortControllers.current.delete(id);
+				removeLoadingItem(id);
 			}
 		},
-		[cart],
+		[removeLoadingItem],
 	);
 
-	const debouncedUpdateCartLine = useDebouncedCallback(
-		async (cartId: string, lineId: string) => {
+	const revertCart = useCallback(async (cartId: string) => {
+		const reverted = await getCart(cartId);
+		if (reverted) setCart(reverted);
+	}, []);
+
+	const removeItem = useCallback(
+		async (lineId: string) => {
+			if (!cart) return;
+
+			setCart(prev => (prev ? applyRemoveLine(prev, lineId) : prev));
+
+			pendingRemovals.current.add(lineId);
+			const controller = getAbortController(lineId);
+
+			addLoadingItem(lineId);
 			try {
-				const updated = await updateCartLine(cartId, lineId, quantity);
-				setCart(updated);
-			} catch {
-				const reverted = await getCart(cartId);
-				if (reverted) setCart(reverted);
+				const updated = await removeFromCart(cart.id, [lineId]);
+				if (controller.signal.aborted) return;
+
+				pendingRemovals.current.delete(lineId);
+				if (pendingRemovals.current.size === 0) {
+					setCart(updated);
+				}
+			} catch (e) {
+				pendingRemovals.current.delete(lineId);
+				if (controller.signal.aborted) return;
+				if (!isRetryableError(e)) {
+					await revertCart(cart.id);
+				}
+			} finally {
+				cleanupController(lineId, controller);
 			}
 		},
-		300,
+		[addLoadingItem, cart, cleanupController, getAbortController, revertCart],
 	);
 
 	const updateItem = useCallback(
 		async (lineId: string, quantity: number) => {
 			if (!cart) return;
 
-			setQuantity(quantity);
+			if (quantity === 0) {
+				removeItem(lineId);
+				return;
+			}
 
-			setCart(prev => {
-				if (!prev) return prev;
+			setCart(prev =>
+				prev ? applyUpdateLine(prev, lineId, quantity) : prev,
+			);
 
-				return {
-					...prev,
-					cost: {
-						...prev.cost,
-						subtotalAmount: {
-							...prev.cost.subtotalAmount,
-							amount: prev.lines.edges
-								.reduce(
-									(sum, {node}) =>
-										node.id === lineId
-											? sum +
-												quantity *
-													Number(node.merchandise.price.amount)
-											: sum +
-												node.quantity *
-													Number(node.merchandise.price.amount),
-									0,
-								)
-								.toFixed(2),
-						},
-					},
-					totalQuantity: prev.lines.edges.reduce(
-						(sum, {node}) =>
-							node.id === lineId
-								? sum + (quantity - node.quantity)
-								: sum + node.quantity,
-						0,
-					),
-					lines: {
-						edges:
-							quantity === 0
-								? prev.lines.edges.filter(
-										({node}) => node.id !== lineId,
-									)
-								: prev.lines.edges.map(({node}) =>
-										node.id === lineId
-											? {node: {...node, quantity}}
-											: {node},
-									),
-					},
-				};
-			});
+			const controller = getAbortController(lineId);
 
-			debouncedUpdateCartLine(cart.id, lineId);
-		},
-		[cart, debouncedUpdateCartLine],
-	);
-
-	const removeItem = useCallback(
-		async (lineId: string) => {
-			if (!cart) return;
-
-			setCart(prev => {
-				if (!prev) return prev;
-
-				const removed = prev.lines.edges.find(
-					({node}) => node.id === lineId,
-				);
-
-				return {
-					...prev,
-					totalQuantity:
-						prev.totalQuantity - (removed?.node.quantity ?? 0),
-					lines: {
-						edges: prev.lines.edges.filter(
-							({node}) => node.id !== lineId,
-						),
-					},
-				};
-			});
-
-			setIsLoading(true);
+			addLoadingItem(lineId);
 			try {
-				const updated = await removeFromCart(cart.id, [lineId]);
+				const updated = await withRetry(
+					() =>
+						updateCartLine(cart.id, lineId, quantity, controller.signal),
+					isRetryableError,
+				);
+				if (controller.signal.aborted) return;
 				setCart(updated);
 			} catch (e) {
-				const reverted = await getCart(cart.id);
-				if (reverted) setCart(reverted);
+				if (controller.signal.aborted) return;
+				if (!isRetryableError(e)) {
+					await revertCart(cart.id);
+				}
 			} finally {
-				setIsLoading(false);
+				cleanupController(lineId, controller);
 			}
 		},
-		[cart],
+		[
+			addLoadingItem,
+			cart,
+			cleanupController,
+			getAbortController,
+			removeItem,
+			revertCart,
+		],
+	);
+
+	const addItem = useCallback(
+		async (variantId: string, quantity = 1) => {
+			if (!cart) return;
+
+			openCart();
+
+			const existingEdge = cart.lines.edges.find(
+				({node}) => node.merchandise.id === variantId,
+			);
+
+			if (existingEdge) {
+				updateItem(
+					existingEdge.node.id,
+					existingEdge.node.quantity + quantity,
+				);
+				return;
+			}
+
+			setCart(prev =>
+				prev ? applyAddTempLine(prev, variantId, quantity) : prev,
+			);
+
+			addLoadingItem(variantId);
+			setIsAddingNewItem(true);
+			try {
+				const updated = await withRetry(
+					() => addToCart(cart.id, variantId, quantity),
+					isRetryableError,
+				);
+				setCart(updated);
+			} catch (e) {
+				if (!isRetryableError(e)) {
+					await revertCart(cart.id);
+				}
+			} finally {
+				removeLoadingItem(variantId);
+				setIsAddingNewItem(false);
+			}
+		},
+		[
+			addLoadingItem,
+			cart,
+			openCart,
+			removeLoadingItem,
+			revertCart,
+			updateItem,
+		],
 	);
 
 	return (
@@ -238,7 +234,8 @@ export function CartProvider({children}: {children: ReactNode}) {
 			value={{
 				cart,
 				isOpen,
-				isLoading,
+				loadingItems,
+				isAddingNewItem,
 				addItem,
 				updateItem,
 				removeItem,

@@ -1,17 +1,30 @@
+const isBrowser = typeof window !== 'undefined';
+
+const SHOPIFY_TIMEOUT_MS = 5000;
+
 export async function shopifyFetch<T>(
 	query: string,
 	variables: Record<string, unknown> = {},
+	signal?: AbortSignal,
 ): Promise<T> {
 	const domain = process.env.SHOPIFY_STORE_DOMAIN as string;
 	const token = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN as string;
 
-	const response = await fetch(`https://${domain}/api/2026-04/graphql.json`, {
+	const timeout = AbortSignal.timeout(SHOPIFY_TIMEOUT_MS);
+	const combinedSignal = signal ? AbortSignal.any([signal, timeout]) : timeout;
+
+	const url = isBrowser
+		? '/api/shopify'
+		: `https://${domain}/api/2026-04/graphql.json`;
+
+	const response = await fetch(url, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'X-Shopify-Storefront-Access-Token': token,
+			...(!isBrowser && {'X-Shopify-Storefront-Access-Token': token}),
 		},
 		body: JSON.stringify({query, variables}),
+		signal: combinedSignal,
 	});
 
 	if (!response.ok) {
