@@ -3,6 +3,7 @@ import {getProductByHandle} from '@/lib/shopify/products';
 import {formatPrice} from '@/lib/shopify/helpers';
 import Image from 'next/image';
 import {notFound} from 'next/navigation';
+import {AddToCartButton} from '@/components';
 
 const PressOnNailsDetails = async ({
 	params,
@@ -21,6 +22,7 @@ const PressOnNailsDetails = async ({
 		},
 		description,
 	} = product;
+	const variant = product.variants.edges[0].node;
 	const images = product.images.edges.map(({node}) => node);
 
 	return (
@@ -46,7 +48,11 @@ const PressOnNailsDetails = async ({
 						</Typography>
 						<Typography className="mb-9">{description}</Typography>
 
-						<Button>Add to cart</Button>
+						<AddToCartButton
+							variantId={variant.id}
+							availableForSale={variant.availableForSale}
+							buttonVariant="solid"
+						/>
 					</div>
 				</div>
 			</div>
