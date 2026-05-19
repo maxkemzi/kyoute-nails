@@ -1,9 +1,9 @@
-import {Button, Section, Typography} from '@/components/ui';
-import {getProductByHandle} from '@/lib/shopify/products';
+import {AddToCartButton} from '@/components';
+import {Section, Typography} from '@/components/ui';
 import {formatPrice} from '@/lib/shopify/helpers';
+import {getProductByHandle} from '@/lib/shopify/products';
 import Image from 'next/image';
 import {notFound} from 'next/navigation';
-import {AddToCartButton} from '@/components';
 
 const PressOnNailsDetails = async ({
 	params,

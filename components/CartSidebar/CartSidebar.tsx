@@ -11,8 +11,15 @@ import Link from 'next/link';
 import {TEMP_LINE_PREFIX} from '@/lib/shopify/constants';
 
 const CartSidebar = () => {
-	const {cart, isOpen, closeCart, updateItem, removeItem, isAddingNewItem} =
-		useCart();
+	const {
+		cart,
+		isOpen,
+		closeCart,
+		updateItem,
+		removeItem,
+		checkout,
+		isAddingNewItem,
+	} = useCart();
 
 	useEffect(() => {
 		document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -184,7 +191,9 @@ const CartSidebar = () => {
 								</Typography>
 							)}
 						</div>
-						<Button className="w-full mb-2">Checkout</Button>
+						<Button className="w-full mb-2" onClick={checkout}>
+							Checkout
+						</Button>
 						<Typography className="flex justify-center items-center gap-2">
 							<Lock size={16} />
 							Secure checkout

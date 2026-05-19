@@ -16,8 +16,6 @@ import {
 	removeFromCart,
 	updateCartLine,
 } from './cart';
-import {TEMP_LINE_PREFIX} from './constants';
-import {Cart, CartLine} from './types';
 import {
 	applyAddTempLine,
 	applyRemoveLine,
@@ -25,6 +23,7 @@ import {
 	isRetryableError,
 	withRetry,
 } from './helpers';
+import {Cart} from './types';
 
 const CART_ID_KEY = 'shopify_cart_id';
 
@@ -38,6 +37,7 @@ interface CartContextValue {
 	removeItem: (lineId: string) => Promise<void>;
 	openCart: () => void;
 	closeCart: () => void;
+	checkout: () => void;
 }
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -66,6 +66,7 @@ export function CartProvider({children}: {children: ReactNode}) {
 			localStorage.setItem(CART_ID_KEY, newCart.id);
 			setCart(newCart);
 		};
+
 		initCart();
 	}, []);
 
@@ -229,6 +230,11 @@ export function CartProvider({children}: {children: ReactNode}) {
 		],
 	);
 
+	const checkout = useCallback(async () => {
+		if (!cart) return;
+		window.open(cart.checkoutUrl, '_blank');
+	}, [cart]);
+
 	return (
 		<CartContext
 			value={{
@@ -241,6 +247,7 @@ export function CartProvider({children}: {children: ReactNode}) {
 				removeItem,
 				openCart,
 				closeCart,
+				checkout,
 			}}
 		>
 			{children}
