@@ -8,11 +8,19 @@ interface Props {
 	className?: string;
 	variant?: Variant;
 	isDisabled?: boolean;
+	isSubmit?: boolean;
 	onClick?: () => void;
 }
 
 const Button = (props: Props) => {
-	const {children, className, variant = 'solid', isDisabled, onClick} = props;
+	const {
+		children,
+		className,
+		variant = 'solid',
+		isDisabled,
+		isSubmit,
+		onClick,
+	} = props;
 
 	return (
 		<button
@@ -24,7 +32,7 @@ const Button = (props: Props) => {
 				isDisabled && 'bg-disabled text-disabled-foreground',
 				className,
 			)}
-			type="button"
+			type={isSubmit ? 'submit' : 'button'}
 			disabled={isDisabled}
 			onClick={onClick}
 		>
