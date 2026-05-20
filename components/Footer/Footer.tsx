@@ -9,7 +9,7 @@ const Footer = () => {
 				<nav>
 					<ul className="flex flex-col gap-3.5">
 						<li>
-							<NavLink href="/">Contact</NavLink>
+							<NavLink href="/contact">Contact</NavLink>
 						</li>
 						<li>
 							<NavLink href="/">Shipping</NavLink>
