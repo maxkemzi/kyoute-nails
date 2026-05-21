@@ -29,7 +29,7 @@ const Button = (props: Props) => {
 				variant === 'solid' && 'bg-primary text-primary-foreground',
 				variant === 'outline' &&
 					'bg-background border border-background-foreground transition-colors duration-300 hover:border-primary hover:bg-primary hover:text-primary-foreground',
-				isDisabled && 'bg-disabled text-disabled-foreground',
+				isDisabled && 'bg-disabled text-disabled-foreground cursor-default',
 				className,
 			)}
 			type={isSubmit ? 'submit' : 'button'}

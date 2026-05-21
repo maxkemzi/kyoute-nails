@@ -22,7 +22,7 @@ const AddToCartButton = (props: Props) => {
 
 	if (!availableForSale) {
 		return (
-			<Button variant="outline" isDisabled>
+			<Button className={className} isDisabled>
 				Out of stock
 			</Button>
 		);

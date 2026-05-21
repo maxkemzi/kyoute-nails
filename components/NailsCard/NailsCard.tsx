@@ -3,7 +3,8 @@ import {formatPrice} from '@/lib/shopify/helpers';
 import Image from 'next/image';
 import Link from 'next/link';
 import {AddToCartButton} from '../AddToCartButton';
-import {Typography} from '../ui';
+import {Button, Typography} from '../ui';
+import {twMerge} from 'tailwind-merge';
 
 interface Props {
 	product: ShopifyProduct;
@@ -15,6 +16,7 @@ const NailsCard = ({product}: Props) => {
 	const image = images.edges[0]?.node;
 	const variant = variants.edges[0].node;
 	const {amount, currencyCode} = priceRange.minVariantPrice;
+	const isOutOfStock = !variant.availableForSale;
 
 	return (
 		<div className="relative group flex flex-col h-125 shadow-sm rounded-3xl overflow-hidden">
@@ -25,7 +27,14 @@ const NailsCard = ({product}: Props) => {
 					objectFit="cover"
 					alt={image.altText || title}
 				/>
-				<div className="absolute inset-0 bg-background-foreground/35 flex items-center justify-center transition-opacity opacity-0 group-hover:opacity-100">
+
+				<div
+					className={twMerge(
+						'absolute inset-0 bg-background-foreground/35 flex items-center justify-center',
+						!isOutOfStock &&
+							'transition-opacity opacity-0 group-hover:opacity-100',
+					)}
+				>
 					<AddToCartButton
 						className="z-10"
 						variantId={variant.id}
