@@ -1,27 +1,19 @@
 import {TEMP_LINE_PREFIX} from './constants';
 import {Cart, CartLine} from './types';
 
-export const withRetry = async <T>(
-	fn: () => Promise<T>,
-	shouldRetry: (e: unknown) => boolean,
-	retries = 1,
-): Promise<T> => {
-	try {
-		return await fn();
-	} catch (e) {
-		if (retries > 0 && shouldRetry(e)) {
-			await new Promise(res => setTimeout(res, 300));
-			return withRetry(fn, shouldRetry, retries - 1);
-		}
-		throw e;
-	}
+export const isRetryableError = (e: unknown) => {
+	if (!(e instanceof Error)) return false;
+
+	return (
+		e.message.includes('conflicted with another request') || // Shopify conflict
+		e.message.includes('ETIMEDOUT') || // Node network timeout
+		e.name === 'TimeoutError' || // AbortSignal.timeout
+		e.name === 'AbortError' // fetch aborted by timeout
+	);
 };
 
-export const isRetryableError = (e: unknown) =>
-	e instanceof Error &&
-	(e.message.includes('conflicted with another request') ||
-		e.message.includes('ETIMEDOUT') ||
-		e.name === 'TimeoutError');
+export const isAbortError = (e: unknown) =>
+	e instanceof Error && (e.name === 'AbortError' || e.name === 'TimeoutError');
 
 export const applyRemoveLine = (cart: Cart, lineId: string): Cart => {
 	const removed = cart.lines.edges.find(({node}) => node.id === lineId);

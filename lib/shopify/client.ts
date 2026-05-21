@@ -1,11 +1,21 @@
-const isBrowser = typeof window !== 'undefined';
+import {isRetryableError} from './helpers';
 
+const isBrowser = typeof window !== 'undefined';
 const SHOPIFY_TIMEOUT_MS = 5000;
+const SHOPIFY_RETRY_COUNT = 1;
+
+class ShopifyError extends Error {
+	constructor(message: string) {
+		super(message);
+		this.name = 'ShopifyError';
+	}
+}
 
 export async function shopifyFetch<T>(
 	query: string,
 	variables: Record<string, unknown> = {},
 	signal?: AbortSignal,
+	retries = SHOPIFY_RETRY_COUNT,
 ): Promise<T> {
 	const domain = process.env.SHOPIFY_STORE_DOMAIN as string;
 	const token = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN as string;
@@ -17,24 +27,44 @@ export async function shopifyFetch<T>(
 		? '/api/shopify'
 		: `https://${domain}/api/2026-04/graphql.json`;
 
-	const response = await fetch(url, {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-			...(!isBrowser && {'X-Shopify-Storefront-Access-Token': token}),
-		},
-		body: JSON.stringify({query, variables}),
-		signal: combinedSignal,
-	});
+	try {
+		const response = await fetch(url, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				...(!isBrowser && {'X-Shopify-Storefront-Access-Token': token}),
+			},
+			body: JSON.stringify({query, variables}),
+			signal: combinedSignal,
+		});
 
-	if (!response.ok) {
-		throw new Error(`Shopify API error: ${response.status}`);
+		if (!response.ok) {
+			throw new ShopifyError(`Shopify API error: ${response.status}`);
+		}
+
+		const {data, errors}: {data: T; errors?: {message: string}[]} =
+			await response.json();
+
+		if (errors?.length) {
+			const {message} = errors[0];
+
+			if (retries > 0 && isRetryableError(new Error(message))) {
+				await new Promise(res => setTimeout(res, 300));
+				return shopifyFetch(query, variables, signal, retries - 1);
+			}
+
+			throw new ShopifyError(message);
+		}
+
+		return data;
+	} catch (e) {
+		if (e instanceof ShopifyError) throw e;
+
+		if (retries > 0 && isRetryableError(e) && !combinedSignal.aborted) {
+			await new Promise(res => setTimeout(res, 300));
+			return shopifyFetch(query, variables, signal, retries - 1);
+		}
+
+		throw e;
 	}
-
-	const {data, errors}: {data: T; errors?: {message: string}[]} =
-		await response.json();
-
-	if (errors?.length) throw new Error(errors[0].message);
-
-	return data;
 }

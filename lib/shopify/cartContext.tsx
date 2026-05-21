@@ -20,8 +20,7 @@ import {
 	applyAddTempLine,
 	applyRemoveLine,
 	applyUpdateLine,
-	isRetryableError,
-	withRetry,
+	isAbortError,
 } from './helpers';
 import {Cart} from './types';
 
@@ -127,10 +126,8 @@ export function CartProvider({children}: {children: ReactNode}) {
 				}
 			} catch (e) {
 				pendingRemovals.current.delete(lineId);
-				if (controller.signal.aborted) return;
-				if (!isRetryableError(e)) {
-					await revertCart(cart.id);
-				}
+				if (controller.signal.aborted || isAbortError(e)) return;
+				await revertCart(cart.id);
 			} finally {
 				cleanupController(lineId, controller);
 			}
@@ -155,18 +152,17 @@ export function CartProvider({children}: {children: ReactNode}) {
 
 			addLoadingItem(lineId);
 			try {
-				const updated = await withRetry(
-					() =>
-						updateCartLine(cart.id, lineId, quantity, controller.signal),
-					isRetryableError,
+				const updated = await updateCartLine(
+					cart.id,
+					lineId,
+					quantity,
+					controller.signal,
 				);
 				if (controller.signal.aborted) return;
 				setCart(updated);
 			} catch (e) {
-				if (controller.signal.aborted) return;
-				if (!isRetryableError(e)) {
-					await revertCart(cart.id);
-				}
+				if (controller.signal.aborted || isAbortError(e)) return;
+				await revertCart(cart.id);
 			} finally {
 				cleanupController(lineId, controller);
 			}
@@ -206,15 +202,11 @@ export function CartProvider({children}: {children: ReactNode}) {
 			addLoadingItem(variantId);
 			setIsAddingNewItem(true);
 			try {
-				const updated = await withRetry(
-					() => addToCart(cart.id, variantId, quantity),
-					isRetryableError,
-				);
+				const updated = await addToCart(cart.id, variantId, quantity);
 				setCart(updated);
 			} catch (e) {
-				if (!isRetryableError(e)) {
-					await revertCart(cart.id);
-				}
+				if (isAbortError(e)) return;
+				await revertCart(cart.id);
 			} finally {
 				removeLoadingItem(variantId);
 				setIsAddingNewItem(false);

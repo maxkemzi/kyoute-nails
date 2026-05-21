@@ -43,6 +43,14 @@
 	--color-disabled-foreground: var(--color-light-yellow);
 }
 
+button {
+	cursor: pointer;
+}
+
+button:disabled {
+	cursor: default;
+}
+
 .container {
 	width: 100%;
 	margin: 0 auto;
