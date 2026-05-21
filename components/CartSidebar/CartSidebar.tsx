@@ -43,13 +43,13 @@ const CartSidebar = () => {
 			<div
 				onClick={closeCart}
 				className={twJoin(
-					'fixed inset-0 bg-black/20 z-40 transition-opacity duration-300',
+					'fixed inset-0 bg-black/20 z-40 transition-opacity',
 					isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none',
 				)}
 			/>
 			<aside
 				className={twJoin(
-					'fixed right-0 top-0 bottom-0 z-50 max-w-90 w-full flex flex-col bg-background transition-transform duration-300',
+					'fixed right-0 top-0 bottom-0 z-50 max-w-90 w-full flex flex-col bg-background transition-transform',
 					isOpen ? 'translate-x-0' : 'translate-x-full',
 				)}
 			>

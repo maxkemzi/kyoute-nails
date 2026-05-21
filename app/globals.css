@@ -13,6 +13,7 @@
 	--color-muted-gray: #c4b49a;
 
 	--breakpoint-xs: 30rem;
+	--default-transition-duration: 300ms;
 }
 
 @theme inline {

@@ -28,7 +28,7 @@ const Button = (props: Props) => {
 				'shadow-sm py-3.5 px-7 rounded-xl',
 				variant === 'solid' && 'bg-primary text-primary-foreground',
 				variant === 'outline' &&
-					'bg-background border border-background-foreground transition-colors duration-300 hover:border-primary hover:bg-primary hover:text-primary-foreground',
+					'bg-background border border-background-foreground transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground',
 				isDisabled && 'bg-disabled text-disabled-foreground',
 				className,
 			)}
