@@ -29,6 +29,10 @@ export interface ShopifyProduct {
 
 export interface ProductsResponse {
 	products: {
+		pageInfo: {
+			hasNextPage: boolean;
+			endCursor: string | null;
+		};
 		edges: {node: ShopifyProduct}[];
 	};
 }

@@ -53,7 +53,7 @@ const CartSidebar = () => {
 					isOpen ? 'translate-x-0' : 'translate-x-full',
 				)}
 			>
-				<div className="flex justify-between gap-4 px-7 py-4 shadow-sm">
+				<div className="flex justify-between gap-4 px-7 py-4 shadow-border">
 					<Typography variant="h4">Shopping bag</Typography>
 					<button
 						onClick={closeCart}
@@ -91,7 +91,7 @@ const CartSidebar = () => {
 												/>
 											</Link>
 										) : (
-											<div className="w-16 h-16 shrink-0 animate-pulse bg-background-foreground/35 rounded-lg" />
+											<div className="w-16 h-16 shrink-0 animate-pulse bg-surface rounded-lg" />
 										)}
 
 										<div className="flex-1 flex flex-col justify-between">
@@ -159,12 +159,12 @@ const CartSidebar = () => {
 											) : (
 												<>
 													<div className="flex-1 flex justify-between gap-4 mb-2">
-														<div className="flex-1 bg-background-foreground/35 animate-pulse rounded-lg" />
-														<div className="flex-1 bg-background-foreground/35 animate-pulse rounded-lg" />
+														<div className="flex-1 bg-surface animate-pulse rounded-lg" />
+														<div className="flex-1 bg-surface animate-pulse rounded-lg" />
 													</div>
 													<div className="flex-1 flex justify-between gap-4">
-														<div className="flex-1 bg-background-foreground/35 animate-pulse rounded-lg" />
-														<div className="flex-1 bg-background-foreground/35 animate-pulse rounded-lg" />
+														<div className="flex-1 bg-surface animate-pulse rounded-lg" />
+														<div className="flex-1 bg-surface animate-pulse rounded-lg" />
 													</div>
 												</>
 											)}
@@ -181,7 +181,7 @@ const CartSidebar = () => {
 						<div className="flex justify-between gap-4 mb-4">
 							<Typography weight="semibold">Subtotal:</Typography>
 							{isAddingNewItem ? (
-								<div className="w-16 h-6 bg-background-foreground/35 animate-pulse rounded-lg" />
+								<div className="w-16 h-6 bg-surface animate-pulse rounded-lg" />
 							) : (
 								<Typography weight="semibold">
 									{formatPrice(

@@ -7,7 +7,7 @@ const Header = async () => {
 	const {t} = await getT('header');
 
 	return (
-		<header className="shadow-sm">
+		<header className="shadow-border">
 			<div className="container container-lg">
 				<div className="grid grid-cols-[1fr_auto_1fr] items-center">
 					<div />

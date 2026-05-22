@@ -11,10 +11,12 @@ const Checkbox = (props: InputHTMLAttributes<HTMLInputElement>) => {
 			<span
 				className="
 					mt-0.5 w-4.5 h-4.5 shrink-0
-					shadow-sm rounded
+					rounded
+					border border-border
 					flex items-center justify-center
 					transition-colors duration-150
 					peer-checked:bg-primary
+					peer-checked:border-primary
 					peer-focus-visible:outline 
 					peer-disabled:bg-disabled
 					peer-checked:after:opacity-100

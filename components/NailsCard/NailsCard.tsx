@@ -1,10 +1,10 @@
-import {ShopifyProduct} from '@/lib/shopify/types';
 import {formatPrice} from '@/lib/shopify/helpers';
+import {ShopifyProduct} from '@/lib/shopify/types';
 import Image from 'next/image';
 import Link from 'next/link';
-import {AddToCartButton} from '../AddToCartButton';
-import {Button, Typography} from '../ui';
 import {twMerge} from 'tailwind-merge';
+import {AddToCartButton} from '../AddToCartButton';
+import {Typography} from '../ui';
 
 interface Props {
 	product: ShopifyProduct;
@@ -19,7 +19,7 @@ const NailsCard = ({product}: Props) => {
 	const isOutOfStock = !variant.availableForSale;
 
 	return (
-		<div className="relative group flex flex-col h-125 shadow-sm rounded-3xl overflow-hidden">
+		<div className="relative group flex flex-col h-125 shadow-border rounded-3xl overflow-hidden">
 			<div className="relative grow">
 				<Image
 					src={image.url}

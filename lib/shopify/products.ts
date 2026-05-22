@@ -37,19 +37,32 @@ const PRODUCT_FIELDS = `
   }
 `;
 
-export async function getProducts(first = 20): Promise<ShopifyProduct[]> {
+export async function getProducts(
+	first = 20,
+	after?: string | null,
+): Promise<{
+	products: ShopifyProduct[];
+	pageInfo: {hasNextPage: boolean; endCursor: string | null};
+}> {
 	const query = `
-    query GetProducts($first: Int!) {
-      products(first: $first) {
-        edges {
-          node { ${PRODUCT_FIELDS} }
-        }
-      }
-    }
+		query GetProducts($first: Int!, $after: String) {
+			products(first: $first, after: $after) {
+				pageInfo {
+					hasNextPage
+					endCursor
+				}
+				edges {
+					node { ${PRODUCT_FIELDS} }
+				}
+			}
+		}
   `;
 
-	const data = await shopifyFetch<ProductsResponse>(query, {first});
-	return data.products.edges.map(({node}) => node);
+	const data = await shopifyFetch<ProductsResponse>(query, {first, after});
+	return {
+		products: data.products.edges.map(({node}) => node),
+		pageInfo: data.products.pageInfo,
+	};
 }
 
 export async function getProductByHandle(

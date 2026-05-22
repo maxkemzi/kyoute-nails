@@ -1,11 +1,11 @@
-import {NailsCard} from '@/components';
 import {Section, Typography} from '@/components/ui';
 import {getProducts} from '@/lib/shopify/products';
-import Image from 'next/image';
+import ProductGrid from './ProductGrid';
 import SortDropdown from './SortDropdown';
+import {PRODUCTS_PER_PAGE} from '@/lib/shopify/constants';
 
 const BuyPressOnNails = async () => {
-	const products = await getProducts();
+	const {products, pageInfo} = await getProducts(PRODUCTS_PER_PAGE);
 
 	return (
 		<Section>
@@ -20,27 +20,11 @@ const BuyPressOnNails = async () => {
 				<div className="flex justify-end mb-7">
 					<SortDropdown />
 				</div>
-				<div className="relative grid grid-cols-3 gap-7 max-lg:grid-cols-2 max-sm:grid-cols-1">
-					{products.map(product => {
-						return <NailsCard key={product.id} product={product} />;
-					})}
-
-					<Image
-						className="absolute top-1.5 left-0 -translate-1/2 rotate-90 -z-1"
-						width={100}
-						height={100}
-						src="/flower.svg"
-						alt="flower"
-					/>
-
-					<Image
-						className="absolute bottom-1.5 right-0 translate-1/2 rotate-12 -z-1"
-						width={70}
-						height={70}
-						src="/flower.svg"
-						alt="flower"
-					/>
-				</div>
+				<ProductGrid
+					initialProducts={products}
+					initialCursor={pageInfo.endCursor}
+					initialHasNextPage={pageInfo.hasNextPage}
+				/>
 			</div>
 		</Section>
 	);

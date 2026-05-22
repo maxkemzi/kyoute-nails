@@ -4,6 +4,8 @@
 	--color-orange: #e55800;
 	--color-yellow: #ffdf5e;
 	--color-brown: #722c00;
+	--color-light-brown: #caae84;
+	--color-lighter-brown: #d9c197;
 	--color-light-yellow: #fff4c6;
 	--color-light-green: #9da855;
 	--color-red: #d64545;
@@ -14,6 +16,7 @@
 
 	--breakpoint-xs: 30rem;
 	--default-transition-duration: 300ms;
+	--shadow-border: 0 0 4px -1px rgba(114, 44, 0, 0.25);
 }
 
 @theme inline {
@@ -42,6 +45,11 @@
 
 	--color-disabled: var(--color-muted-gray);
 	--color-disabled-foreground: var(--color-light-yellow);
+
+	--color-surface: var(--color-light-brown);
+	--color-surface-foreground: var(--color-brown);
+
+	--color-border: var(--color-lighter-brown);
 }
 
 button {

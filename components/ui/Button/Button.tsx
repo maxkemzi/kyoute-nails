@@ -25,10 +25,10 @@ const Button = (props: Props) => {
 	return (
 		<button
 			className={twMerge(
-				'shadow-sm py-3.5 px-7 rounded-xl',
+				'py-3.5 px-7 rounded-xl',
 				variant === 'solid' && 'bg-primary text-primary-foreground',
 				variant === 'outline' &&
-					'bg-background border border-background-foreground transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground',
+					'bg-background border border-border transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground',
 				isDisabled && 'bg-disabled text-disabled-foreground',
 				className,
 			)}

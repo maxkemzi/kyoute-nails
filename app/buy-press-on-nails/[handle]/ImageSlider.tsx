@@ -23,7 +23,7 @@ const ArrowButton = ({
 		<button
 			onClick={onClick}
 			className={twJoin(
-				'absolute top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full text-background-foreground hover:text-primary bg-background/60 hover:bg-background/80 shadow-sm transition-colors disabled:opacity-30 disabled:cursor-not-allowed',
+				'absolute top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full text-background-foreground hover:text-primary bg-background/60 hover:bg-background/80 transition-colors disabled:opacity-30 disabled:cursor-not-allowed',
 				direction === 'prev' ? 'left-4' : 'right-4',
 			)}
 			aria-label={direction === 'prev' ? 'Previous image' : 'Next image'}
