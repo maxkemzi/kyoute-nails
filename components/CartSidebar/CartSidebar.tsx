@@ -9,6 +9,7 @@ import {useEffect} from 'react';
 import {formatPrice} from '@/lib/shopify/helpers';
 import Link from 'next/link';
 import {TEMP_LINE_PREFIX} from '@/lib/shopify/constants';
+import {CheckoutModal} from '..';
 
 const CartSidebar = () => {
 	const {
@@ -19,6 +20,8 @@ const CartSidebar = () => {
 		removeItem,
 		checkout,
 		isAddingNewItem,
+		isCheckoutModalOpen,
+		closeCheckoutModal,
 	} = useCart();
 
 	useEffect(() => {
@@ -201,6 +204,9 @@ const CartSidebar = () => {
 					</div>
 				)}
 			</aside>
+			{isCheckoutModalOpen ? (
+				<CheckoutModal onClose={closeCheckoutModal} />
+			) : null}
 		</>
 	);
 };

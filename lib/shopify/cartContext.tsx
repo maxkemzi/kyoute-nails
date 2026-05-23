@@ -37,6 +37,8 @@ interface CartContextValue {
 	openCart: () => void;
 	closeCart: () => void;
 	checkout: () => void;
+	isCheckoutModalOpen: boolean;
+	closeCheckoutModal: () => void;
 }
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -46,6 +48,7 @@ export function CartProvider({children}: {children: ReactNode}) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [loadingItems, setLoadingItems] = useState<Set<string>>(new Set());
 	const [isAddingNewItem, setIsAddingNewItem] = useState(false);
+	const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
 	const abortControllers = useRef<Map<string, AbortController>>(new Map());
 	const pendingRemovals = useRef<Set<string>>(new Set());
 
@@ -224,8 +227,13 @@ export function CartProvider({children}: {children: ReactNode}) {
 
 	const checkout = useCallback(async () => {
 		if (!cart) return;
-		window.open(cart.checkoutUrl, '_blank');
+		setIsCheckoutModalOpen(true);
 	}, [cart]);
+
+	const closeCheckoutModal = useCallback(
+		() => setIsCheckoutModalOpen(false),
+		[],
+	);
 
 	return (
 		<CartContext
@@ -240,6 +248,8 @@ export function CartProvider({children}: {children: ReactNode}) {
 				openCart,
 				closeCart,
 				checkout,
+				isCheckoutModalOpen,
+				closeCheckoutModal,
 			}}
 		>
 			{children}

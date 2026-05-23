@@ -120,3 +120,21 @@ export async function removeFromCart(
 	});
 	return data.cartLinesRemove.cart;
 }
+
+export async function updateCartAttributes(
+	cartId: string,
+	attributes: {key: string; value: string}[],
+): Promise<Cart> {
+	const mutation = `
+    mutation UpdateCartAttributes($cartId: ID!, $attributes: [AttributeInput!]!) {
+      cartAttributesUpdate(cartId: $cartId, attributes: $attributes) {
+        cart { ${CART_FIELDS} }
+      }
+    }
+  `;
+	const data = await shopifyFetch<{cartAttributesUpdate: {cart: Cart}}>(
+		mutation,
+		{cartId, attributes},
+	);
+	return data.cartAttributesUpdate.cart;
+}
