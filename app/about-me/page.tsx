@@ -1,3 +1,4 @@
+import {DoubleLeafIcon} from '@/components/icons';
 import {Section, Typography} from '@/components/ui';
 import Image from 'next/image';
 
@@ -47,20 +48,14 @@ const AboutMe = () => {
 						<div className="col-span-2 bg-surface h-62.5 rounded-3xl max-md:col-span-1" />
 						<div className="col-span-2 bg-surface h-62.5 rounded-3xl max-md:col-span-1" />
 
-						<Image
+						<DoubleLeafIcon
 							className="absolute -right-1 -top-1 -translate-y-1/2 translate-x-1/2 -rotate-90 -scale-x-100 -z-1"
-							width={53}
-							height={48}
-							src="./double-leaf.svg"
-							alt="leaf"
+							size={53}
 						/>
 
-						<Image
+						<DoubleLeafIcon
 							className="absolute -left-1 -bottom-1 translate-y-1/2 -translate-x-1/2 -rotate-12 -z-1"
-							width={53}
-							height={48}
-							src="./double-leaf.svg"
-							alt="leaf"
+							size={53}
 						/>
 					</div>
 				</div>

@@ -1,3 +1,4 @@
+import {DoubleLeafIcon, FlowerIcon, LeafIcon} from '@/components/icons';
 import {Logo, Section, Typography} from '@/components/ui';
 import Image from 'next/image';
 import {Instagram} from 'react-feather';
@@ -13,20 +14,14 @@ const Home = () => {
 							<div className="w-4 h-4 bg-background rounded-full" />
 							<div className="w-4 h-4 bg-background rounded-full" />
 
-							<Image
+							<LeafIcon
 								className="absolute top-0.5 -translate-y-full -rotate-12 right-0 -z-1"
-								width={28}
-								height={28}
-								src="./leaf.svg"
-								alt="leaf"
+								size={28}
 							/>
 
-							<Image
+							<DoubleLeafIcon
 								className="absolute top-full -translate-1/2 -rotate-12 left-0 -z-1"
-								width={53}
-								height={48}
-								src="./double-leaf.svg"
-								alt="leaf"
+								size={53}
 							/>
 						</div>
 						<div className="container container-sm">
@@ -44,20 +39,14 @@ const Home = () => {
 						<div className="relative flex items-center px-12">
 							<div className="w-4 h-4 bg-background rounded-full" />
 
-							<Image
+							<LeafIcon
 								className="absolute top-0.5 -translate-y-full rotate-12 -scale-x-100 left-0 -z-1"
-								width={28}
-								height={28}
-								src="./leaf.svg"
-								alt="leaf"
+								size={28}
 							/>
 
-							<Image
+							<DoubleLeafIcon
 								className="absolute top-full -translate-y-1/2 translate-x-1/2 rotate-12 -scale-x-100 right-0 -z-1"
-								width={53}
-								height={48}
-								src="./double-leaf.svg"
-								alt="leaf"
+								size={53}
 							/>
 						</div>
 					</div>
@@ -96,20 +85,14 @@ const Home = () => {
 						<NailsImage src="/nails-2.jpg" />
 						<NailsImage src="/nails-3.jpg" />
 
-						<Image
+						<FlowerIcon
 							className="absolute top-1.5 left-0 -translate-1/2 -z-1"
-							width={100}
-							height={100}
-							src="/flower.svg"
-							alt="flower"
+							size={100}
 						/>
 
-						<Image
+						<FlowerIcon
 							className="absolute bottom-1.5 right-0 translate-1/2 -z-1"
-							width={70}
-							height={70}
-							src="/flower.svg"
-							alt="flower"
+							size={70}
 						/>
 					</div>
 				</div>

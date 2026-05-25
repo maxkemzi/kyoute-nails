@@ -7,6 +7,7 @@ import {NailsCard} from '@/components';
 import {getProducts} from '@/lib/shopify/products';
 import {Button} from '@/components/ui';
 import {PRODUCTS_PER_PAGE} from '@/lib/shopify/constants';
+import {FlowerIcon} from '@/components/icons';
 
 interface Props {
 	initialProducts: ShopifyProduct[];
@@ -45,20 +46,14 @@ const ProductGrid = ({
 					return <NailsCard key={product.id} product={product} />;
 				})}
 
-				<Image
+				<FlowerIcon
 					className="absolute top-1.5 left-0 -translate-1/2 rotate-90 -z-1"
-					width={100}
-					height={100}
-					src="/flower.svg"
-					alt="flower"
+					size={100}
 				/>
 
-				<Image
+				<FlowerIcon
 					className="absolute bottom-1.5 right-0 translate-1/2 rotate-12 -z-1"
-					width={70}
-					height={70}
-					src="/flower.svg"
-					alt="flower"
+					size={70}
 				/>
 			</div>
 
