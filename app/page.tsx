@@ -1,8 +1,7 @@
-import {DoubleLeafIcon, FlowerIcon, LeafIcon} from '@/components/icons';
 import {Logo, Section, Typography} from '@/components/ui';
-import Image from 'next/image';
 import {Instagram} from 'react-feather';
 import NailsImage from './NailsImage';
+import {LeafIcon, FlowerIcon} from '@phosphor-icons/react/dist/ssr';
 
 const Home = () => {
 	return (
@@ -15,14 +14,23 @@ const Home = () => {
 							<div className="w-4 h-4 bg-background rounded-full" />
 
 							<LeafIcon
-								className="absolute top-0.5 -translate-y-full -rotate-12 right-0 -z-1"
+								className="absolute top-0.5 -translate-y-full -rotate-12 right-0 text-leaf -z-1"
+								weight="fill"
 								size={28}
 							/>
 
-							<DoubleLeafIcon
-								className="absolute top-full -translate-1/2 -rotate-12 left-0 -z-1"
-								size={53}
-							/>
+							<div className="absolute top-full -left-1.5 -translate-y-1/2 -z-1 text-leaf grid">
+								<LeafIcon
+									className="col-start-1 row-start-1 -rotate-150"
+									weight="fill"
+									size={28}
+								/>
+								<LeafIcon
+									className="col-start-1 row-start-1 -rotate-200 translate-x-2.5 translate-y-2.5"
+									weight="fill"
+									size={28}
+								/>
+							</div>
 						</div>
 						<div className="container container-sm">
 							<div className="flex items-center justify-between">
@@ -40,14 +48,23 @@ const Home = () => {
 							<div className="w-4 h-4 bg-background rounded-full" />
 
 							<LeafIcon
-								className="absolute top-0.5 -translate-y-full rotate-12 -scale-x-100 left-0 -z-1"
+								className="absolute top-0.5 -translate-y-full rotate-12 -scale-x-100 left-0 text-leaf -z-1"
+								weight="fill"
 								size={28}
 							/>
 
-							<DoubleLeafIcon
-								className="absolute top-full -translate-y-1/2 translate-x-1/2 rotate-12 -scale-x-100 right-0 -z-1"
-								size={53}
-							/>
+							<div className="absolute top-full -right-1.5 -translate-y-1/2 -scale-x-100 -z-1 text-leaf grid">
+								<LeafIcon
+									className="col-start-1 row-start-1 -rotate-150"
+									weight="fill"
+									size={28}
+								/>
+								<LeafIcon
+									className="col-start-1 row-start-1 -rotate-200 translate-x-2.5 translate-y-2.5"
+									weight="fill"
+									size={28}
+								/>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -86,12 +103,14 @@ const Home = () => {
 						<NailsImage src="/nails-3.jpg" />
 
 						<FlowerIcon
-							className="absolute top-1.5 left-0 -translate-1/2 -z-1"
+							className="absolute top-1.5 left-0 -translate-1/2 -z-1 text-secondary"
+							weight="fill"
 							size={100}
 						/>
 
 						<FlowerIcon
-							className="absolute bottom-1.5 right-0 translate-1/2 -z-1"
+							className="absolute bottom-1.5 right-0 translate-1/2 -z-1 text-secondary"
+							weight="fill"
 							size={70}
 						/>
 					</div>

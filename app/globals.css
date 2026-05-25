@@ -50,6 +50,8 @@
 	--color-surface-foreground: var(--color-brown);
 
 	--color-border: var(--color-lighter-brown);
+
+	--color-leaf: var(--color-light-green);
 }
 
 button {

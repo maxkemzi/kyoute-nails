@@ -2,12 +2,11 @@
 
 import {ShopifyProduct} from '@/lib/shopify/types';
 import {useState} from 'react';
-import Image from 'next/image';
 import {NailsCard} from '@/components';
 import {getProducts} from '@/lib/shopify/products';
 import {Button} from '@/components/ui';
 import {PRODUCTS_PER_PAGE} from '@/lib/shopify/constants';
-import {FlowerIcon} from '@/components/icons';
+import {FlowerIcon} from '@phosphor-icons/react/dist/ssr';
 
 interface Props {
 	initialProducts: ShopifyProduct[];
@@ -47,12 +46,14 @@ const ProductGrid = ({
 				})}
 
 				<FlowerIcon
-					className="absolute top-1.5 left-0 -translate-1/2 rotate-90 -z-1"
+					className="absolute top-1.5 left-0 -translate-1/2 rotate-90 -z-1 text-secondary"
+					weight="fill"
 					size={100}
 				/>
 
 				<FlowerIcon
-					className="absolute bottom-1.5 right-0 translate-1/2 rotate-12 -z-1"
+					className="absolute bottom-1.5 right-0 translate-1/2 rotate-12 -z-1 text-secondary"
+					weight="fill"
 					size={70}
 				/>
 			</div>
