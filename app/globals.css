@@ -47,7 +47,7 @@
 	--color-disabled-foreground: var(--color-light-yellow);
 
 	--color-surface: var(--color-light-brown);
-	--color-surface-foreground: var(--color-brown);
+	--color-surface-foreground: var(--color-light-yellow);
 
 	--color-border: var(--color-lighter-brown);
 
@@ -66,6 +66,10 @@ button:disabled {
 	width: 100%;
 	margin: 0 auto;
 	padding-inline: 16px;
+}
+
+.container-xs {
+	max-width: 800px;
 }
 
 .container-sm {
