@@ -13,10 +13,25 @@ const transporter = nodemailer.createTransport({
 	},
 });
 
-export async function sendContactEmail(
+const sendMailWithRetry = async (
+	options: nodemailer.SendMailOptions,
+	retries = 2,
+): Promise<void> => {
+	try {
+		await transporter.sendMail(options);
+	} catch (e) {
+		if (retries > 0) {
+			await new Promise(res => setTimeout(res, 500));
+			return sendMailWithRetry(options, retries - 1);
+		}
+		throw e;
+	}
+};
+
+export const sendContactEmail = async (
 	prevState: ContactFormState,
 	formData: FormData,
-): Promise<ContactFormState> {
+): Promise<ContactFormState> => {
 	if (!formData.has('privacy')) {
 		formData.set('privacy', 'off');
 	}
@@ -34,7 +49,7 @@ export async function sendContactEmail(
 	const {email, name, message} = result.data;
 
 	try {
-		await transporter.sendMail({
+		await sendMailWithRetry({
 			from: `"${name}" <${process.env.SMTP_USER}>`,
 			to: process.env.CONTACT_EMAIL,
 			replyTo: email,
@@ -49,4 +64,4 @@ export async function sendContactEmail(
 			values: result.data,
 		};
 	}
-}
+};
