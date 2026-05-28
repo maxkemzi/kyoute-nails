@@ -6,6 +6,7 @@ import {getResources, getT, initServerI18next} from 'next-i18next/server';
 import {Inter} from 'next/font/google';
 import './globals.css';
 import {CartProvider} from '@/lib/shopify/cartContext';
+import {Toaster} from 'sonner';
 
 initServerI18next(i18nConfig);
 
@@ -34,6 +35,7 @@ export default async function RootLayout({
 						<main className="flex-1 flex flex-col">{children}</main>
 						<CartSidebar />
 						<Footer />
+						<Toaster position="top-right" />
 					</CartProvider>
 				</body>
 			</html>

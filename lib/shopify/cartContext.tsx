@@ -23,6 +23,7 @@ import {
 	isAbortError,
 } from './helpers';
 import {Cart} from './types';
+import {toast} from '../toast';
 
 const CART_ID_KEY = 'shopify_cart_id';
 
@@ -55,18 +56,22 @@ export function CartProvider({children}: {children: ReactNode}) {
 	// Load or create cart on mount
 	useEffect(() => {
 		const initCart = async () => {
-			const storedId = localStorage.getItem(CART_ID_KEY);
-			if (storedId) {
-				const existing = await getCart(storedId);
-				if (existing) {
-					setCart(existing);
-					return;
+			try {
+				const storedId = localStorage.getItem(CART_ID_KEY);
+				if (storedId) {
+					const existing = await getCart(storedId);
+					if (existing) {
+						setCart(existing);
+						return;
+					}
+					localStorage.removeItem(CART_ID_KEY);
 				}
-				localStorage.removeItem(CART_ID_KEY);
+				const newCart = await createCart();
+				localStorage.setItem(CART_ID_KEY, newCart.id);
+				setCart(newCart);
+			} catch {
+				toast.error('Failed to initialize cart. Please refresh the page');
 			}
-			const newCart = await createCart();
-			localStorage.setItem(CART_ID_KEY, newCart.id);
-			setCart(newCart);
 		};
 
 		initCart();
@@ -105,8 +110,12 @@ export function CartProvider({children}: {children: ReactNode}) {
 	);
 
 	const revertCart = useCallback(async (cartId: string) => {
-		const reverted = await getCart(cartId);
-		if (reverted) setCart(reverted);
+		try {
+			const reverted = await getCart(cartId);
+			if (reverted) setCart(reverted);
+		} catch {
+			toast.error('Failed to restore cart. Please refresh the page');
+		}
 	}, []);
 
 	const removeItem = useCallback(
@@ -131,6 +140,7 @@ export function CartProvider({children}: {children: ReactNode}) {
 				pendingRemovals.current.delete(lineId);
 				if (controller.signal.aborted || isAbortError(e)) return;
 				await revertCart(cart.id);
+				toast.error('Failed to remove item from cart');
 			} finally {
 				cleanupController(lineId, controller);
 			}
@@ -166,6 +176,7 @@ export function CartProvider({children}: {children: ReactNode}) {
 			} catch (e) {
 				if (controller.signal.aborted || isAbortError(e)) return;
 				await revertCart(cart.id);
+				toast.error('Failed to update item in cart');
 			} finally {
 				cleanupController(lineId, controller);
 			}
@@ -210,6 +221,7 @@ export function CartProvider({children}: {children: ReactNode}) {
 			} catch (e) {
 				if (isAbortError(e)) return;
 				await revertCart(cart.id);
+				toast.error('Failed to add item to cart');
 			} finally {
 				removeLoadingItem(variantId);
 				setIsAddingNewItem(false);

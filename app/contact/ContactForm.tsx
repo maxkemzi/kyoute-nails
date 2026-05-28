@@ -1,10 +1,11 @@
 'use client';
 
 import {CheckboxField, FormField} from '@/components/form';
-import {Button, Input, Typography} from '@/components/ui';
+import {Button} from '@/components/ui';
 import {sendContactEmail} from '@/lib/actions/contact';
 import {contactSchema} from '@/lib/schemas/contact';
-import {useActionState, useState} from 'react';
+import {toast} from '@/lib/toast';
+import {useActionState, useEffect, useState} from 'react';
 
 const ContactForm = () => {
 	const [formState, action, isPending] = useActionState(
@@ -12,6 +13,15 @@ const ContactForm = () => {
 		null,
 	);
 	const [clientErrors, setClientErrors] = useState<Record<string, string>>({});
+
+	useEffect(() => {
+		if (formState?.error) {
+			toast.error('Failed to send email. Please try again');
+		}
+		if (formState?.success) {
+			toast.success('Message sent successfully');
+		}
+	}, [formState?.error, formState?.success]);
 
 	const validateField = (name: string, value: string) => {
 		const result =
@@ -40,17 +50,6 @@ const ContactForm = () => {
 
 	return (
 		<form className="flex flex-col" action={formAction}>
-			{formState?.success || formState?.error ? (
-				<Typography
-					className="mb-4 text-center"
-					weight="medium"
-					color={formState.success ? 'success' : 'danger'}
-				>
-					{formState.success
-						? 'Message sent successfully.'
-						: 'Failed to send email. Please try again.'}
-				</Typography>
-			) : null}
 			<div className="flex flex-col gap-6 mb-7">
 				<FormField
 					label="Email"
