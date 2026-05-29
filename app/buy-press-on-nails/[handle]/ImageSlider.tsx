@@ -63,11 +63,10 @@ const ImageSlider = ({images, title}: Props) => {
 
 	if (images.length === 1) {
 		return (
-			<div className="rounded-3xl overflow-hidden">
+			<div className="h-189 relative rounded-3xl overflow-hidden">
 				<Image
-					className="w-full h-auto object-contain"
-					width={600}
-					height={756}
+					className="object-cover"
+					fill
 					src={images[0].url}
 					alt={images[0].altText || title}
 					priority
@@ -78,17 +77,16 @@ const ImageSlider = ({images, title}: Props) => {
 
 	return (
 		<div className="flex flex-col items-start gap-3">
-			<div className="relative rounded-3xl overflow-hidden">
+			<div className="w-full relative rounded-3xl overflow-hidden">
 				<ArrowButton direction="prev" onClick={scrollPrev} />
 
-				<div className="overflow-hidden" ref={emblaRef}>
-					<div className="flex">
+				<div className="overflow-hidden h-189" ref={emblaRef}>
+					<div className="flex h-full">
 						{images.map((image, index) => (
-							<div key={index} className="flex-[0_0_100%]">
+							<div key={index} className="flex-[0_0_100%] relative">
 								<Image
-									className="w-full h-auto object-contain"
-									width={600}
-									height={756}
+									className="object-cover"
+									fill
 									src={image.url}
 									alt={image.altText || title}
 									priority={index === 0}
