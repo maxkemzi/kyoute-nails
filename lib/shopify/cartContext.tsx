@@ -30,6 +30,7 @@ const CART_ID_KEY = 'shopify_cart_id';
 interface CartContextValue {
 	cart: Cart | null;
 	isOpen: boolean;
+	isInitializing: boolean;
 	loadingItems: Set<string>;
 	isAddingNewItem: boolean;
 	addItem: (variantId: string, quantity?: number) => Promise<void>;
@@ -47,6 +48,7 @@ const CartContext = createContext<CartContextValue | null>(null);
 export function CartProvider({children}: {children: ReactNode}) {
 	const [cart, setCart] = useState<Cart | null>(null);
 	const [isOpen, setIsOpen] = useState(false);
+	const [isInitializing, setIsInitializing] = useState(true);
 	const [loadingItems, setLoadingItems] = useState<Set<string>>(new Set());
 	const [isAddingNewItem, setIsAddingNewItem] = useState(false);
 	const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
@@ -71,6 +73,8 @@ export function CartProvider({children}: {children: ReactNode}) {
 				setCart(newCart);
 			} catch {
 				toast.error('Failed to initialize cart. Please refresh the page');
+			} finally {
+				setIsInitializing(false);
 			}
 		};
 
@@ -252,6 +256,7 @@ export function CartProvider({children}: {children: ReactNode}) {
 			value={{
 				cart,
 				isOpen,
+				isInitializing,
 				loadingItems,
 				isAddingNewItem,
 				addItem,

@@ -179,7 +179,7 @@ const CartSidebar = () => {
 					)}
 				</div>
 
-				{lines.length > 0 && cart && (
+				{lines.length > 0 && cart ? (
 					<div className="px-7 py-4 shadow-[0_-1px_3px_0_rgb(0,0,0,0.1),0_-1px_2px_-1px_rgb(0,0,0,0.1)]">
 						<div className="flex justify-between gap-4 mb-4">
 							<Typography weight="semibold">Subtotal:</Typography>
@@ -202,7 +202,7 @@ const CartSidebar = () => {
 							Secure checkout
 						</Typography>
 					</div>
-				)}
+				) : null}
 			</aside>
 			{isCheckoutModalOpen ? (
 				<CheckoutModal onClose={closeCheckoutModal} />
