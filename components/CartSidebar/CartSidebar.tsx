@@ -109,13 +109,15 @@ const CartSidebar = () => {
 																{product.title}
 															</Typography>
 
-															<Typography
-																className="text-background-foreground/60"
-																size="sm"
-																textTransform="uppercase"
-															>
-																{title}
-															</Typography>
+															{title !== 'Default Title' ? (
+																<Typography
+																	className="text-background-foreground/60"
+																	size="sm"
+																	textTransform="uppercase"
+																>
+																	{title}
+																</Typography>
+															) : null}
 														</div>
 														<button
 															onClick={() => removeItem(line.id)}

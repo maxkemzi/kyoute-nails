@@ -21,28 +21,32 @@ const VariantSelector = ({options, variants}: Props) => {
 		),
 	);
 
+	const visibleOptions = options.filter(o => o.name !== 'Title');
+
 	return (
 		<div className="mb-9">
-			<div className="flex flex-col gap-4 mb-7">
-				{options.map(o => (
-					<SelectField
-						key={o.name}
-						id={o.name.toLowerCase()}
-						label={o.name}
-						value={selectedOptions[o.name]}
-						onChange={e =>
-							setSelectedOptions(prev => ({
-								...prev,
-								[o.name]: e.target.value,
-							}))
-						}
-						options={o.values.map(value => ({
-							label: value,
-							value,
-						}))}
-					/>
-				))}
-			</div>
+			{visibleOptions.length !== 0 ? (
+				<div className="flex flex-col gap-4 mb-7">
+					{visibleOptions.map(o => (
+						<SelectField
+							key={o.name}
+							id={o.name.toLowerCase()}
+							label={o.name}
+							value={selectedOptions[o.name]}
+							onChange={e =>
+								setSelectedOptions(prev => ({
+									...prev,
+									[o.name]: e.target.value,
+								}))
+							}
+							options={o.values.map(value => ({
+								label: value,
+								value,
+							}))}
+						/>
+					))}
+				</div>
+			) : null}
 
 			<AddToCartButton
 				variantId={selectedVariant?.id ?? ''}
