@@ -7,3 +7,4 @@ export * from './Input';
 export * from './Checkbox';
 export * from './Accordion';
 export * from './Toast';
+export * from './Select';

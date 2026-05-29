@@ -14,6 +14,10 @@ const PRODUCT_FIELDS = `
       currencyCode
     }
   }
+  options {
+    name
+    values
+  }
   images(first: 5) {
     edges {
       node {
@@ -31,6 +35,10 @@ const PRODUCT_FIELDS = `
         price {
           amount
           currencyCode
+        }
+		  selectedOptions {
+          name
+          value
         }
       }
     }

@@ -74,7 +74,7 @@ const CartSidebar = () => {
 					) : (
 						<div className="flex flex-col gap-4">
 							{lines.map(line => {
-								const {product, price} = line.merchandise;
+								const {product, price, title} = line.merchandise;
 								const image = product.images.edges[0]?.node;
 								const isTemp = line.id.startsWith(TEMP_LINE_PREFIX);
 
@@ -101,9 +101,22 @@ const CartSidebar = () => {
 											{!isTemp ? (
 												<>
 													<div className="flex justify-between gap-4 mb-2">
-														<Typography weight="medium">
-															{product.title}
-														</Typography>
+														<div>
+															<Typography
+																className="mb-1"
+																weight="medium"
+															>
+																{product.title}
+															</Typography>
+
+															<Typography
+																className="text-background-foreground/60"
+																size="sm"
+																textTransform="uppercase"
+															>
+																{title}
+															</Typography>
+														</div>
 														<button
 															onClick={() => removeItem(line.id)}
 															type="button"

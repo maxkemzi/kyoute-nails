@@ -1,10 +1,9 @@
-import {AddToCartButton} from '@/components';
 import {Section, Typography} from '@/components/ui';
 import {formatPrice} from '@/lib/shopify/helpers';
 import {getProductByHandle} from '@/lib/shopify/products';
-import Image from 'next/image';
 import {notFound} from 'next/navigation';
 import ImageSlider from './ImageSlider';
+import VariantSelector from './VariantSelector';
 
 const PressOnNailsDetails = async ({
 	params,
@@ -16,15 +15,10 @@ const PressOnNailsDetails = async ({
 	const product = await getProductByHandle(handle);
 	if (!product) notFound();
 
-	const {
-		title,
-		priceRange: {
-			minVariantPrice: {amount, currencyCode},
-		},
-		description,
-	} = product;
-	const variant = product.variants.edges[0].node;
+	const {title, description} = product;
+	const {amount, currencyCode} = product.priceRange.minVariantPrice;
 	const images = product.images.edges.map(({node}) => node);
+	const variants = product.variants.edges.map(({node}) => node);
 
 	return (
 		<Section>
@@ -41,13 +35,18 @@ const PressOnNailsDetails = async ({
 						<Typography className="mb-7" variant="h4">
 							{formatPrice(amount, currencyCode)}
 						</Typography>
-						<Typography className="mb-9">{description}</Typography>
 
-						<AddToCartButton
-							variantId={variant.id}
-							availableForSale={variant.availableForSale}
-							buttonVariant="solid"
+						<VariantSelector
+							options={product.options}
+							variants={variants}
 						/>
+
+						<div>
+							<Typography className="mb-2" weight="normal" variant="h4">
+								Description
+							</Typography>
+							<Typography>{description}</Typography>
+						</div>
 					</div>
 				</div>
 			</div>
