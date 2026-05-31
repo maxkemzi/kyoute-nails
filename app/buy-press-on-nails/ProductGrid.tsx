@@ -7,6 +7,8 @@ import {getProducts} from '@/lib/shopify/products';
 import {Button} from '@/components/ui';
 import {PRODUCTS_PER_PAGE} from '@/lib/shopify/constants';
 import {FlowerIcon} from '@phosphor-icons/react/dist/ssr';
+import {useSearchParams} from 'next/navigation';
+import {sortMap} from '@/lib/shopify/sort';
 
 interface Props {
 	initialProducts: ShopifyProduct[];
@@ -19,6 +21,9 @@ const ProductGrid = ({
 	initialCursor,
 	initialHasNextPage,
 }: Props) => {
+	const searchParams = useSearchParams();
+	const sortParam = (searchParams.get('sort') ??
+		'featured') as keyof typeof sortMap;
 	const [products, setProducts] = useState(initialProducts);
 	const [cursor, setCursor] = useState(initialCursor);
 	const [hasNextPage, setHasNextPage] = useState(initialHasNextPage);
@@ -28,9 +33,12 @@ const ProductGrid = ({
 		if (!cursor) return;
 
 		setIsLoading(true);
+		const {sortKey, reverse} = sortMap[sortParam];
 		const {products: newProducts, pageInfo} = await getProducts(
 			PRODUCTS_PER_PAGE,
 			cursor,
+			sortKey,
+			reverse,
 		);
 		setProducts(prev => [...prev, ...newProducts]);
 		setCursor(pageInfo.endCursor);
