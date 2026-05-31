@@ -1,9 +1,15 @@
 import {Logo, Section, Typography} from '@/components/ui';
 import {Instagram} from 'react-feather';
-import NailsImage from './NailsImage';
 import {LeafIcon, FlowerIcon} from '@phosphor-icons/react/dist/ssr';
+import {sortMap} from '@/lib/shopify/sort';
+import {getProducts} from '@/lib/shopify/products';
+import Link from 'next/link';
+import Image from 'next/image';
 
-const Home = () => {
+const Home = async () => {
+	const {sortKey, reverse} = sortMap.featured;
+	const {products} = await getProducts(3, null, sortKey, reverse);
+
 	return (
 		<div>
 			<div className="pt-12">
@@ -98,9 +104,24 @@ const Home = () => {
 					</div>
 
 					<div className="relative flex items-center gap-7">
-						<NailsImage src="/nails-1.jpg" />
-						<NailsImage src="/nails-2.jpg" />
-						<NailsImage src="/nails-3.jpg" />
+						{products.map(p => {
+							const {id, handle, title} = p;
+							const image = p.images.edges[0].node;
+							return (
+								<Link
+									key={id}
+									className="relative flex-1/3 h-125 rounded-3xl overflow-hidden"
+									href={`/buy-press-on-nails/${handle}`}
+								>
+									<Image
+										className="object-cover"
+										fill
+										src={image.url}
+										alt={image.altText || title}
+									/>
+								</Link>
+							);
+						})}
 
 						<FlowerIcon
 							className="absolute top-1.5 left-0 -translate-1/2 -z-1 text-secondary"
