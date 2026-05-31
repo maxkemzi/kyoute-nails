@@ -1,7 +1,7 @@
 'use client';
 
 import {Dropdown, DropdownItem, Typography} from '@/components/ui';
-import {useEffect, useRef, useState} from 'react';
+import {useRouter, useSearchParams} from 'next/navigation';
 import {ChevronDown} from 'react-feather';
 import {twMerge} from 'tailwind-merge';
 
@@ -9,62 +9,56 @@ interface Props {
 	className?: string;
 }
 
+const labels: Record<string, string> = {
+	featured: 'Featured',
+	'price-asc': 'Price: Low to High',
+	'price-desc': 'Price: High to Low',
+	newest: 'Newest',
+};
+
 const SortDropdown = ({className}: Props) => {
-	const [isOpen, setIsOpen] = useState(false);
-	const [value, setValue] = useState('popularity');
-	const ref = useRef<HTMLDivElement>(null);
-
-	const toggleIsOpen = () => setIsOpen(prev => !prev);
-
-	useEffect(() => {
-		const handleClickOutside = (e: MouseEvent) => {
-			if (!ref.current) return;
-
-			if (!ref.current.contains(e.target as Node)) {
-				setIsOpen(false);
-			}
-		};
-
-		document.addEventListener('mousedown', handleClickOutside);
-
-		return () => {
-			document.removeEventListener('mousedown', handleClickOutside);
-		};
-	}, []);
+	const router = useRouter();
+	const searchParams = useSearchParams();
+	const sort = searchParams.get('sort') ?? 'featured';
 
 	const handleSelect = (value: string) => {
-		return () => {
-			setValue(value);
-			setIsOpen(false);
-		};
+		const params = new URLSearchParams(searchParams.toString());
+		params.set('sort', value);
+
+		router.push(`?${params.toString()}`);
 	};
 
 	return (
-		<div className={twMerge('inline-block', className)} ref={ref}>
+		<div className={twMerge('inline-block', className)}>
 			<div className="flex items-center gap-7">
 				<Typography>Sort by:</Typography>
-				<div className="relative">
-					<button
-						className="flex items-center gap-1.5"
-						onClick={toggleIsOpen}
-					>
-						<Typography as="span" textTransform="capitalize">
-							{value}
-						</Typography>
-						<ChevronDown size={16} />
-					</button>
+				<Dropdown
+					trigger={
+						<button className="flex justify-between w-full items-center gap-1.5">
+							<Typography as="span" textTransform="capitalize">
+								{labels[sort]}
+							</Typography>
+							<ChevronDown size={16} />
+						</button>
+					}
+					value={sort}
+				>
+					<DropdownItem onSelect={handleSelect} value="featured">
+						Featured
+					</DropdownItem>
 
-					{isOpen ? (
-						<Dropdown className="absolute left-0 top-[calc(100%+6px)] z-10">
-							<DropdownItem
-								onSelect={handleSelect('popularity')}
-								isDisabled={value === 'popularity'}
-							>
-								Popularity
-							</DropdownItem>
-						</Dropdown>
-					) : null}
-				</div>
+					<DropdownItem onSelect={handleSelect} value="price-asc">
+						Price: Low to High
+					</DropdownItem>
+
+					<DropdownItem onSelect={handleSelect} value="price-desc">
+						Price: High to Low
+					</DropdownItem>
+
+					<DropdownItem onSelect={handleSelect} value="newest">
+						Newest
+					</DropdownItem>
+				</Dropdown>
 			</div>
 		</div>
 	);

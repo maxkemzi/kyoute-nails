@@ -46,15 +46,17 @@ const PRODUCT_FIELDS = `
 `;
 
 export async function getProducts(
-	first = 20,
+	first = 12,
 	after?: string | null,
+	sortKey?: string,
+	reverse = false,
 ): Promise<{
 	products: ShopifyProduct[];
 	pageInfo: {hasNextPage: boolean; endCursor: string | null};
 }> {
 	const query = `
-		query GetProducts($first: Int!, $after: String) {
-			products(first: $first, after: $after) {
+		query GetProducts($first: Int!, $after: String, $sortKey: ProductSortKeys!, $reverse: Boolean!) {
+			products(first: $first, after: $after, sortKey: $sortKey, reverse: $reverse, query: "available_for_sale:true") {
 				pageInfo {
 					hasNextPage
 					endCursor
@@ -66,7 +68,12 @@ export async function getProducts(
 		}
   `;
 
-	const data = await shopifyFetch<ProductsResponse>(query, {first, after});
+	const data = await shopifyFetch<ProductsResponse>(query, {
+		first,
+		after,
+		sortKey,
+		reverse,
+	});
 	return {
 		products: data.products.edges.map(({node}) => node),
 		pageInfo: data.products.pageInfo,

@@ -2,8 +2,10 @@
 
 import {AddToCartButton} from '@/components';
 import {SelectField} from '@/components/form';
+import {Dropdown, DropdownItem, Typography} from '@/components/ui';
 import {ShopifyProductOption, ShopifyVariant} from '@/lib/shopify/types';
 import {useState} from 'react';
+import {ChevronDown} from 'react-feather';
 
 interface Props {
 	options: ShopifyProductOption[];
@@ -28,22 +30,35 @@ const VariantSelector = ({options, variants}: Props) => {
 			{visibleOptions.length !== 0 ? (
 				<div className="flex flex-col gap-4 mb-7">
 					{visibleOptions.map(o => (
-						<SelectField
+						<Dropdown
 							key={o.name}
-							id={o.name.toLowerCase()}
-							label={o.name}
-							value={selectedOptions[o.name]}
-							onChange={e =>
-								setSelectedOptions(prev => ({
-									...prev,
-									[o.name]: e.target.value,
-								}))
+							className="w-85"
+							trigger={
+								<button className="flex justify-between items-center gap-1.5 w-full px-4 py-3 border border-border rounded-xl bg-background">
+									<Typography as="span" textTransform="capitalize">
+										{selectedOptions[o.name]}
+									</Typography>
+									<ChevronDown size={16} />
+								</button>
 							}
-							options={o.values.map(value => ({
-								label: value,
-								value,
-							}))}
-						/>
+							value={selectedOptions[o.name]}
+						>
+							{o.values.map(v => (
+								<DropdownItem
+									key={v}
+									buttonClassName="px-4"
+									onSelect={value => {
+										setSelectedOptions(prev => ({
+											...prev,
+											[o.name]: value,
+										}));
+									}}
+									value={v}
+								>
+									{v}
+								</DropdownItem>
+							))}
+						</Dropdown>
 					))}
 				</div>
 			) : null}
