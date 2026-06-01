@@ -21,7 +21,7 @@ export interface ShopifyVariant {
 	selectedOptions: {name: string; value: string}[];
 }
 
-export interface ShopifyProduct {
+export interface ShopifyProductRaw {
 	id: string;
 	title: string;
 	handle: string;
@@ -32,6 +32,14 @@ export interface ShopifyProduct {
 	images: {edges: {node: ShopifyImage}[]};
 	variants: {edges: {node: ShopifyVariant}[]};
 	options: ShopifyProductOption[];
+	metafields: ({key: string; value: string} | null)[];
+}
+
+export interface ShopifyProduct extends Omit<ShopifyProductRaw, 'metafields'> {
+	rating: {
+		value: number;
+		count: number;
+	};
 }
 
 export interface ProductsResponse {
@@ -45,8 +53,9 @@ export interface ProductsResponse {
 }
 
 export interface ProductResponse {
-	product: ShopifyProduct | null;
+	product: ShopifyProductRaw | null;
 }
+
 export interface CartLine {
 	id: string;
 	quantity: number;

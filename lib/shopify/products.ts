@@ -43,9 +43,16 @@ const PRODUCT_FIELDS = `
       }
     }
   }
+  metafields(identifiers: [
+    {namespace: "reviews", key: "rating"},
+    {namespace: "reviews", key: "rating_count"}
+  ]) {
+    key
+    value
+  }
 `;
 
-export async function getProducts(
+export const getProducts = async (
 	first = 12,
 	after?: string | null,
 	sortKey?: string,
@@ -53,7 +60,7 @@ export async function getProducts(
 ): Promise<{
 	products: ShopifyProduct[];
 	pageInfo: {hasNextPage: boolean; endCursor: string | null};
-}> {
+}> => {
 	const query = `
 		query GetProducts($first: Int!, $after: String, $sortKey: ProductSortKeys!, $reverse: Boolean!) {
 			products(first: $first, after: $after, sortKey: $sortKey, reverse: $reverse, query: "available_for_sale:true") {
@@ -74,15 +81,28 @@ export async function getProducts(
 		sortKey,
 		reverse,
 	});
+
 	return {
 		products: data.products.edges.map(({node}) => node),
 		pageInfo: data.products.pageInfo,
 	};
-}
+};
 
-export async function getProductByHandle(
+const parseProductRating = (
+	metafields: ({key: string; value: string} | null)[],
+) => {
+	const ratingMeta = metafields.find(m => m?.key === 'rating');
+	const countMeta = metafields.find(m => m?.key === 'rating_count');
+
+	return {
+		value: ratingMeta ? parseFloat(JSON.parse(ratingMeta.value).value) : 0,
+		count: countMeta ? parseInt(countMeta.value) : 0,
+	};
+};
+
+export const getProductByHandle = async (
 	handle: string,
-): Promise<ShopifyProduct | null> {
+): Promise<ShopifyProduct | null> => {
 	const query = `
     query GetProduct($handle: String!) {
       product(handle: $handle) {
@@ -92,5 +112,12 @@ export async function getProductByHandle(
   `;
 
 	const data = await shopifyFetch<ProductResponse>(query, {handle});
-	return data.product;
-}
+	if (!data.product) return null;
+
+	const {metafields, ...rest} = data.product;
+
+	return {
+		...rest,
+		rating: parseProductRating(metafields),
+	};
+};

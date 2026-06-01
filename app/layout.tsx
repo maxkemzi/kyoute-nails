@@ -28,7 +28,10 @@ export default async function RootLayout({
 
 	return (
 		<I18nProvider language={lng} resources={resources}>
-			<html lang={lng} className={`${inter.variable} h-full antialiased`}>
+			<html
+				lang={lng}
+				className={`${inter.variable} h-full antialiased scroll-smooth`}
+			>
 				<body className="flex flex-col bg-background text-background-foreground min-h-full">
 					<CartProvider>
 						<Header />

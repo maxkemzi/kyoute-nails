@@ -1,6 +1,8 @@
+import {ReviewCard, StarRating} from '@/components';
 import {Section, Typography} from '@/components/ui';
 import {formatPrice} from '@/lib/shopify/helpers';
 import {getProductByHandle} from '@/lib/shopify/products';
+import {getProductReviews} from '@/lib/shopify/reviews';
 import {notFound} from 'next/navigation';
 import ImageSlider from './ImageSlider';
 import VariantSelector from './VariantSelector';
@@ -15,7 +17,10 @@ const PressOnNailsDetails = async ({
 	const product = await getProductByHandle(handle);
 	if (!product) notFound();
 
-	const {title, description} = product;
+	const {reviews} = await getProductReviews(handle);
+	console.log(reviews);
+
+	const {title, description, rating} = product;
 	const {amount, currencyCode} = product.priceRange.minVariantPrice;
 	const images = product.images.edges.map(({node}) => node);
 	const variants = product.variants.edges.map(({node}) => node);
@@ -29,9 +34,15 @@ const PressOnNailsDetails = async ({
 					</div>
 
 					<div className="flex-1">
-						<Typography className="mb-2" variant="h3">
-							{title}
-						</Typography>
+						<div className="flex justify-between gap-2 mb-2">
+							<Typography variant="h3">{title}</Typography>
+
+							{rating.count > 0 ? (
+								<a href="#reviews" className="self-end">
+									<StarRating rating={rating} variant="compact" />
+								</a>
+							) : null}
+						</div>
 						<Typography className="mb-7" variant="h4">
 							{formatPrice(amount, currencyCode)}
 						</Typography>
@@ -41,11 +52,38 @@ const PressOnNailsDetails = async ({
 							variants={variants}
 						/>
 
-						<div>
-							<Typography className="mb-2" weight="normal" variant="h4">
-								Description
-							</Typography>
-							<Typography>{description}</Typography>
+						<div className="flex flex-col gap-4">
+							<div>
+								<Typography
+									className="mb-2"
+									weight="normal"
+									variant="h4"
+								>
+									Description
+								</Typography>
+								<Typography>{description}</Typography>
+							</div>
+
+							<div id="reviews">
+								<div className="flex items-center gap-4 mb-4">
+									<Typography weight="normal" variant="h4">
+										Reviews
+									</Typography>
+									{rating.count > 0 ? (
+										<StarRating rating={rating} />
+									) : null}
+								</div>
+
+								{reviews.length === 0 ? (
+									<Typography>No reviews yet.</Typography>
+								) : (
+									<div className="flex flex-col gap-4">
+										{reviews.map(r => (
+											<ReviewCard key={r.id} review={r} />
+										))}
+									</div>
+								)}
+							</div>
 						</div>
 					</div>
 				</div>
