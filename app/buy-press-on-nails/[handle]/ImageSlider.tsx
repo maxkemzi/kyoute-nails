@@ -1,45 +1,26 @@
 'use client';
 
+import {ArrowButton} from '@/components/ui';
+import {useLightbox} from '@/lib/lightboxContext';
 import {ShopifyImage} from '@/lib/shopify/types';
 import useEmblaCarousel from 'embla-carousel-react';
 import Image from 'next/image';
 import {useCallback, useEffect, useState} from 'react';
-import {ChevronLeft, ChevronRight} from 'react-feather';
-import {twJoin, twMerge} from 'tailwind-merge';
+import {twJoin} from 'tailwind-merge';
 
 interface Props {
 	images: ShopifyImage[];
 	title: string;
 }
 
-const ArrowButton = ({
-	direction,
-	onClick,
-}: {
-	direction: 'prev' | 'next';
-	onClick: () => void;
-}) => {
-	return (
-		<button
-			onClick={onClick}
-			className={twJoin(
-				'absolute top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full text-background-foreground hover:text-primary bg-background/60 hover:bg-background/80 transition-colors disabled:opacity-30 disabled:cursor-not-allowed',
-				direction === 'prev' ? 'left-4' : 'right-4',
-			)}
-			aria-label={direction === 'prev' ? 'Previous image' : 'Next image'}
-		>
-			{direction === 'prev' ? (
-				<ChevronLeft size={24} />
-			) : (
-				<ChevronRight size={24} />
-			)}
-		</button>
-	);
-};
-
 const ImageSlider = ({images, title}: Props) => {
 	const [emblaRef, emblaApi] = useEmblaCarousel({loop: true});
 	const [selectedIndex, setSelectedIndex] = useState(0);
+	const {openLightbox} = useLightbox();
+	const lightboxImages = images.map(img => ({
+		url: img.url,
+		altText: img.altText || title,
+	}));
 
 	const onSelect = useCallback(() => {
 		if (!emblaApi) return;
@@ -63,7 +44,10 @@ const ImageSlider = ({images, title}: Props) => {
 
 	if (images.length === 1) {
 		return (
-			<div className="h-189 relative rounded-3xl overflow-hidden">
+			<div
+				className="h-189 relative rounded-3xl overflow-hidden cursor-zoom-in"
+				onClick={() => openLightbox(lightboxImages, 0)}
+			>
 				<Image
 					className="object-cover"
 					fill
@@ -78,9 +62,18 @@ const ImageSlider = ({images, title}: Props) => {
 	return (
 		<div className="flex flex-col items-start gap-3">
 			<div className="w-full relative rounded-3xl overflow-hidden">
-				<ArrowButton direction="prev" onClick={scrollPrev} />
+				<ArrowButton
+					className="absolute top-0 bottom-0 left-0 z-10 px-4 flex items-center"
+					direction="left"
+					onClick={scrollPrev}
+					aria-label="Previous image"
+				/>
 
-				<div className="overflow-hidden h-189" ref={emblaRef}>
+				<div
+					className="overflow-hidden h-189 cursor-zoom-in"
+					ref={emblaRef}
+					onClick={() => openLightbox(lightboxImages, selectedIndex)}
+				>
 					<div className="flex h-full">
 						{images.map((image, index) => (
 							<div key={index} className="flex-[0_0_100%] relative">
@@ -96,7 +89,12 @@ const ImageSlider = ({images, title}: Props) => {
 					</div>
 				</div>
 
-				<ArrowButton direction="next" onClick={scrollNext} />
+				<ArrowButton
+					className="absolute top-0 bottom-0 right-0 z-10 px-4 flex items-center"
+					direction="right"
+					onClick={scrollNext}
+					aria-label="Next image"
+				/>
 			</div>
 
 			{/* Thumbnails */}
@@ -113,9 +111,9 @@ const ImageSlider = ({images, title}: Props) => {
 						)}
 					>
 						<Image
+							className="object-cover"
 							src={image.url}
 							fill
-							style={{objectFit: 'cover'}}
 							alt={image.altText || title}
 						/>
 					</button>

@@ -1,8 +1,11 @@
+'use client';
+
+import {useLightbox} from '@/lib/lightboxContext';
 import {JudgeMeReview} from '@/lib/shopify/reviews';
-import {Typography} from '../ui';
-import {Check} from 'react-feather';
 import Image from 'next/image';
+import {Check} from 'react-feather';
 import {StarRating} from '../StarRating';
+import {Typography} from '../ui';
 
 interface Props {
 	review: JudgeMeReview;
@@ -11,6 +14,13 @@ interface Props {
 const ReviewCard = ({review}: Props) => {
 	const {reviewer, rating, body, title, pictures, verified, created_at} =
 		review;
+
+	const {openLightbox} = useLightbox();
+
+	const lightboxImages = pictures.map(p => ({
+		url: p.urls.original,
+		altText: 'Review photo',
+	}));
 
 	return (
 		<div className="flex flex-col gap-2 p-4 shadow-border rounded-2xl">
@@ -46,7 +56,8 @@ const ReviewCard = ({review}: Props) => {
 					{pictures.map((pic, index) => (
 						<div
 							key={index}
-							className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0"
+							onClick={() => openLightbox(lightboxImages, index)}
+							className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 cursor-zoom-in"
 						>
 							<Image
 								src={pic.urls.small}

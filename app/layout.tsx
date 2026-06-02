@@ -7,6 +7,7 @@ import {Inter} from 'next/font/google';
 import './globals.css';
 import {CartProvider} from '@/lib/shopify/cartContext';
 import {Toaster} from 'sonner';
+import {LightboxProvider} from '@/lib/lightboxContext';
 
 initServerI18next(i18nConfig);
 
@@ -33,13 +34,15 @@ export default async function RootLayout({
 				className={`${inter.variable} h-full antialiased scroll-smooth`}
 			>
 				<body className="flex flex-col bg-background text-background-foreground min-h-full">
-					<CartProvider>
-						<Header />
-						<main className="flex-1 flex flex-col">{children}</main>
-						<CartSidebar />
-						<Footer />
-						<Toaster position="top-right" />
-					</CartProvider>
+					<LightboxProvider>
+						<CartProvider>
+							<Header />
+							<main className="flex-1 flex flex-col">{children}</main>
+							<CartSidebar />
+							<Footer />
+							<Toaster position="top-right" />
+						</CartProvider>
+					</LightboxProvider>
 				</body>
 			</html>
 		</I18nProvider>

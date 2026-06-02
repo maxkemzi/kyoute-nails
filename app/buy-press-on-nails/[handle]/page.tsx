@@ -18,7 +18,6 @@ const PressOnNailsDetails = async ({
 	if (!product) notFound();
 
 	const {reviews} = await getProductReviews(handle);
-	console.log(reviews);
 
 	const {title, description, rating} = product;
 	const {amount, currencyCode} = product.priceRange.minVariantPrice;

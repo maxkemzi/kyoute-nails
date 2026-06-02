@@ -46,7 +46,7 @@ const CartSidebar = () => {
 			<div
 				onClick={closeCart}
 				className={twJoin(
-					'fixed inset-0 bg-black/20 z-40 transition-opacity',
+					'fixed inset-0 bg-black/25 z-40 transition-opacity',
 					isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none',
 				)}
 			/>
