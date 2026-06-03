@@ -9,7 +9,7 @@ const Header = async () => {
 				<div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 max-lg:grid-cols-[1fr_auto]">
 					<div className="max-lg:hidden" />
 					<Navbar />
-					<div className="justify-self-end flex items-center gap-4">
+					<div className="justify-self-end flex items-center gap-4 max-md:gap-3">
 						<LangDropdown />
 						<ShoppingBag />
 					</div>

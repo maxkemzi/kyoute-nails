@@ -31,9 +31,9 @@ export default async function RootLayout({
 		<I18nProvider language={lng} resources={resources}>
 			<html
 				lang={lng}
-				className={`${inter.variable} h-full antialiased scroll-smooth`}
+				className={`${inter.variable} h-full antialiased scroll-smooth overflow-x-hidden`}
 			>
-				<body className="flex flex-col bg-background text-background-foreground min-h-full">
+				<body className="flex flex-col bg-background text-background-foreground min-h-full overflow-x-hidden">
 					<LightboxProvider>
 						<CartProvider>
 							<Header />

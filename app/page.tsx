@@ -6,6 +6,7 @@ import {getProducts} from '@/lib/shopify/products';
 import Link from 'next/link';
 import Image from 'next/image';
 import {DoubleLeafIcon} from '@/components/icons';
+import FeaturedProducts from './FeaturedProducts';
 
 const Home = async () => {
 	const {sortKey, reverse} = sortMap.featured;
@@ -113,38 +114,7 @@ const Home = async () => {
 						</Typography>
 					</div>
 
-					<div className="relative flex items-center gap-7">
-						{products.map(p => {
-							const {id, handle, title} = p;
-							const image = p.images.edges[0].node;
-							return (
-								<Link
-									key={id}
-									className="relative flex-1/3 h-125 rounded-3xl overflow-hidden"
-									href={`/buy-press-on-nails/${handle}`}
-								>
-									<Image
-										className="object-cover"
-										fill
-										src={image.url}
-										alt={image.altText || title}
-									/>
-								</Link>
-							);
-						})}
-
-						<FlowerIcon
-							className="absolute top-1.5 left-0 -translate-1/2 -z-1 text-secondary"
-							weight="fill"
-							size={100}
-						/>
-
-						<FlowerIcon
-							className="absolute bottom-1.5 right-0 translate-1/2 -z-1 text-secondary"
-							weight="fill"
-							size={70}
-						/>
-					</div>
+					<FeaturedProducts products={products} />
 				</div>
 			</Section>
 		</div>
