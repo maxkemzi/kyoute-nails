@@ -1,11 +1,20 @@
-import {Logo} from '../ui';
+import {Logo, ResponsiveIcon} from '../ui';
 import NavLink from './NavLink';
+import Link from 'next/link';
 
 const Footer = () => {
 	return (
 		<footer className="shadow-border py-12">
 			<div className="container container-lg">
-				<Logo className="mb-6" color="backgroundForeground" />
+				<Link href="/">
+					<ResponsiveIcon
+						className="mb-6"
+						color="backgroundForeground"
+						icon={Logo}
+						size={286}
+						mdSize={200}
+					/>
+				</Link>
 				<nav>
 					<ul className="flex flex-col gap-3.5">
 						<li>

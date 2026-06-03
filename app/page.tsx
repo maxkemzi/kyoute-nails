@@ -58,7 +58,7 @@ const Home = async () => {
 										icon={Instagram}
 										size={36}
 										mdSize={32}
-										smSize={28}
+										xsSize={24}
 									/>
 								</a>
 							</div>
