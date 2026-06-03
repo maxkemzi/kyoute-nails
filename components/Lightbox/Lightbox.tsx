@@ -49,7 +49,7 @@ const Lightbox = ({images, initialIndex = 0, isOpen, onClose}: Props) => {
 		<div
 			className={twMerge(
 				'fixed inset-0 z-50 bg-black/50 flex items-center justify-center transition-[opacity,visibility]',
-				!isOpen && 'opacity-0 invisible',
+				isOpen ? 'opacity-100 visible' : 'opacity-0 invisible',
 			)}
 		>
 			{/* Close button */}
@@ -75,10 +75,7 @@ const Lightbox = ({images, initialIndex = 0, isOpen, onClose}: Props) => {
 					/>
 				) : null}
 
-				<div
-					className="overflow-hidden w-full h-[90vh] mx-auto"
-					ref={emblaRef}
-				>
+				<div className="overflow-hidden h-[90vh]" ref={emblaRef}>
 					<div className="flex h-full">
 						{images.map((image, index) => (
 							<div key={index} className="flex-[0_0_100%] relative">

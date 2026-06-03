@@ -28,7 +28,7 @@ const Accordion = ({title, children}: Props) => {
 				<ChevronDown
 					className={twMerge(
 						'transition-transform shrink-0',
-						isOpen && 'rotate-180',
+						isOpen ? 'rotate-180' : 'rotate-0',
 					)}
 					size={24}
 				/>
