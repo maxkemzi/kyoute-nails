@@ -1,15 +1,14 @@
 'use client';
 
 import {useCart} from '@/lib/shopify/cartContext';
+import {TEMP_LINE_PREFIX} from '@/lib/shopify/constants';
+import {formatPrice} from '@/lib/shopify/helpers';
 import Image from 'next/image';
+import Link from 'next/link';
+import {useEffect} from 'react';
 import {Lock, Minus, Plus, Trash, X} from 'react-feather';
 import {twJoin} from 'tailwind-merge';
 import {Button, Typography} from '../ui';
-import {useEffect} from 'react';
-import {formatPrice} from '@/lib/shopify/helpers';
-import Link from 'next/link';
-import {TEMP_LINE_PREFIX} from '@/lib/shopify/constants';
-import {CheckoutModal} from '..';
 
 const CartSidebar = () => {
 	const {
@@ -20,8 +19,6 @@ const CartSidebar = () => {
 		removeItem,
 		checkout,
 		isAddingNewItem,
-		isCheckoutModalOpen,
-		closeCheckoutModal,
 	} = useCart();
 
 	useEffect(() => {
@@ -219,9 +216,6 @@ const CartSidebar = () => {
 					</div>
 				) : null}
 			</aside>
-			{isCheckoutModalOpen ? (
-				<CheckoutModal onClose={closeCheckoutModal} />
-			) : null}
 		</>
 	);
 };
