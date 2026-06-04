@@ -79,12 +79,12 @@ const VARIANT_TO_STYLES_MAP: Record<
 } as const;
 
 const SIZE_TO_CLASS_NAME_MAP: Record<Size, string> = {
-	'7xl': 'text-7xl max-lg:text-5xl max-md:text-4xl max-xs:text-3xl max-xxs:text-[1.600rem]',
-	'6xl': 'text-6xl max-lg:text-5xl max-md:text-4xl max-xs:text-3xl max-xxs:text-[1.600rem]',
-	'5xl': 'text-5xl max-lg:text-4xl max-md:text-3xl max-xs:text-2xl max-xxs:text-xl',
-	'2xl': 'text-2xl max-lg:text-xl max-md:text-lg max-xs:text-base max-xxs:text-sm',
-	base: 'text-base max-xs:text-sm max-xxs:text-xs',
-	sm: 'text-sm',
+	'7xl': 'text-7xl max-lg:text-5xl max-md:text-4xl max-xs:text-3xl',
+	'6xl': 'text-6xl max-lg:text-5xl max-md:text-4xl max-xs:text-3xl',
+	'5xl': 'text-5xl max-lg:text-4xl max-md:text-3xl max-xs:text-2xl',
+	'2xl': 'text-2xl max-lg:text-xl max-md:text-lg max-xs:text-base',
+	base: 'text-base max-xs:text-sm',
+	sm: 'text-sm max-xs:text-xs',
 	xs: 'text-xs',
 	inherit: '[font-size:inherit]',
 } as const;

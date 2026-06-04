@@ -21,9 +21,14 @@ const CheckboxField = ({
 				wrapperClassName,
 			)}
 		>
-			<div className="flex gap-2 items-start">
-				<Checkbox {...inputProps} />
-				<Typography as="span">{label}</Typography>
+			<div className="flex flex-col gap-2">
+				<Typography as="span" variant="body2" textTransform="uppercase">
+					{label}
+				</Typography>
+				<div className="flex gap-2 items-center">
+					<Checkbox {...inputProps} />
+					<Typography as="span">Yes</Typography>
+				</div>
 			</div>
 			{error ? (
 				<Typography color="danger" size="sm" as="span">

@@ -11,7 +11,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 const FormField = ({label, error, wrapperClassName, ...inputProps}: Props) => {
 	return (
 		<label className={twMerge('flex flex-col gap-2', wrapperClassName)}>
-			<Typography as="span" textTransform="uppercase">
+			<Typography as="span" variant="body2" textTransform="uppercase">
 				{label}
 			</Typography>
 			<Input {...inputProps} />
