@@ -31,13 +31,15 @@ export default async function RootLayout({
 		<I18nProvider language={lng} resources={resources}>
 			<html
 				lang={lng}
-				className={`${inter.variable} h-full antialiased scroll-smooth overflow-x-hidden`}
+				className={`${inter.variable} h-full antialiased scroll-smooth`}
 			>
-				<body className="flex flex-col bg-background text-background-foreground min-h-full overflow-x-hidden">
+				<body className="flex flex-col bg-background text-background-foreground min-h-full">
 					<LightboxProvider>
 						<CartProvider>
 							<Header />
-							<main className="flex-1 flex flex-col">{children}</main>
+							<main className="flex-1 flex flex-col overflow-x-hidden">
+								{children}
+							</main>
 							<CartSidebar />
 							<Footer />
 							<Toaster position="top-right" />
