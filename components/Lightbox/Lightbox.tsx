@@ -2,7 +2,7 @@
 
 import useEmblaCarousel from 'embla-carousel-react';
 import Image from 'next/image';
-import {useCallback, useEffect} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {X} from 'react-feather';
 import {twMerge} from 'tailwind-merge';
 import {ArrowButton} from '../ui';
@@ -78,7 +78,7 @@ const Lightbox = ({images, initialIndex = 0, isOpen, onClose}: Props) => {
 				<div className="overflow-hidden h-[90vh]" ref={emblaRef}>
 					<div className="flex h-full">
 						{images.map((image, index) => (
-							<div key={index} className="flex-[0_0_100%] relative">
+							<div key={image.url} className="flex-[0_0_100%] relative">
 								<Image
 									className="object-contain"
 									fill
