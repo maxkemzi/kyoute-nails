@@ -16,7 +16,7 @@ const NailsCard = ({product}: Props) => {
 
 	return (
 		<Link
-			className="relative group flex flex-col h-125 shadow-border rounded-3xl overflow-hidden"
+			className="relative group flex flex-col h-125 shadow-border rounded-3xl overflow-hidden max-lg:h-112.5 max-md:h-100"
 			href={`/buy-press-on-nails/${handle}`}
 		>
 			<div className="relative grow">

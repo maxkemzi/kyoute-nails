@@ -42,7 +42,7 @@ const Navbar = () => {
 			/>
 			<ul
 				className={twMerge(
-					'flex items-center gap-7 max-md:fixed max-md:top-0 max-md:bottom-0 max-md:left-0 max-md:z-50 max-md:flex-col max-md:items-start max-md:bg-background max-md:p-7 max-md:shadow-border max-md:gap-3 max-md:transition-transform',
+					'flex items-center gap-7 max-md:fixed max-md:top-0 max-md:bottom-0 max-md:left-0 max-md:z-50 max-md:flex-col max-md:items-start max-md:bg-background max-md:py-4 max-md:px-7 max-md:shadow-border max-md:gap-3 max-md:transition-transform',
 					isOpen ? 'max-md:translate-x-0' : 'max-md:-translate-x-full',
 				)}
 			>

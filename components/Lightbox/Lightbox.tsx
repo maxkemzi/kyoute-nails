@@ -55,7 +55,7 @@ const Lightbox = ({images, initialIndex = 0, isOpen, onClose}: Props) => {
 			{/* Close button */}
 			<button
 				onClick={onClose}
-				className="absolute top-4 right-4 z-50 w-12 h-12 flex items-center justify-center rounded-full bg-background/60 hover:bg-background/80 text-background-foreground hover:text-primary transition-colors"
+				className="absolute top-4 right-4 z-20 size-12 flex items-center justify-center rounded-full bg-background/60 hover:bg-background/80 text-background-foreground hover:text-primary transition-colors"
 				aria-label="Close"
 			>
 				<X size={24} />
@@ -68,7 +68,7 @@ const Lightbox = ({images, initialIndex = 0, isOpen, onClose}: Props) => {
 			>
 				{images.length > 1 ? (
 					<ArrowButton
-						className="absolute top-0 bottom-0 left-0 pl-12 pr-4 z-10 flex items-center"
+						className="absolute top-0 bottom-0 left-0 pl-12 pr-4 z-10 flex items-center max-md:pl-8 max-xs:pl-4"
 						direction="left"
 						onClick={scrollPrev}
 						aria-label="Previous image"
@@ -93,7 +93,7 @@ const Lightbox = ({images, initialIndex = 0, isOpen, onClose}: Props) => {
 
 				{images.length > 1 ? (
 					<ArrowButton
-						className="absolute top-0 bottom-0 right-0 pr-12 pl-4 z-10 flex items-center"
+						className="absolute top-0 bottom-0 right-0 pr-12 pl-4 z-10 flex items-center max-md:pr-8 max-xs:pr-4"
 						direction="right"
 						onClick={scrollNext}
 						aria-label="Next image"

@@ -33,14 +33,14 @@ const Guides = () => {
 								</div>
 
 								<ol className="flex flex-col gap-2 list-decimal list-inside">
-									<li>
+									<Typography as="li">
 										At the widest part of your nail bed, place the
 										flexible measuring tape from one edge to the
 										other, following the natural curve of your nail.
-									</li>
-									<li>
+									</Typography>
+									<Typography as="li">
 										Record your measurement and repeat for each nail.
-									</li>
+									</Typography>
 								</ol>
 							</li>
 
@@ -63,21 +63,21 @@ const Guides = () => {
 								</div>
 
 								<ol className="flex flex-col gap-2 list-decimal list-inside">
-									<li>
+									<Typography as="li">
 										Paste sticky tape over the widest part of your
 										nail bed, following its natural curve.
-									</li>
-									<li>
+									</Typography>
+									<Typography as="li">
 										Use a pen to mark both edges of the tape at the
 										widest point of your nail bed.
-									</li>
-									<li>
+									</Typography>
+									<Typography as="li">
 										Remove the tape and use a ruler to measure the
 										marked distance.
-									</li>
-									<li>
+									</Typography>
+									<Typography as="li">
 										Record your measurement and repeat for each nail.
-									</li>
+									</Typography>
 								</ol>
 							</li>
 						</ul>

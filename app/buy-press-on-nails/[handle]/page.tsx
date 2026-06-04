@@ -64,7 +64,7 @@ const PressOnNailsDetails = async ({
 							</div>
 
 							<div id="reviews">
-								<div className="flex items-center gap-4 mb-4">
+								<div className="flex items-center gap-4">
 									<Typography weight="normal" variant="h4">
 										Reviews
 									</Typography>
@@ -74,9 +74,11 @@ const PressOnNailsDetails = async ({
 								</div>
 
 								{reviews.length === 0 ? (
-									<Typography>No reviews yet.</Typography>
+									<Typography className="mt-2">
+										No reviews yet.
+									</Typography>
 								) : (
-									<div className="flex flex-col gap-4">
+									<div className="flex flex-col gap-4 mt-4">
 										{reviews.map(r => (
 											<ReviewCard key={r.id} review={r} />
 										))}

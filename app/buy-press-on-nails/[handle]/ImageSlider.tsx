@@ -60,7 +60,7 @@ const ImageSlider = ({images, title}: Props) => {
 	}
 
 	return (
-		<div className="flex flex-col items-start gap-3">
+		<div className="flex flex-col items-start gap-3 max-md:gap-2">
 			<div className="w-full relative rounded-3xl overflow-hidden">
 				<ArrowButton
 					className="absolute top-0 bottom-0 left-0 z-10 px-4 flex items-center"
@@ -70,7 +70,7 @@ const ImageSlider = ({images, title}: Props) => {
 				/>
 
 				<div
-					className="overflow-hidden h-189 cursor-zoom-in"
+					className="overflow-hidden h-189 cursor-zoom-in max-lg:h-[656px] max-md:h-[556px] max-xs:h-[456px]"
 					ref={emblaRef}
 					onClick={() => openLightbox(lightboxImages, selectedIndex)}
 				>
@@ -98,13 +98,13 @@ const ImageSlider = ({images, title}: Props) => {
 			</div>
 
 			{/* Thumbnails */}
-			<div className="w-full flex gap-3 overflow-x-auto scrollbar-none">
+			<div className="w-full flex gap-3 overflow-x-auto scrollbar-none max-md:gap-2">
 				{images.map((image, index) => (
 					<button
 						key={index}
 						onClick={() => scrollTo(index)}
 						className={twJoin(
-							'relative w-20 h-20 rounded-xl overflow-hidden shrink-0 border-2 transition-colors',
+							'relative size-20 rounded-xl overflow-hidden shrink-0 border-2 transition-colors max-md:size-18 max-xs:size-16',
 							selectedIndex === index
 								? 'border-primary'
 								: 'border-transparent transition-opacity opacity-60 hover:opacity-100',

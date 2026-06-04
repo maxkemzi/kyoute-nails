@@ -4,7 +4,7 @@ import {ShopifyProduct} from '@/lib/shopify/types';
 import {useState} from 'react';
 import {NailsCard} from '@/components';
 import {getProducts} from '@/lib/shopify/products';
-import {Button} from '@/components/ui';
+import {Button, ResponsiveIcon} from '@/components/ui';
 import {PRODUCTS_PER_PAGE} from '@/lib/shopify/constants';
 import {FlowerIcon} from '@phosphor-icons/react/dist/ssr';
 import {useSearchParams} from 'next/navigation';
@@ -53,16 +53,22 @@ const ProductGrid = ({
 					return <NailsCard key={product.id} product={product} />;
 				})}
 
-				<FlowerIcon
+				<ResponsiveIcon
 					className="absolute top-1.5 left-0 -translate-1/2 rotate-90 -z-1 text-secondary"
+					icon={FlowerIcon}
 					weight="fill"
 					size={100}
+					mdSize={75}
+					xsSize={50}
 				/>
 
-				<FlowerIcon
+				<ResponsiveIcon
 					className="absolute bottom-1.5 right-0 translate-1/2 rotate-12 -z-1 text-secondary"
+					icon={FlowerIcon}
 					weight="fill"
 					size={70}
+					mdSize={50}
+					xsSize={35}
 				/>
 			</div>
 

@@ -32,7 +32,7 @@ const VariantSelector = ({options, variants}: Props) => {
 					{visibleOptions.map(o => (
 						<Dropdown
 							key={o.name}
-							className="w-85"
+							className="w-full max-w-85"
 							trigger={
 								<button className="flex justify-between items-center gap-1.5 w-full px-4 py-3 border border-border rounded-xl bg-background">
 									<Typography as="span" textTransform="capitalize">

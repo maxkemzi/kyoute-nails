@@ -45,14 +45,14 @@ const FeaturedProducts = ({products}: Props) => {
 	return (
 		<div className="relative">
 			{/* Grid */}
-			<div className="flex items-center gap-7 max-md:hidden">
+			<div className="flex items-center gap-7 max-md:hidden max-lg:gap-4">
 				{products.map(p => {
 					const {id, handle, title} = p;
 					const image = p.images.edges[0].node;
 					return (
 						<Link
 							key={id}
-							className="relative flex-1/3 h-125 rounded-3xl overflow-hidden"
+							className="relative flex-1/3 h-125 rounded-3xl overflow-hidden max-lg:h-112.5"
 							href={`/buy-press-on-nails/${handle}`}
 						>
 							<Image
@@ -73,11 +73,11 @@ const FeaturedProducts = ({products}: Props) => {
 						{loopedProducts.map((p, i) => (
 							<div
 								key={`${p.id}-${i}`}
-								className="flex-[0_0_calc(50%-6px)] ml-3 max-sm:flex-[0_0_100%]"
+								className="flex-[0_0_calc(50%-6px)] ml-3 max-xs:flex-[0_0_100%]"
 							>
 								<Link
 									href={`/buy-press-on-nails/${p.handle}`}
-									className="relative block h-125 rounded-3xl overflow-hidden"
+									className="relative block h-112.5 rounded-3xl overflow-hidden max-md:h-100"
 								>
 									<Image
 										className="object-cover"

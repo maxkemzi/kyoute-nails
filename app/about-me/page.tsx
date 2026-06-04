@@ -1,4 +1,5 @@
-import {Section, Typography} from '@/components/ui';
+import {DoubleLeafIcon} from '@/components/icons';
+import {ResponsiveIcon, Section, Typography} from '@/components/ui';
 import {LeafIcon} from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
 
@@ -48,31 +49,21 @@ const AboutMe = () => {
 						<div className="col-span-2 bg-surface h-62.5 rounded-3xl max-md:col-span-1" />
 						<div className="col-span-2 bg-surface h-62.5 rounded-3xl max-md:col-span-1" />
 
-						<div className="absolute -top-0.5 -right-1 -translate-y-1/2 translate-x-1/2 -scale-x-100 -rotate-70 -z-1 text-leaf grid">
-							<LeafIcon
-								className="col-start-1 row-start-1 -rotate-150"
-								weight="fill"
-								size={28}
-							/>
-							<LeafIcon
-								className="col-start-1 row-start-1 -rotate-200 translate-x-2.5 translate-y-2.5"
-								weight="fill"
-								size={28}
-							/>
-						</div>
+						<ResponsiveIcon
+							className="absolute -top-1 right-1 -translate-y-1/2 translate-x-1/2 -scale-x-100 -rotate-100 -z-1 text-leaf"
+							icon={DoubleLeafIcon}
+							size={40}
+							mdSize={36}
+							xsSize={32}
+						/>
 
-						<div className="absolute bottom-0.5 -left-1 translate-y-1/2 -translate-x-1/2 -z-1 text-leaf grid">
-							<LeafIcon
-								className="col-start-1 row-start-1 -rotate-150"
-								weight="fill"
-								size={28}
-							/>
-							<LeafIcon
-								className="col-start-1 row-start-1 -rotate-200 translate-x-2.5 translate-y-2.5"
-								weight="fill"
-								size={28}
-							/>
-						</div>
+						<ResponsiveIcon
+							className="absolute -bottom-1 left-1 translate-y-1/2 -translate-x-1/2 -z-1 text-leaf"
+							icon={DoubleLeafIcon}
+							size={40}
+							mdSize={36}
+							xsSize={32}
+						/>
 					</div>
 				</div>
 			</div>

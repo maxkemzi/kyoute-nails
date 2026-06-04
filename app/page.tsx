@@ -1,11 +1,10 @@
-import {Logo, ResponsiveIcon, Section, Typography} from '@/components/ui';
-import {Instagram} from 'react-feather';
-import {LeafIcon, FlowerIcon} from '@phosphor-icons/react/dist/ssr';
-import {sortMap} from '@/lib/shopify/sort';
-import {getProducts} from '@/lib/shopify/products';
-import Link from 'next/link';
-import Image from 'next/image';
 import {DoubleLeafIcon} from '@/components/icons';
+import {Logo, ResponsiveIcon, Section, Typography} from '@/components/ui';
+import {getProducts} from '@/lib/shopify/products';
+import {sortMap} from '@/lib/shopify/sort';
+import {LeafIcon} from '@phosphor-icons/react/dist/ssr';
+import Link from 'next/link';
+import {Instagram} from 'react-feather';
 import FeaturedProducts from './FeaturedProducts';
 
 const Home = async () => {
@@ -22,7 +21,7 @@ const Home = async () => {
 							<div className="w-4 h-4 bg-background rounded-full max-md:hidden" />
 
 							<ResponsiveIcon
-								className="absolute top-0.5 -translate-y-full -rotate-12 right-0 text-leaf -z-1 max-md:-right-14"
+								className="absolute top-0.5 right-0 -translate-y-full -rotate-12 text-leaf -z-1 max-md:-right-14"
 								icon={LeafIcon}
 								weight="fill"
 								size={28}
@@ -31,7 +30,7 @@ const Home = async () => {
 							/>
 
 							<ResponsiveIcon
-								className="absolute top-[calc(100%+5.5px)] -left-2 -translate-y-1/2 -z-1"
+								className="absolute -bottom-1 left-2.5 translate-y-1/2 -translate-x-1/2 -z-1"
 								icon={DoubleLeafIcon}
 								size={40}
 								mdSize={36}
@@ -67,7 +66,7 @@ const Home = async () => {
 							<div className="w-4 h-4 bg-background rounded-full max-md:hidden" />
 
 							<ResponsiveIcon
-								className="absolute top-0.5 -translate-y-full rotate-12 -scale-x-100 left-0 text-leaf -z-1 max-md:-left-14"
+								className="absolute top-0.5 left-0 -translate-y-full rotate-12 -scale-x-100 text-leaf -z-1 max-md:-left-14"
 								icon={LeafIcon}
 								weight="fill"
 								size={28}
@@ -76,7 +75,7 @@ const Home = async () => {
 							/>
 
 							<ResponsiveIcon
-								className="absolute top-[calc(100%+5.5px)] -right-2 -translate-y-1/2 -scale-x-100 -z-1"
+								className="absolute -bottom-1 right-2.5 translate-y-1/2 translate-x-1/2 -scale-x-100 -z-1"
 								icon={DoubleLeafIcon}
 								size={40}
 								mdSize={36}
@@ -88,7 +87,7 @@ const Home = async () => {
 			</div>
 			<Section>
 				<div className="container container-md">
-					<div className="mb-20 text-center">
+					<div className="mb-20 text-center max-lg:mb-16 max-md:mb-12">
 						<Typography
 							className="mb-2"
 							variant="h3"
