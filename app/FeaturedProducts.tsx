@@ -7,21 +7,38 @@ import Image from 'next/image';
 import {FlowerIcon} from '@phosphor-icons/react';
 import Autoplay from 'embla-carousel-autoplay';
 import {ResponsiveIcon} from '@/components/ui';
+import {useCallback, useEffect, useState} from 'react';
+import {twMerge} from 'tailwind-merge';
 
 interface Props {
 	products: ShopifyProduct[];
 }
 
 const FeaturedProducts = ({products}: Props) => {
-	const [emblaRef] = useEmblaCarousel(
+	const [selectedIndex, setSelectedIndex] = useState(0);
+	const [emblaRef, emblaApi] = useEmblaCarousel(
 		{loop: true, slidesToScroll: 1, align: 'start'},
 		[
 			Autoplay({
 				delay: 3000,
-				stopOnMouseEnter: true,
+				stopOnMouseEnter: false,
+				stopOnInteraction: false,
 			}),
 		],
 	);
+
+	const onSelect = useCallback(() => {
+		if (!emblaApi) return;
+		setSelectedIndex(emblaApi.selectedScrollSnap() % products.length);
+	}, [emblaApi, products.length]);
+
+	useEffect(() => {
+		if (!emblaApi) return;
+		emblaApi.on('select', onSelect);
+		return () => {
+			emblaApi.off('select', onSelect);
+		};
+	}, [emblaApi, onSelect]);
 
 	const loopedProducts = [...products, ...products, ...products];
 
@@ -50,25 +67,42 @@ const FeaturedProducts = ({products}: Props) => {
 			</div>
 
 			{/* Slider */}
-			<div className="hidden max-md:block overflow-hidden" ref={emblaRef}>
-				<div className="flex">
-					{loopedProducts.map((p, i) => (
-						<div
-							key={`${p.id}-${i}`}
-							className="flex-[0_0_calc(50%-6px)] ml-3 max-sm:flex-[0_0_100%]"
-						>
-							<Link
-								href={`/buy-press-on-nails/${p.handle}`}
-								className="relative block h-125 rounded-3xl overflow-hidden"
+			<div className="hidden max-md:block">
+				<div className="overflow-hidden rounded-3xl" ref={emblaRef}>
+					<div className="flex">
+						{loopedProducts.map((p, i) => (
+							<div
+								key={`${p.id}-${i}`}
+								className="flex-[0_0_calc(50%-6px)] ml-3 max-sm:flex-[0_0_100%]"
 							>
-								<Image
-									className="object-cover"
-									fill
-									src={p.images.edges[0].node.url}
-									alt={p.title}
-								/>
-							</Link>
-						</div>
+								<Link
+									href={`/buy-press-on-nails/${p.handle}`}
+									className="relative block h-125 rounded-3xl overflow-hidden"
+								>
+									<Image
+										className="object-cover"
+										fill
+										src={p.images.edges[0].node.url}
+										alt={p.title}
+									/>
+								</Link>
+							</div>
+						))}
+					</div>
+				</div>
+
+				<div className="flex justify-center gap-2 mt-3">
+					{products.map((_, index) => (
+						<button
+							key={index}
+							onClick={() => emblaApi?.scrollTo(index)}
+							className={twMerge(
+								'size-2 border rounded-full transition-colors',
+								selectedIndex === index
+									? 'bg-primary border-primary'
+									: 'bg-background border-border',
+							)}
+						/>
 					))}
 				</div>
 			</div>
@@ -83,7 +117,7 @@ const FeaturedProducts = ({products}: Props) => {
 			/>
 
 			<ResponsiveIcon
-				className="absolute bottom-1.5 right-0 translate-1/2 -z-1 text-secondary"
+				className="absolute bottom-1.5 right-0 translate-1/2 -z-1 text-secondary max-md:bottom-6.5"
 				icon={FlowerIcon}
 				weight="fill"
 				size={70}
