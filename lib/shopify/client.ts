@@ -1,4 +1,4 @@
-import {isRetryableError} from './helpers';
+import {isRetryableError, withRetry} from './helpers';
 
 const isBrowser = typeof window !== 'undefined';
 const SHOPIFY_TIMEOUT_MS = 5000;
@@ -27,44 +27,40 @@ export async function shopifyFetch<T>(
 		? '/api/shopify'
 		: `https://${domain}/api/2026-04/graphql.json`;
 
-	try {
-		const response = await fetch(url, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				...(!isBrowser && {'X-Shopify-Storefront-Access-Token': token}),
-			},
-			body: JSON.stringify({query, variables}),
-			signal: combinedSignal,
-		});
+	const response = await withRetry(
+		() =>
+			fetch(url, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					...(!isBrowser && {
+						'X-Shopify-Storefront-Access-Token': token,
+					}),
+				},
+				body: JSON.stringify({query, variables}),
+				signal: combinedSignal,
+			}),
+		retries,
+		combinedSignal,
+	);
 
-		if (!response.ok) {
-			throw new ShopifyError(`Shopify API error: ${response.status}`);
-		}
+	if (!response.ok) {
+		throw new ShopifyError(`Shopify API error: ${response.status}`);
+	}
 
-		const {data, errors}: {data: T; errors?: {message: string}[]} =
-			await response.json();
+	const {data, errors}: {data: T; errors?: {message: string}[]} =
+		await response.json();
 
-		if (errors?.length) {
-			const {message} = errors[0];
+	if (errors?.length) {
+		const {message} = errors[0];
 
-			if (retries > 0 && isRetryableError(new Error(message))) {
-				await new Promise(res => setTimeout(res, 300));
-				return shopifyFetch(query, variables, signal, retries - 1);
-			}
-
-			throw new ShopifyError(message);
-		}
-
-		return data;
-	} catch (e) {
-		if (e instanceof ShopifyError) throw e;
-
-		if (retries > 0 && isRetryableError(e) && !combinedSignal.aborted) {
+		if (retries > 0 && isRetryableError(new Error(message))) {
 			await new Promise(res => setTimeout(res, 300));
 			return shopifyFetch(query, variables, signal, retries - 1);
 		}
 
-		throw e;
+		throw new ShopifyError(message);
 	}
+
+	return data;
 }

@@ -1,6 +1,7 @@
 'use server';
 
 import {shopifyFetch} from './client';
+import {parseProductRating} from './helpers';
 import type {ShopifyProduct, ProductsResponse, ProductResponse} from './types';
 
 const PRODUCT_FIELDS = `
@@ -85,18 +86,6 @@ export const getProducts = async (
 	return {
 		products: data.products.edges.map(({node}) => node),
 		pageInfo: data.products.pageInfo,
-	};
-};
-
-const parseProductRating = (
-	metafields: ({key: string; value: string} | null)[],
-) => {
-	const ratingMeta = metafields.find(m => m?.key === 'rating');
-	const countMeta = metafields.find(m => m?.key === 'rating_count');
-
-	return {
-		value: ratingMeta ? parseFloat(JSON.parse(ratingMeta.value).value) : 0,
-		count: countMeta ? parseInt(countMeta.value) : 0,
 	};
 };
 
