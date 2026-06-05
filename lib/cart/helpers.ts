@@ -55,9 +55,7 @@ export const applyUpdateLine = (
 		},
 		totalQuantity: cart.lines.edges.reduce(
 			(sum, {node}) =>
-				node.id === lineId
-					? sum + (quantity - node.quantity)
-					: sum + node.quantity,
+				node.id === lineId ? sum + quantity : sum + node.quantity,
 			0,
 		),
 		lines: {
