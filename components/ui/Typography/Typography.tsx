@@ -1,13 +1,5 @@
-import {ElementType, ReactNode} from 'react';
-import {
-	Size,
-	Variant,
-	Weight,
-	Color,
-	LetterSpacing,
-	TextTransform,
-	Align,
-} from './types';
+import {ComponentPropsWithoutRef, ElementType} from 'react';
+import {twMerge} from 'tailwind-merge';
 import {
 	ALIGN_TO_CLASS_NAME_MAP,
 	COLOR_TO_CLASS_NAME_MAP,
@@ -18,11 +10,18 @@ import {
 	VARIANT_TO_STYLES_MAP,
 	WEIGHT_TO_CLASS_NAME_MAP,
 } from './constants';
-import {twMerge} from 'tailwind-merge';
+import {
+	Align,
+	Color,
+	LetterSpacing,
+	Size,
+	TextTransform,
+	Variant,
+	Weight,
+} from './types';
 
-interface Props {
-	className?: string;
-	as?: ElementType;
+interface CustomProps<T extends ElementType = 'p'> {
+	as?: T;
 	variant?: Variant;
 	size?: Size;
 	weight?: Weight;
@@ -33,31 +32,35 @@ interface Props {
 	truncate?: boolean;
 	noWrap?: boolean;
 	italic?: boolean;
-	children?: ReactNode;
 }
 
-const Typography = (props: Props) => {
-	const {
-		className,
-		as,
-		variant = 'body1',
-		align,
-		truncate,
-		noWrap,
-		italic,
-		children,
-	} = props;
+type Props<T extends ElementType = 'p'> = CustomProps<T> &
+	Omit<ComponentPropsWithoutRef<T>, keyof CustomProps<T>>;
 
+const Typography = <T extends ElementType = 'p'>({
+	className,
+	as,
+	variant = 'body1',
+	align,
+	truncate,
+	noWrap,
+	italic,
+	children,
+	size: sizeProp,
+	weight: weightProp,
+	color: colorProp,
+	letterSpacing: letterSpacingProp,
+	textTransform: textTransformProp,
+	...rest
+}: Props<T>) => {
 	const Element = as ?? VARIANT_TO_ELEMENT_MAP[variant];
-
 	const variantStyles = VARIANT_TO_STYLES_MAP[variant];
 
-	let {size, weight, color, letterSpacing, textTransform} = props;
-	size = size ?? variantStyles.size;
-	weight = weight ?? variantStyles.weight;
-	color = color ?? variantStyles.color;
-	letterSpacing = letterSpacing ?? variantStyles.letterSpacing;
-	textTransform = textTransform ?? variantStyles.textTransform;
+	const size = sizeProp ?? variantStyles.size;
+	const weight = weightProp ?? variantStyles.weight;
+	const color = colorProp ?? variantStyles.color;
+	const letterSpacing = letterSpacingProp ?? variantStyles.letterSpacing;
+	const textTransform = textTransformProp ?? variantStyles.textTransform;
 
 	return (
 		<Element
@@ -73,6 +76,7 @@ const Typography = (props: Props) => {
 				italic && 'italic',
 				className,
 			)}
+			{...rest}
 		>
 			{children}
 		</Element>
