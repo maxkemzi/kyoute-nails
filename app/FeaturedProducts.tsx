@@ -1,12 +1,12 @@
 'use client';
 
-import {ShopifyProduct} from '@/lib/shopify/types';
-import useEmblaCarousel from 'embla-carousel-react';
-import Link from 'next/link';
-import Image from 'next/image';
+import {ResponsiveIcon} from '@/components/ui';
+import {ShopifyProduct} from '@/lib/shopify';
 import {FlowerIcon} from '@phosphor-icons/react';
 import Autoplay from 'embla-carousel-autoplay';
-import {ResponsiveIcon} from '@/components/ui';
+import useEmblaCarousel from 'embla-carousel-react';
+import Image from 'next/image';
+import Link from 'next/link';
 import {useCallback, useEffect, useState} from 'react';
 import {twMerge} from 'tailwind-merge';
 

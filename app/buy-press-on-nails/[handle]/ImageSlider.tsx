@@ -1,8 +1,8 @@
 'use client';
 
 import {ArrowButton} from '@/components/ui';
-import {useLightbox} from '@/lib/lightboxContext';
-import {ShopifyImage} from '@/lib/shopify/types';
+import {useLightbox} from '@/lib/lightbox';
+import {ShopifyImage} from '@/lib/shopify';
 import useEmblaCarousel from 'embla-carousel-react';
 import Image from 'next/image';
 import {useCallback, useEffect, useState} from 'react';

@@ -1,0 +1,26 @@
+'use client';
+
+import {ShoppingBag as ShoppingBagIcon} from 'react-feather';
+import {Typography} from '@/components/ui';
+import {useCart} from '@/lib/cart';
+
+const ShoppingBag = () => {
+	const {cart, openCart, isInitializing} = useCart();
+	return (
+		<button className="relative" onClick={openCart}>
+			<ShoppingBagIcon size={24} strokeWidth={1} />
+			{isInitializing ? (
+				<div className="absolute left-1/2 top-1/2 w-4 h-4 bg-surface animate-pulse rounded-full" />
+			) : null}
+			{!isInitializing && cart ? (
+				<div className="absolute left-1/2 top-1/2 w-4 h-4 bg-primary flex items-center justify-center rounded-full">
+					<Typography size="xs" color="primaryForeground">
+						{cart?.totalQuantity}
+					</Typography>
+				</div>
+			) : null}
+		</button>
+	);
+};
+
+export default ShoppingBag;

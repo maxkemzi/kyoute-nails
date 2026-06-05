@@ -1,5 +1,5 @@
 import {ReactNode} from 'react';
-import {Typography} from '../Typography';
+import Typography from '../Typography/Typography';
 import {useDropdownContext} from './dropdownContext';
 import {twMerge} from 'tailwind-merge';
 

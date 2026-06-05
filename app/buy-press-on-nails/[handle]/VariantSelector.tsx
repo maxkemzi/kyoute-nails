@@ -1,8 +1,8 @@
 'use client';
 
-import {AddToCartButton} from '@/components';
+import {AddToCartButton} from '@/components/shop';
 import {Dropdown, DropdownItem, Typography} from '@/components/ui';
-import {ShopifyProductOption, ShopifyVariant} from '@/lib/shopify/types';
+import {ShopifyProductOption, ShopifyVariant} from '@/lib/shopify';
 import {useState} from 'react';
 import {ChevronDown} from 'react-feather';
 

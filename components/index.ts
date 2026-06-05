@@ -1,7 +1,1 @@
-export * from './Header';
-export * from './Footer';
-export * from './NailsCard';
-export * from './CartSidebar';
-export * from './AddToCartButton';
-export * from './ReviewCard';
-export * from './StarRating';
+export {default as Lightbox} from './Lightbox';

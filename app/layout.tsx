@@ -1,13 +1,13 @@
-import {CartSidebar, Footer, Header} from '@/components';
+import {CartSidebar, Footer, Header} from '@/components/layout';
 import i18nConfig from '@/i18n.config';
 import type {Metadata} from 'next';
 import {I18nProvider} from 'next-i18next/client';
 import {getResources, getT, initServerI18next} from 'next-i18next/server';
 import {Inter} from 'next/font/google';
 import './globals.css';
-import {CartProvider} from '@/lib/shopify/cartContext';
+import {CartProvider} from '@/lib/cart';
 import {Toaster} from 'sonner';
-import {LightboxProvider} from '@/lib/lightboxContext';
+import {LightboxProvider} from '@/lib/lightbox';
 
 initServerI18next(i18nConfig);
 

@@ -1,7 +1,6 @@
 import {DoubleLeafIcon} from '@/components/icons';
 import {Logo, ResponsiveIcon, Section, Typography} from '@/components/ui';
-import {getProducts} from '@/lib/shopify/products';
-import {sortMap} from '@/lib/shopify/sort';
+import {getProducts, sortMap} from '@/lib/shopify';
 import {LeafIcon} from '@phosphor-icons/react/dist/ssr';
 import Link from 'next/link';
 import {Instagram} from 'react-feather';

@@ -1,14 +1,16 @@
 'use client';
 
-import {ShopifyProduct} from '@/lib/shopify/types';
-import {useState} from 'react';
-import {NailsCard} from '@/components';
-import {getProducts} from '@/lib/shopify/products';
+import {ProductCard} from '@/components/shop';
 import {Button, ResponsiveIcon} from '@/components/ui';
-import {PRODUCTS_PER_PAGE} from '@/lib/shopify/constants';
+import {
+	getProducts,
+	PRODUCTS_PER_PAGE,
+	ShopifyProduct,
+	sortMap,
+} from '@/lib/shopify';
 import {FlowerIcon} from '@phosphor-icons/react/dist/ssr';
 import {useSearchParams} from 'next/navigation';
-import {sortMap} from '@/lib/shopify/sort';
+import {useState} from 'react';
 
 interface Props {
 	initialProducts: ShopifyProduct[];
@@ -50,7 +52,7 @@ const ProductGrid = ({
 		<>
 			<div className="relative grid grid-cols-3 gap-7 max-lg:grid-cols-2 max-sm:grid-cols-1">
 				{products.map(product => {
-					return <NailsCard key={product.id} product={product} />;
+					return <ProductCard key={product.id} product={product} />;
 				})}
 
 				<ResponsiveIcon

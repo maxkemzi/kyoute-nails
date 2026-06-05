@@ -1,6 +1,5 @@
 import {DoubleLeafIcon} from '@/components/icons';
 import {ResponsiveIcon, Section, Typography} from '@/components/ui';
-import {LeafIcon} from '@phosphor-icons/react/dist/ssr';
 import Image from 'next/image';
 
 const AboutMe = () => {

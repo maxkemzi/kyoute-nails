@@ -1,8 +1,7 @@
-import {ReviewCard, StarRating} from '@/components';
+import {ReviewCard, StarRating} from '@/components/shop';
 import {Section, Typography} from '@/components/ui';
-import {formatPrice} from '@/lib/shopify/helpers';
-import {getProductByHandle} from '@/lib/shopify/products';
-import {getProductReviews} from '@/lib/shopify/reviews';
+import {getProductReviews} from '@/lib/reviews';
+import {formatPrice, getProductByHandle} from '@/lib/shopify';
 import {notFound} from 'next/navigation';
 import ImageSlider from './ImageSlider';
 import VariantSelector from './VariantSelector';

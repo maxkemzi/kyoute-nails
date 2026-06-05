@@ -1,3 +1,1 @@
-import DoubleLeafIcon from './DoubleLeafIcon';
-
-export {DoubleLeafIcon};
+export {default as DoubleLeafIcon} from './DoubleLeafIcon';

@@ -1,9 +1,7 @@
 import {Section, Typography} from '@/components/ui';
-import {getProducts} from '@/lib/shopify/products';
+import {getProducts, PRODUCTS_PER_PAGE, sortMap} from '@/lib/shopify';
 import ProductGrid from './ProductGrid';
 import SortDropdown from './SortDropdown';
-import {PRODUCTS_PER_PAGE} from '@/lib/shopify/constants';
-import {sortMap} from '@/lib/shopify/sort';
 
 const BuyPressOnNails = async ({
 	searchParams,

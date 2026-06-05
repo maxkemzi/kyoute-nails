@@ -1,6 +1,6 @@
 'use server';
 
-import {ContactFormState, contactSchema} from '@/lib/schemas/contact';
+import {ContactFormState, contactSchema} from '@/lib/schemas';
 import z from 'zod';
 import nodemailer from 'nodemailer';
 
