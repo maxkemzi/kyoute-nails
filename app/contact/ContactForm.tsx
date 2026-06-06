@@ -2,7 +2,7 @@
 
 import {CheckboxField, FormField} from '@/components/form';
 import {Button} from '@/components/ui';
-import {sendContactEmail} from '@/lib/actions/contact';
+import {sendContactEmail} from '@/lib/actions';
 import {contactSchema} from '@/lib/schemas';
 import {toast} from '@/lib/toast';
 import {useActionState, useEffect, useState} from 'react';
