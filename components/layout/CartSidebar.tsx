@@ -77,6 +77,7 @@ const CartSidebar = () => {
 									const {product, price, title} = line.merchandise;
 									const image = product.images.edges[0]?.node;
 									const isTemp = line.id.startsWith(TEMP_LINE_PREFIX);
+									const maxQtyReached = line.quantity >= 99;
 
 									return (
 										<div key={line.id} className="flex gap-4">
@@ -154,6 +155,7 @@ const CartSidebar = () => {
 																</button>
 
 																<Typography
+																	className="w-[2ch] text-center tabular-nums"
 																	aria-live="polite"
 																	aria-atomic="true"
 																>
@@ -161,17 +163,27 @@ const CartSidebar = () => {
 																</Typography>
 
 																<button
-																	className="relative w-4 h-4 border border-primary rounded-md flex justify-center items-center"
+																	className={twJoin(
+																		'relative w-4 h-4 border rounded-md flex justify-center items-center',
+																		!maxQtyReached
+																			? 'border-primary'
+																			: 'border-disabled',
+																	)}
 																	onClick={() =>
 																		updateItem(
 																			line.id,
 																			line.quantity + 1,
 																		)
 																	}
+																	disabled={maxQtyReached}
 																	aria-label="Increase quantity"
 																>
 																	<Plus
-																		className="text-primary"
+																		className={
+																			!maxQtyReached
+																				? 'text-primary'
+																				: 'text-disabled'
+																		}
 																		size={12}
 																	/>
 																</button>
