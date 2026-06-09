@@ -44,7 +44,7 @@ const DropdownItem = ({
 					className={typographyClassName}
 					textTransform="capitalize"
 					color="inherit"
-					noWrap
+					truncate
 				>
 					{children}
 				</Typography>

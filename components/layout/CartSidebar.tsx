@@ -55,7 +55,7 @@ const CartSidebar = () => {
 					isOpen ? 'translate-x-0' : 'translate-x-full',
 				)}
 			>
-				<div className="flex justify-between gap-4 px-7 py-4 shadow-border">
+				<div className="flex justify-between gap-4 px-7 py-4 shadow-border max-md:px-4">
 					<Typography variant="h4">Shopping bag</Typography>
 					<button
 						onClick={closeCart}
@@ -66,7 +66,7 @@ const CartSidebar = () => {
 					</button>
 				</div>
 				<div className="flex-1 overflow-hidden">
-					<div className="h-full p-7 overflow-y-auto">
+					<div className="h-full p-7 overflow-y-auto max-md:p-4">
 						{lines.length === 0 ? (
 							<div className="flex flex-col items-center justify-center h-full gap-3 text-center">
 								<Typography>Your bag is empty.</Typography>
@@ -97,14 +97,15 @@ const CartSidebar = () => {
 												<div className="w-16 h-16 shrink-0 animate-pulse bg-surface rounded-lg" />
 											)}
 
-											<div className="flex-1 flex flex-col justify-between">
+											<div className="flex-1 flex flex-col justify-between overflow-hidden">
 												{!isTemp ? (
 													<>
 														<div className="flex justify-between gap-4 mb-2">
-															<div>
+															<div className="truncate">
 																<Typography
 																	className="mb-1"
 																	weight="medium"
+																	truncate
 																>
 																	{product.title}
 																</Typography>
@@ -114,6 +115,7 @@ const CartSidebar = () => {
 																		className="text-background-foreground/60"
 																		size="sm"
 																		textTransform="uppercase"
+																		truncate
 																	>
 																		{title}
 																	</Typography>
@@ -204,7 +206,7 @@ const CartSidebar = () => {
 				</div>
 
 				{lines.length > 0 && cart ? (
-					<div className="px-7 py-4 shadow-[0_-1px_3px_0_rgb(0,0,0,0.1),0_-1px_2px_-1px_rgb(0,0,0,0.1)]">
+					<div className="px-7 py-4 shadow-border max-md:px-4">
 						<div className="flex justify-between gap-4 mb-4">
 							<Typography weight="semibold">Subtotal:</Typography>
 							{isAddingNewItem ? (

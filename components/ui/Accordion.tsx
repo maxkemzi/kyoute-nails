@@ -22,7 +22,13 @@ const Accordion = ({title, children}: Props) => {
 				onClick={toggleIsOpen}
 				type="button"
 			>
-				<Typography color="inherit" variant="h4" as="span">
+				<Typography
+					as="span"
+					size="xl"
+					textTransform="uppercase"
+					weight="medium"
+					truncate
+				>
 					{title}
 				</Typography>
 				<ChevronDown

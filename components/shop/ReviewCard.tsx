@@ -25,8 +25,10 @@ const ReviewCard = ({review}: Props) => {
 	return (
 		<div className="flex flex-col gap-2 p-4 shadow-border rounded-2xl">
 			<div className="flex items-center justify-between gap-4">
-				<div className="flex items-center gap-2">
-					<Typography weight="medium">{reviewer.name}</Typography>
+				<div className="flex items-center gap-2 overflow-hidden">
+					<Typography weight="medium" truncate>
+						{reviewer.name}
+					</Typography>
 					{verified === 'buyer' ? (
 						<Typography
 							className="flex gap-1 items-center bg-success/15 px-2 py-0.5 rounded-xl"
@@ -52,7 +54,7 @@ const ReviewCard = ({review}: Props) => {
 			<Typography>{body}</Typography>
 
 			{pictures.length > 0 ? (
-				<div className="flex gap-2 flex-wrap">
+				<div className="flex gap-2 overflow-x-auto">
 					{pictures.map((pic, index) => (
 						<div
 							key={index}

@@ -15,7 +15,7 @@ const Guides = () => {
 						</Typography>
 						<ul className="flex flex-col gap-4">
 							<li>
-								<div className="flex gap-2 mb-4">
+								<div className="flex gap-2 flex-wrap mb-4">
 									<Typography
 										as="span"
 										textTransform="uppercase"
@@ -32,7 +32,7 @@ const Guides = () => {
 									</Typography>
 								</div>
 
-								<ol className="flex flex-col gap-2 list-decimal list-inside">
+								<ol className="flex flex-col gap-2 flex-wrap list-decimal list-inside">
 									<Typography as="li">
 										At the widest part of your nail bed, place the
 										flexible measuring tape from one edge to the

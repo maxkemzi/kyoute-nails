@@ -66,7 +66,7 @@ const Dropdown = ({
 					<ul
 						role="menu"
 						className={twMerge(
-							'absolute top-[calc(100%+6px)] right-0 min-w-full shadow-border bg-background rounded-xl py-1.5 z-10',
+							'absolute top-[calc(100%+6px)] right-0 min-w-full max-w-[320px] shadow-border bg-background rounded-xl py-1.5 z-10 max-xxs:max-w-[calc(100vw-32px)] ',
 							listClassName,
 						)}
 					>

@@ -83,6 +83,7 @@ const SIZE_TO_CLASS_NAME_MAP: Record<Size, string> = {
 	'6xl': 'text-6xl max-lg:text-5xl max-md:text-4xl max-xs:text-3xl',
 	'5xl': 'text-5xl max-lg:text-4xl max-md:text-3xl max-xs:text-2xl',
 	'2xl': 'text-2xl max-lg:text-xl max-md:text-lg max-xs:text-base',
+	xl: 'text-xl max-lg:text-lg max-md:text-base',
 	base: 'text-base max-xs:text-sm',
 	sm: 'text-sm max-xs:text-xs',
 	xs: 'text-xs',

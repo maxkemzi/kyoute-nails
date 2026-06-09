@@ -14,6 +14,7 @@
 	--color-dark-yellow: #f4b740;
 	--color-muted-gray: #c4b49a;
 
+	--breakpoint-xxs: 22.5rem;
 	--breakpoint-xs: 30rem;
 	--default-transition-duration: 300ms;
 	--shadow-border: 0 0 4px -1px rgba(114, 44, 0, 0.25);

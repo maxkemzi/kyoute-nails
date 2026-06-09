@@ -46,10 +46,10 @@ const SelectField = ({
 						id={id}
 						className="flex justify-between items-center gap-1.5 w-full px-4 py-3 border border-border rounded-xl bg-background"
 					>
-						<Typography as="span" textTransform="capitalize">
+						<Typography as="span" textTransform="capitalize" truncate>
 							{value}
 						</Typography>
-						<ChevronDown size={16} />
+						<ChevronDown className="shrink-0" size={16} />
 					</button>
 				}
 				value={value}

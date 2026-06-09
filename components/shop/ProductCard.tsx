@@ -27,10 +27,10 @@ const ProductCard = ({product}: Props) => {
 				/>
 			</div>
 			<div className="shrink-0 text-center bg-background py-3 px-4">
-				<Typography className="mb-1" weight="medium" variant="h4">
+				<Typography className="mb-1" weight="medium" variant="h4" truncate>
 					{title}
 				</Typography>
-				<Typography weight="semibold">
+				<Typography weight="semibold" truncate>
 					{formatPrice(amount, currencyCode)}
 				</Typography>
 			</div>

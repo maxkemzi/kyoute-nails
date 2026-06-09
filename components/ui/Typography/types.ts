@@ -10,7 +10,16 @@ type Variant =
 	| 'body3'
 	| 'inherit';
 
-type Size = '7xl' | '6xl' | '5xl' | '2xl' | 'base' | 'sm' | 'xs' | 'inherit';
+type Size =
+	| '7xl'
+	| '6xl'
+	| '5xl'
+	| '2xl'
+	| 'xl'
+	| 'base'
+	| 'sm'
+	| 'xs'
+	| 'inherit';
 
 type Weight = 'bold' | 'semibold' | 'medium' | 'normal' | 'inherit';
 

@@ -32,7 +32,7 @@ const PressOnNailsDetails = async ({
 					</div>
 
 					<div className="flex-1">
-						<div className="flex justify-between gap-2 mb-2">
+						<div className="flex justify-between flex-wrap gap-2 mb-2">
 							<Typography variant="h3">{title}</Typography>
 
 							{rating.count > 0 ? (
