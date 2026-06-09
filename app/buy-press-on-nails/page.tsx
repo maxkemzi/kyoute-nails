@@ -1,6 +1,8 @@
 import {Section, Typography} from '@/components/ui';
-import {getProducts, PRODUCTS_PER_PAGE, sortMap} from '@/lib/shopify';
-import ProductGrid from './ProductGrid';
+import {sortMap} from '@/lib/shopify';
+import {Suspense} from 'react';
+import ProductFeed from './ProductFeed';
+import ProductGridSkeleton from './ProductGridSkeleton';
 import SortDropdown from './SortDropdown';
 
 const BuyPressOnNails = async ({
@@ -10,15 +12,6 @@ const BuyPressOnNails = async ({
 }) => {
 	const sortParam = ((await searchParams).sort ??
 		'featured') as keyof typeof sortMap;
-
-	const {sortKey, reverse} = sortMap[sortParam];
-
-	const {products, pageInfo} = await getProducts(
-		PRODUCTS_PER_PAGE,
-		null,
-		sortKey,
-		reverse,
-	);
 
 	return (
 		<Section>
@@ -33,12 +26,9 @@ const BuyPressOnNails = async ({
 				<div className="flex justify-end mb-7">
 					<SortDropdown />
 				</div>
-				<ProductGrid
-					key={sortParam}
-					initialProducts={products}
-					initialCursor={pageInfo.endCursor}
-					initialHasNextPage={pageInfo.hasNextPage}
-				/>
+				<Suspense key={sortParam} fallback={<ProductGridSkeleton />}>
+					<ProductFeed sortParam={sortParam} />
+				</Suspense>
 			</div>
 		</Section>
 	);
