@@ -33,6 +33,7 @@ const PRODUCT_FIELDS = `
         id
         title
         availableForSale
+		  quantityAvailable
         price {
           amount
           currencyCode

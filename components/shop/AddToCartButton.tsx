@@ -18,7 +18,19 @@ const AddToCartButton = (props: Props) => {
 		buttonVariant = 'outline',
 	} = props;
 
-	const {addItem, loadingItems} = useCart();
+	const {addItem, loadingItems, cart} = useCart();
+
+	const line = cart?.lines.edges.find(
+		({node}) => node.merchandise.id === variantId,
+	)?.node;
+
+	let maxQty;
+	let maxQtyReached;
+
+	if (line) {
+		maxQty = Math.min(line?.merchandise.quantityAvailable, 99);
+		maxQtyReached = line.quantity >= maxQty;
+	}
 
 	if (!availableForSale) {
 		return (
@@ -32,10 +44,10 @@ const AddToCartButton = (props: Props) => {
 		<Button
 			className={className}
 			onClick={() => addItem(variantId)}
-			isDisabled={loadingItems.has(variantId)}
+			isDisabled={loadingItems.has(variantId) || maxQtyReached}
 			variant={buttonVariant}
 		>
-			Add to cart
+			{maxQtyReached ? 'Max quantity reached' : 'Add to cart'}
 		</Button>
 	);
 };

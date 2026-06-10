@@ -26,6 +26,7 @@ const CART_FIELDS = `
 				id
 				title
 				price { amount currencyCode }
+				quantityAvailable
 				product {
 				  title
 				  handle

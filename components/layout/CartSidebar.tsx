@@ -74,10 +74,12 @@ const CartSidebar = () => {
 						) : (
 							<div className="flex flex-col gap-4">
 								{lines.map(line => {
-									const {product, price, title} = line.merchandise;
+									const {product, price, title, quantityAvailable} =
+										line.merchandise;
 									const image = product.images.edges[0]?.node;
 									const isTemp = line.id.startsWith(TEMP_LINE_PREFIX);
-									const maxQtyReached = line.quantity >= 99;
+									const maxQty = Math.min(quantityAvailable, 99);
+									const maxQtyReached = line.quantity >= maxQty;
 
 									return (
 										<div key={line.id} className="flex gap-4">
@@ -139,17 +141,27 @@ const CartSidebar = () => {
 														<div className="flex justify-between gap-4">
 															<div className="flex gap-2.5 items-center">
 																<button
-																	className="relative w-4 h-4 border border-primary rounded-md flex justify-center items-center"
+																	className={twJoin(
+																		'relative w-4 h-4 border rounded-md flex justify-center items-center',
+																		line.quantity <= 1
+																			? 'border-disabled'
+																			: 'border-primary',
+																	)}
 																	onClick={() =>
 																		updateItem(
 																			line.id,
 																			line.quantity - 1,
 																		)
 																	}
+																	disabled={line.quantity <= 1}
 																	aria-label="Decrease quantity"
 																>
 																	<Minus
-																		className="text-primary"
+																		className={
+																			line.quantity <= 1
+																				? 'text-disabled'
+																				: 'text-primary'
+																		}
 																		size={12}
 																	/>
 																</button>
@@ -165,9 +177,9 @@ const CartSidebar = () => {
 																<button
 																	className={twJoin(
 																		'relative w-4 h-4 border rounded-md flex justify-center items-center',
-																		!maxQtyReached
-																			? 'border-primary'
-																			: 'border-disabled',
+																		maxQtyReached
+																			? 'border-disabled'
+																			: 'border-primary',
 																	)}
 																	onClick={() =>
 																		updateItem(
@@ -180,9 +192,9 @@ const CartSidebar = () => {
 																>
 																	<Plus
 																		className={
-																			!maxQtyReached
-																				? 'text-primary'
-																				: 'text-disabled'
+																			maxQtyReached
+																				? 'text-disabled'
+																				: 'text-primary'
 																		}
 																		size={12}
 																	/>

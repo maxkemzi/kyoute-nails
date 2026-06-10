@@ -17,6 +17,7 @@ export interface ShopifyVariant {
 	id: string;
 	title: string;
 	availableForSale: boolean;
+	quantityAvailable: number;
 	price: ShopifyPrice;
 	selectedOptions: {name: string; value: string}[];
 }
@@ -68,6 +69,7 @@ export interface CartLine {
 			handle: string;
 			images: {edges: {node: ShopifyImage}[]};
 		};
+		quantityAvailable: number;
 	};
 }
 
