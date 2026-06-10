@@ -56,7 +56,9 @@ const CartSidebar = () => {
 				)}
 			>
 				<div className="flex justify-between gap-4 px-7 py-4 shadow-border max-md:px-4">
-					<Typography variant="h4">Shopping bag</Typography>
+					<Typography variant="h4" as="h2">
+						Shopping bag
+					</Typography>
 					<button
 						onClick={closeCart}
 						type="button"

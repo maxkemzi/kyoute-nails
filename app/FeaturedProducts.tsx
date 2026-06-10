@@ -60,6 +60,8 @@ const FeaturedProducts = ({products}: Props) => {
 								fill
 								src={image.url}
 								alt={image.altText || title}
+								fetchPriority="high"
+								loading="eager"
 							/>
 						</Link>
 					);
@@ -84,6 +86,8 @@ const FeaturedProducts = ({products}: Props) => {
 										fill
 										src={p.images.edges[0].node.url}
 										alt={p.title}
+										fetchPriority={i === 0 ? 'high' : 'auto'}
+										loading={i === 0 ? 'eager' : 'lazy'}
 									/>
 								</Link>
 							</div>
@@ -91,18 +95,24 @@ const FeaturedProducts = ({products}: Props) => {
 					</div>
 				</div>
 
-				<div className="flex justify-center gap-2 mt-3">
+				<div className="flex justify-center mt-1 -mb-2">
 					{products.map((_, index) => (
 						<button
 							key={index}
 							onClick={() => emblaApi?.scrollTo(index)}
-							className={twMerge(
-								'size-2 border rounded-full transition-colors',
-								selectedIndex === index
-									? 'bg-primary border-primary'
-									: 'bg-background border-border',
-							)}
-						/>
+							className="flex items-center justify-center p-2"
+							aria-label={`Go to slide ${index + 1}`}
+							aria-current={selectedIndex === index ? 'true' : undefined}
+						>
+							<span
+								className={twMerge(
+									'size-2.5 rounded-full border transition-colors',
+									selectedIndex === index
+										? 'bg-primary border-primary'
+										: 'bg-background border-border',
+								)}
+							/>
+						</button>
 					))}
 				</div>
 			</div>

@@ -53,7 +53,8 @@ const ImageSlider = ({images, title}: Props) => {
 					fill
 					src={images[0].url}
 					alt={images[0].altText || title}
-					priority
+					fetchPriority="high"
+					loading="eager"
 				/>
 			</div>
 		);
@@ -82,7 +83,8 @@ const ImageSlider = ({images, title}: Props) => {
 									fill
 									src={image.url}
 									alt={image.altText || title}
-									priority={index === 0}
+									fetchPriority={index === 0 ? 'high' : 'auto'}
+									loading={index === 0 ? 'eager' : 'lazy'}
 								/>
 							</div>
 						))}
@@ -115,6 +117,8 @@ const ImageSlider = ({images, title}: Props) => {
 							src={image.url}
 							fill
 							alt={image.altText || title}
+							fetchPriority="high"
+							loading="eager"
 						/>
 					</button>
 				))}

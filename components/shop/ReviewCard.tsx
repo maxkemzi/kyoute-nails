@@ -66,6 +66,8 @@ const ReviewCard = ({review}: Props) => {
 								fill
 								className="object-cover"
 								alt={`Review photo ${index + 1}`}
+								fetchPriority="high"
+								loading="eager"
 							/>
 						</div>
 					))}

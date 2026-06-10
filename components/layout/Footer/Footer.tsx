@@ -6,7 +6,7 @@ const Footer = () => {
 	return (
 		<footer className="shadow-border py-12">
 			<div className="container container-lg">
-				<Link href="/">
+				<Link href="/" aria-label="Go to homepage">
 					<ResponsiveIcon
 						className="mb-6"
 						color="backgroundForeground"

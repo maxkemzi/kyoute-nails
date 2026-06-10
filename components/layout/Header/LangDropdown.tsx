@@ -11,12 +11,12 @@ const LangDropdown = () => {
 	return (
 		<Dropdown
 			trigger={
-				<button className="flex items-center gap-1">
+				<div className="flex items-center gap-1">
 					<Typography size="sm" textTransform="uppercase">
 						{i18n.language}
 					</Typography>
 					<ChevronDown size={16} />
-				</button>
+				</div>
 			}
 			value={i18n.language}
 		>

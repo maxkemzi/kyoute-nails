@@ -24,10 +24,18 @@ const ProductCard = ({product}: Props) => {
 					src={image.url}
 					fill
 					alt={image.altText || title}
+					fetchPriority="high"
+					loading="eager"
 				/>
 			</div>
 			<div className="shrink-0 text-center bg-background py-3 px-4">
-				<Typography className="mb-1" weight="medium" variant="h4" truncate>
+				<Typography
+					className="mb-1"
+					weight="medium"
+					variant="h4"
+					as="h3"
+					truncate
+				>
 					{title}
 				</Typography>
 				<Typography weight="semibold" truncate>

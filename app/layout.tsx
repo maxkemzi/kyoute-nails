@@ -33,6 +33,9 @@ export default async function RootLayout({
 				lang={lng}
 				className={`${inter.variable} h-full antialiased scroll-smooth`}
 			>
+				<head>
+					<link rel="preconnect" href="https://cdn.shopify.com" />
+				</head>
 				<body className="flex flex-col bg-background text-background-foreground min-h-full">
 					<LightboxProvider>
 						<CartProvider>

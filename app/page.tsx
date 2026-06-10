@@ -38,7 +38,11 @@ const Home = async () => {
 						</div>
 						<div className="container container-sm max-md:px-2">
 							<div className="flex items-center justify-between">
-								<Link className="pt-3 pb-2" href="/">
+								<Link
+									className="pt-3 pb-2"
+									href="/"
+									aria-label="Go to homepage"
+								>
 									<ResponsiveIcon
 										icon={Logo}
 										size={286}
@@ -50,6 +54,7 @@ const Home = async () => {
 									href="https://www.instagram.com/kyoute_nailsriga"
 									target="_blank"
 									rel="noreferrer noopenner"
+									aria-label="Open Instagram page"
 								>
 									<ResponsiveIcon
 										className="text-primary"

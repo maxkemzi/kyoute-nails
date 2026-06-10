@@ -30,7 +30,11 @@ const Navbar = () => {
 
 	return (
 		<nav>
-			<button className="hidden max-md:block" onClick={open}>
+			<button
+				className="hidden max-md:block"
+				onClick={open}
+				aria-label="Open menu"
+			>
 				<Menu className="text-background-foreground" size={24} />
 			</button>
 			<div
@@ -50,7 +54,6 @@ const Navbar = () => {
 					<button
 						className="hidden max-md:inline-block"
 						onClick={close}
-						type="button"
 						aria-label="Close menu"
 					>
 						<X size={24} />

@@ -13,6 +13,8 @@ const AboutMe = () => {
 						height={309}
 						src="/portrait.jpg"
 						alt="portrait"
+						fetchPriority="high"
+						loading="eager"
 					/>
 					<div>
 						<Typography className="mb-4" variant="h2">

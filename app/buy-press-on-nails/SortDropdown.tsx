@@ -34,12 +34,12 @@ const SortDropdown = ({className}: Props) => {
 				<Typography>Sort by:</Typography>
 				<Dropdown
 					trigger={
-						<button className="flex justify-between w-full items-center gap-1.5">
+						<div className="flex justify-between w-full items-center gap-1.5">
 							<Typography as="span" textTransform="capitalize">
 								{labels[sort]}
 							</Typography>
 							<ChevronDown size={16} />
-						</button>
+						</div>
 					}
 					value={sort}
 				>

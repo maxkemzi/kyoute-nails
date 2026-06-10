@@ -42,7 +42,7 @@ const SelectField = ({
 			<Dropdown
 				className={className}
 				trigger={
-					<button
+					<div
 						id={id}
 						className="flex justify-between items-center gap-1.5 w-full px-4 py-3 border border-border rounded-xl bg-background"
 					>
@@ -50,7 +50,7 @@ const SelectField = ({
 							{value}
 						</Typography>
 						<ChevronDown className="shrink-0" size={16} />
-					</button>
+					</div>
 				}
 				value={value}
 			>

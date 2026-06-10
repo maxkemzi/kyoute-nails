@@ -84,7 +84,10 @@ const Lightbox = ({images, initialIndex = 0, isOpen, onClose}: Props) => {
 									fill
 									src={image.url}
 									alt={image.altText ?? `Image ${index + 1}`}
-									priority={index === 0}
+									fetchPriority={
+										index === initialIndex ? 'high' : 'auto'
+									}
+									loading={index === initialIndex ? 'eager' : 'lazy'}
 								/>
 							</div>
 						))}

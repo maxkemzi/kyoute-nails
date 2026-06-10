@@ -78,6 +78,7 @@ export const applyAddTempLine = (
 			id: variantId,
 			title: 'Loading...',
 			price: {amount: '0', currencyCode: 'EUR'},
+			quantityAvailable: 99,
 			product: {
 				title: 'Loading...',
 				handle: '',
