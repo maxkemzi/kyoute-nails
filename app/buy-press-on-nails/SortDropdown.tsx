@@ -23,7 +23,12 @@ const SortDropdown = ({className}: Props) => {
 
 	const handleSelect = (value: string) => {
 		const params = new URLSearchParams(searchParams.toString());
-		params.set('sort', value);
+
+		if (value === 'featured') {
+			params.delete('sort');
+		} else {
+			params.set('sort', value);
+		}
 
 		router.push(`?${params.toString()}`);
 	};
