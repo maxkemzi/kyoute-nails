@@ -1,11 +1,10 @@
 import {ResponsiveIcon} from '@/components/ui';
-import {PRODUCTS_PER_PAGE} from '@/lib/shopify';
 import {FlowerIcon} from '@phosphor-icons/react/ssr';
 
 const ProductGridSkeleton = () => {
 	return (
 		<div className="relative grid grid-cols-3 gap-7 max-lg:grid-cols-2 max-sm:grid-cols-1">
-			{Array.from({length: PRODUCTS_PER_PAGE}).map((_, i) => (
+			{Array.from({length: 3}).map((_, i) => (
 				<div
 					key={i}
 					className="h-125 rounded-3xl shadow-border bg-surface animate-pulse max-lg:h-112.5 max-md:h-100"
