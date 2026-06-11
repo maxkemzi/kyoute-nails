@@ -1,3 +1,5 @@
+import {unstable_cache} from 'next/cache';
+
 export interface JudgeMeReview {
 	id: number;
 	title: string;
@@ -34,17 +36,19 @@ const getJudgeMeProductId = async (handle: string): Promise<number | null> => {
 	return data.product?.id ?? null;
 };
 
-export const getProductReviews = async (
-	handle: string,
-): Promise<JudgeMeResponse> => {
-	const id = await getJudgeMeProductId(handle);
+export const getProductReviews = unstable_cache(
+	async (handle: string): Promise<JudgeMeResponse> => {
+		const id = await getJudgeMeProductId(handle);
 
-	const response = await fetch(
-		`https://api.judge.me/api/v1/reviews?shop_domain=${process.env.SHOPIFY_STORE_DOMAIN}&product_id=${id}&per_page=10`,
-		{headers: {'X-Api-Token': API_TOKEN}, next: {revalidate: 3600}},
-	);
+		const response = await fetch(
+			`https://api.judge.me/api/v1/reviews?shop_domain=${process.env.SHOPIFY_STORE_DOMAIN}&product_id=${id}&per_page=10`,
+			{headers: {'X-Api-Token': API_TOKEN}, next: {revalidate: 3600}},
+		);
 
-	if (!response.ok) throw new Error('Failed to fetch reviews');
+		if (!response.ok) throw new Error('Failed to fetch reviews');
 
-	return response.json();
-};
+		return response.json();
+	},
+	['product-reviews'],
+	{revalidate: 3600, tags: ['reviews']},
+);
