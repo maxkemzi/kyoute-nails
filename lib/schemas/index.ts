@@ -1,17 +1,17 @@
 import z from 'zod';
 
 export const contactSchema = z.object({
-	email: z.string().min(1, 'Email is required').email('Invalid email address'),
-	name: z.string().min(1, 'Name is required').max(100),
+	email: z.string().min(1, 'email.required').email('email.invalid'),
+	name: z.string().min(1, 'name.required').max(100, 'name.tooLong'),
 	message: z
 		.string()
-		.min(1, 'Message is required')
-		.min(10, 'Message is too short')
-		.max(1000),
-	privacy: z.literal('on', 'You must agree to the privacy policy'),
+		.min(1, 'message.required')
+		.min(10, 'message.tooShort')
+		.max(1000, 'message.tooLong'),
+	privacy: z.literal('on', 'privacy.mustAgree'),
 });
 
-type ContactFormData = z.infer<typeof contactSchema>;
+export type ContactFormData = z.infer<typeof contactSchema>;
 
 export type ContactFormState = {
 	success?: boolean;

@@ -125,26 +125,37 @@
 		"title": "Contact",
 		"subtitleStart": "You can contact me via the form below or write me a DM on",
 		"subtitleInstagram": "my instagram",
-		"fields": {
-			"email": {
-				"label": "Email",
-				"placeholder": "Your email address"
+		"form": {
+			"fields": {
+				"email": {
+					"label": "Email",
+					"placeholder": "Your email address",
+					"required": "Email is required",
+					"invalid": "Invalid email address"
+				},
+				"name": {
+					"label": "Name",
+					"placeholder": "Your name",
+					"required": "Name is required",
+					"tooLong": "Name is too long (maximum 100 characters)"
+				},
+				"message": {
+					"label": "Message",
+					"placeholder": "Your message",
+					"required": "Message is required",
+					"tooShort": "Message is too short (minimum 10 characters)",
+					"tooLong": "Message is too long (maximum 1000 characters)"
+				},
+				"privacy": {
+					"label": "I agree that my data will be processed in accordance with the privacy policy.",
+					"checkboxLabel": "Yes",
+					"mustAgree": "You must agree to the privacy policy"
+				}
 			},
-			"name": {
-				"label": "Name",
-				"placeholder": "Your name"
-			},
-			"message": {
-				"label": "Message",
-				"placeholder": "Your message"
-			},
-			"privacyPolicy": {
-				"labelStart": "I agree that my data will be processed in accordance with the",
-				"labelLink": "privacy policy",
-				"labelEnd": "."
-			}
-		},
-		"send": "Send"
+			"error": "Failed to send message. Please try again",
+			"success": "Message sent successfully",
+			"send": "Send"
+		}
 	},
 	"Lightbox": {
 		"openGallery": "Open image gallery",

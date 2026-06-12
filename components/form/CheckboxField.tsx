@@ -6,12 +6,14 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 	label: string;
 	error?: string;
 	wrapperClassName?: string;
+	checkboxLabel?: string;
 }
 
 const CheckboxField = ({
 	label,
 	error,
 	wrapperClassName,
+	checkboxLabel,
 	...inputProps
 }: Props) => {
 	return (
@@ -27,7 +29,9 @@ const CheckboxField = ({
 				</Typography>
 				<div className="flex gap-2 items-center">
 					<Checkbox {...inputProps} />
-					<Typography as="span">Yes</Typography>
+					{checkboxLabel ? (
+						<Typography as="span">{checkboxLabel}</Typography>
+					) : null}
 				</div>
 			</div>
 			{error ? (

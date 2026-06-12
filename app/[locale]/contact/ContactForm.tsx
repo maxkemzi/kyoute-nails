@@ -3,11 +3,13 @@
 import {CheckboxField, FormField} from '@/components/form';
 import {Button} from '@/components/ui';
 import {sendContactEmail} from '@/lib/actions';
-import {contactSchema} from '@/lib/schemas';
+import {ContactFormData, contactSchema} from '@/lib/schemas';
 import {toast} from '@/lib/toast';
+import {useTranslations} from 'next-intl';
 import {useActionState, useEffect, useState} from 'react';
 
 const ContactForm = () => {
+	const t = useTranslations('Contact.form');
 	const [formState, action, isPending] = useActionState(
 		sendContactEmail,
 		null,
@@ -16,18 +18,15 @@ const ContactForm = () => {
 
 	useEffect(() => {
 		if (formState?.error) {
-			toast.error('Failed to send email. Please try again');
+			toast.error(t('error'));
 		}
 		if (formState?.success) {
-			toast.success('Message sent successfully');
+			toast.success(t('success'));
 		}
-	}, [formState?.error, formState?.success]);
+	}, [formState?.error, formState?.success, t]);
 
-	const validateField = (name: string, value: string) => {
-		const result =
-			contactSchema.shape[
-				name as keyof typeof contactSchema.shape
-			].safeParse(value);
+	const validateField = (name: keyof ContactFormData, value: string) => {
+		const result = contactSchema.shape[name].safeParse(value);
 		setClientErrors(prev => ({
 			...prev,
 			[name]: result.success ? '' : result.error.issues[0].message,
@@ -48,41 +47,49 @@ const ContactForm = () => {
 			clientErrors?.privacy ?? formState?.errors?.privacy?.errors[0] ?? '',
 	};
 
+	const translatedErrors = {
+		email: errors.email ? t(`fields.${errors.email}`) : undefined,
+		name: errors.name ? t(`fields.${errors.name}`) : undefined,
+		message: errors.message ? t(`fields.${errors.message}`) : undefined,
+		privacy: errors.privacy ? t(`fields.${errors.privacy}`) : undefined,
+	};
+
 	return (
 		<form className="flex flex-col" action={formAction}>
 			<div className="flex flex-col gap-6 mb-7">
 				<FormField
-					label="Email"
-					error={errors.email}
+					label={t('fields.email.label')}
+					error={translatedErrors.email}
 					name="email"
 					defaultValue={formState?.values?.email}
 					onBlur={e => validateField('email', e.target.value)}
-					placeholder="Your email address"
+					placeholder={t('fields.email.placeholder')}
 				/>
 
 				<FormField
-					label="Name"
-					error={errors.name}
+					label={t('fields.name.label')}
+					error={translatedErrors.name}
 					name="name"
 					defaultValue={formState?.values?.name}
 					onBlur={e => validateField('name', e.target.value)}
-					placeholder="Your name"
+					placeholder={t('fields.name.placeholder')}
 				/>
 
 				<FormField
-					label="Message"
-					error={errors.message}
+					label={t('fields.message.label')}
+					error={translatedErrors.message}
 					name="message"
 					defaultValue={formState?.values?.message}
 					onBlur={e => validateField('message', e.target.value)}
-					placeholder="Your message"
+					placeholder={t('fields.message.placeholder')}
 				/>
 			</div>
 
 			<CheckboxField
 				wrapperClassName="mb-7"
-				label="I agree that my data will be processed in accordance with the privacy policy."
-				error={errors.privacy}
+				label={t('fields.privacy.label')}
+				checkboxLabel={t('fields.privacy.checkboxLabel')}
+				error={translatedErrors.privacy}
 				name="privacy"
 				defaultChecked={formState?.values?.privacy === 'on'}
 				onChange={e =>
@@ -95,7 +102,7 @@ const ContactForm = () => {
 				isSubmit
 				isDisabled={isPending}
 			>
-				Send
+				{t('send')}
 			</Button>
 		</form>
 	);
