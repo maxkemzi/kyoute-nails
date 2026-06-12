@@ -9,6 +9,7 @@ import {
 	sortMap,
 } from '@/lib/shopify';
 import {FlowerIcon} from '@phosphor-icons/react/dist/ssr';
+import {useTranslations} from 'next-intl';
 import {useSearchParams} from 'next/navigation';
 import {useState} from 'react';
 
@@ -23,6 +24,8 @@ const ProductGrid = ({
 	initialCursor,
 	initialHasNextPage,
 }: Props) => {
+	const t = useTranslations('BuyPressOnNails');
+	const tCommon = useTranslations('common');
 	const searchParams = useSearchParams();
 	const sortParam = (searchParams.get('sort') ??
 		'featured') as keyof typeof sortMap;
@@ -81,7 +84,7 @@ const ProductGrid = ({
 						onClick={handleLoadMore}
 						isDisabled={isLoading}
 					>
-						{isLoading ? 'Loading...' : 'Load more'}
+						{isLoading ? tCommon('loading') : t('loadMore')}
 					</Button>
 				</div>
 			) : null}

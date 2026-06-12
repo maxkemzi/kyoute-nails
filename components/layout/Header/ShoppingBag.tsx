@@ -1,13 +1,20 @@
 'use client';
 
-import {ShoppingBag as ShoppingBagIcon} from 'react-feather';
 import {Typography} from '@/components/ui';
 import {useCart} from '@/lib/cart';
+import {useTranslations} from 'next-intl';
+import {ShoppingBag as ShoppingBagIcon} from 'react-feather';
 
 const ShoppingBag = () => {
+	const t = useTranslations('CartSidebar');
 	const {cart, openCart, isInitializing} = useCart();
+
 	return (
-		<button className="relative" onClick={openCart} aria-label="Open cart">
+		<button
+			className="relative cursor-pointer"
+			onClick={openCart}
+			aria-label={t('openCart')}
+		>
 			<ShoppingBagIcon size={24} strokeWidth={1} />
 			{isInitializing ? (
 				<div className="absolute left-1/2 top-1/2 w-4 h-4 bg-surface animate-pulse rounded-full" />

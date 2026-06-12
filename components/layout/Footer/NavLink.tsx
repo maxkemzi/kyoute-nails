@@ -1,5 +1,6 @@
+import {NavigationLink} from '@/components';
 import {Typography} from '@/components/ui';
-import Link, {LinkProps} from 'next/link';
+import {LinkProps} from 'next/link';
 import {ReactNode} from 'react';
 
 interface Props {
@@ -9,11 +10,11 @@ interface Props {
 
 const NavLink = ({children, href}: Props) => {
 	return (
-		<Link href={href}>
+		<NavigationLink href={href}>
 			<Typography color="inherit" textTransform="uppercase" as="span">
 				{children}
 			</Typography>
-		</Link>
+		</NavigationLink>
 	);
 };
 

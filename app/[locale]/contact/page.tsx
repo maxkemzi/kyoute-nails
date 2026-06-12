@@ -1,29 +1,30 @@
-'use client';
-
 import {Section, Typography} from '@/components/ui';
 import ContactForm from './ContactForm';
+import {getTranslations} from 'next-intl/server';
 
-const Contact = () => {
+const Contact = async () => {
+	const t = await getTranslations('Contact');
+
 	return (
 		<Section>
 			<div className="container container-xs">
 				<div className="max-w-143.75 w-full mx-auto">
 					<Typography className="mb-4 text-center" variant="h2">
-						Contact
+						{t('title')}
 					</Typography>
 					<Typography
 						className="mb-9 text-center"
 						size="2xl"
 						weight="medium"
 					>
-						You can contact me via the form below or write me a DM on{' '}
+						{t('subtitleStart')}{' '}
 						<a
 							className="pb-0.5 border-b italic text-nowrap"
 							href="https://www.instagram.com/kyoute_nailsriga"
 							target="_blank"
 							rel="noreferrer noopenner"
 						>
-							My Instagram
+							{t('subtitleInstagram')}
 						</a>
 						.
 					</Typography>

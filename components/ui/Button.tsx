@@ -24,11 +24,11 @@ const Button = (props: Props) => {
 	return (
 		<button
 			className={twMerge(
-				'py-3.5 px-7 rounded-xl',
+				'py-3.5 px-7 rounded-xl cursor-pointer',
 				variant === 'solid' && 'bg-primary text-primary-foreground',
 				variant === 'outline' &&
 					'bg-background border border-border transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground',
-				isDisabled && 'bg-disabled text-disabled-foreground',
+				isDisabled && 'bg-disabled text-disabled-foreground cursor-default',
 				className,
 			)}
 			type={isSubmit ? 'submit' : 'button'}

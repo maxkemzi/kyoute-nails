@@ -1,36 +1,35 @@
-import {Logo, ResponsiveIcon} from '@/components/ui';
+import {LogoLink} from '@/components';
+import {getTranslations} from 'next-intl/server';
 import NavLink from './NavLink';
-import Link from 'next/link';
 
-const Footer = () => {
+const Footer = async () => {
+	const t = await getTranslations('Footer');
+
 	return (
 		<footer className="shadow-border py-12">
 			<div className="container container-lg">
-				<Link href="/" aria-label="Go to homepage">
-					<ResponsiveIcon
-						className="mb-6"
-						color="backgroundForeground"
-						icon={Logo}
-						size={286}
-						mdSize={200}
-					/>
-				</Link>
+				<LogoLink
+					className="inline-block mb-6"
+					logoColor="backgroundForeground"
+				/>
 				<nav>
 					<ul className="flex flex-col gap-3.5">
 						<li>
-							<NavLink href="/contact">Contact</NavLink>
+							<NavLink href="/contact">{t('navbar.contact')}</NavLink>
 						</li>
 						<li>
-							<NavLink href="/">Shipping</NavLink>
+							<NavLink href="/">{t('navbar.shipping')}</NavLink>
 						</li>
 						<li>
-							<NavLink href="/">Refund</NavLink>
+							<NavLink href="/">{t('navbar.refund')}</NavLink>
 						</li>
 						<li>
-							<NavLink href="/">Terms and conditions</NavLink>
+							<NavLink href="/">
+								{t('navbar.termsAndConditions')}
+							</NavLink>
 						</li>
 						<li>
-							<NavLink href="/">Privacy policy</NavLink>
+							<NavLink href="/">{t('navbar.privacyPolicy')}</NavLink>
 						</li>
 					</ul>
 				</nav>

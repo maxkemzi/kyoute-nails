@@ -1,13 +1,13 @@
 'use client';
 
-import {useTranslation} from 'react-i18next';
-import NavLink from './NavLink';
 import {useEffect, useState} from 'react';
-import {twJoin, twMerge} from 'tailwind-merge';
 import {Menu, X} from 'react-feather';
+import {twJoin, twMerge} from 'tailwind-merge';
+import NavLink from './NavLink';
+import {useTranslations} from 'next-intl';
 
 const Navbar = () => {
-	const {t} = useTranslation('header');
+	const t = useTranslations('Header.navbar');
 	const [isOpen, setIsOpen] = useState(false);
 
 	const open = () => setIsOpen(true);
@@ -31,9 +31,9 @@ const Navbar = () => {
 	return (
 		<nav>
 			<button
-				className="hidden max-md:block"
+				className="hidden max-md:block cursor-pointer"
 				onClick={open}
-				aria-label="Open menu"
+				aria-label={t('openMenu')}
 			>
 				<Menu className="text-background-foreground" size={24} />
 			</button>
@@ -52,31 +52,31 @@ const Navbar = () => {
 			>
 				<li>
 					<button
-						className="hidden max-md:inline-block"
+						className="hidden max-md:inline-block cursor-pointer"
 						onClick={close}
-						aria-label="Close menu"
+						aria-label={t('closeMenu')}
 					>
 						<X size={24} />
 					</button>
 				</li>
 				<li>
 					<NavLink onClick={close} href="/">
-						{t('navbar.home')}
+						{t('links.home')}
 					</NavLink>
 				</li>
 				<li>
-					<NavLink onClick={close} href="/buy-press-on-nails">
-						{t('navbar.buy-press-on-nails')}
+					<NavLink onClick={close} href="/buy-press-on-nailss">
+						{t('links.buyPressOnNails')}
 					</NavLink>
 				</li>
 				<li>
 					<NavLink onClick={close} href="/guides">
-						{t('navbar.guides')}
+						{t('links.guides')}
 					</NavLink>
 				</li>
 				<li>
 					<NavLink onClick={close} href="/about-me">
-						{t('navbar.about-me')}
+						{t('links.aboutMe')}
 					</NavLink>
 				</li>
 			</ul>

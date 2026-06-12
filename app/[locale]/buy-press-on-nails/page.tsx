@@ -1,5 +1,6 @@
 import {Section, Typography} from '@/components/ui';
 import {sortMap} from '@/lib/shopify';
+import {getTranslations} from 'next-intl/server';
 import {Suspense} from 'react';
 import ProductFeed from './ProductFeed';
 import ProductGridSkeleton from './ProductGridSkeleton';
@@ -10,6 +11,8 @@ const BuyPressOnNails = async ({
 }: {
 	searchParams: Promise<{sort?: string}>;
 }) => {
+	const t = await getTranslations('BuyPressOnNails');
+
 	const sortParam = ((await searchParams).sort ??
 		'featured') as keyof typeof sortMap;
 
@@ -21,7 +24,7 @@ const BuyPressOnNails = async ({
 					variant="h2"
 					textTransform="capitalize"
 				>
-					Buy Press-On Nails
+					{t('title')}
 				</Typography>
 				<div className="flex justify-end mb-7">
 					<SortDropdown />

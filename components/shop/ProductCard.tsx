@@ -1,6 +1,6 @@
 import {formatPrice, ShopifyProduct} from '@/lib/shopify';
 import Image from 'next/image';
-import Link from 'next/link';
+import NavigationLink from '../NavigationLink';
 import {Typography} from '../ui';
 
 interface Props {
@@ -14,7 +14,7 @@ const ProductCard = ({product}: Props) => {
 	const {amount, currencyCode} = priceRange.minVariantPrice;
 
 	return (
-		<Link
+		<NavigationLink
 			className="relative group flex flex-col h-125 shadow-border rounded-3xl overflow-hidden max-lg:h-112.5 max-md:h-100"
 			href={`/buy-press-on-nails/${handle}`}
 		>
@@ -42,7 +42,7 @@ const ProductCard = ({product}: Props) => {
 					{formatPrice(amount, currencyCode)}
 				</Typography>
 			</div>
-		</Link>
+		</NavigationLink>
 	);
 };
 

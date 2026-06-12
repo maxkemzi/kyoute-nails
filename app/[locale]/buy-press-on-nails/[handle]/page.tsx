@@ -5,6 +5,7 @@ import {formatPrice, getProductByHandle} from '@/lib/shopify';
 import {notFound} from 'next/navigation';
 import ImageSlider from './ImageSlider';
 import VariantSelector from './VariantSelector';
+import {getTranslations} from 'next-intl/server';
 
 const PressOnNailsDetails = async ({
 	params,
@@ -16,6 +17,7 @@ const PressOnNailsDetails = async ({
 	const product = await getProductByHandle(handle);
 	if (!product) notFound();
 
+	const t = await getTranslations('PressOnNailsDetails');
 	const {reviews} = await getProductReviews(handle);
 
 	const {title, description, rating} = product;
@@ -57,7 +59,7 @@ const PressOnNailsDetails = async ({
 									weight="normal"
 									variant="h4"
 								>
-									Description
+									{t('description')}
 								</Typography>
 								<Typography>{description}</Typography>
 							</div>
@@ -65,7 +67,7 @@ const PressOnNailsDetails = async ({
 							<div id="reviews">
 								<div className="flex items-center gap-4">
 									<Typography weight="normal" variant="h4">
-										Reviews
+										{t('reviews.title')}
 									</Typography>
 									{rating.count > 0 ? (
 										<StarRating rating={rating} />
@@ -74,7 +76,7 @@ const PressOnNailsDetails = async ({
 
 								{reviews.length === 0 ? (
 									<Typography className="mt-2">
-										No reviews yet.
+										{t('reviews.noReviews')}
 									</Typography>
 								) : (
 									<div className="flex flex-col gap-4 mt-4">

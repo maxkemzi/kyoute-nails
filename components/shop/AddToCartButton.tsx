@@ -1,6 +1,7 @@
 'use client';
 
 import {useCart} from '@/lib/cart/cartContext';
+import {useTranslations} from 'next-intl';
 import {Button, ButtonProps} from '../ui';
 
 interface Props {
@@ -18,6 +19,7 @@ const AddToCartButton = (props: Props) => {
 		buttonVariant = 'outline',
 	} = props;
 
+	const t = useTranslations('AddToCartButton');
 	const {addItem, loadingItems, cart} = useCart();
 
 	const line = cart?.lines.edges.find(
@@ -35,7 +37,7 @@ const AddToCartButton = (props: Props) => {
 	if (!availableForSale) {
 		return (
 			<Button className={className} isDisabled>
-				Out of stock
+				{t('outOfStock')}
 			</Button>
 		);
 	}
@@ -47,7 +49,7 @@ const AddToCartButton = (props: Props) => {
 			isDisabled={loadingItems.has(variantId) || maxQtyReached}
 			variant={buttonVariant}
 		>
-			{maxQtyReached ? 'Max quantity reached' : 'Add to cart'}
+			{maxQtyReached ? t('maxQuantityReached') : t('addToCart')}
 		</Button>
 	);
 };

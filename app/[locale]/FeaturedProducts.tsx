@@ -1,12 +1,13 @@
 'use client';
 
+import {NavigationLink} from '@/components';
 import {ResponsiveIcon} from '@/components/ui';
 import {ShopifyProduct} from '@/lib/shopify';
 import {FlowerIcon} from '@phosphor-icons/react';
 import Autoplay from 'embla-carousel-autoplay';
 import useEmblaCarousel from 'embla-carousel-react';
+import {useTranslations} from 'next-intl';
 import Image from 'next/image';
-import Link from 'next/link';
 import {useCallback, useEffect, useState} from 'react';
 import {twMerge} from 'tailwind-merge';
 
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const FeaturedProducts = ({products}: Props) => {
+	const t = useTranslations('imageSlider');
 	const [selectedIndex, setSelectedIndex] = useState(0);
 	const [emblaRef, emblaApi] = useEmblaCarousel(
 		{loop: true, slidesToScroll: 1, align: 'start'},
@@ -50,7 +52,7 @@ const FeaturedProducts = ({products}: Props) => {
 					const {id, handle, title} = p;
 					const image = p.images.edges[0].node;
 					return (
-						<Link
+						<NavigationLink
 							key={id}
 							className="relative flex-1/3 h-125 rounded-3xl overflow-hidden max-lg:h-112.5"
 							href={`/buy-press-on-nails/${handle}`}
@@ -63,7 +65,7 @@ const FeaturedProducts = ({products}: Props) => {
 								fetchPriority="high"
 								loading="eager"
 							/>
-						</Link>
+						</NavigationLink>
 					);
 				})}
 			</div>
@@ -77,7 +79,7 @@ const FeaturedProducts = ({products}: Props) => {
 								key={`${p.id}-${i}`}
 								className="flex-[0_0_calc(50%-6px)] ml-3 max-xs:flex-[0_0_100%]"
 							>
-								<Link
+								<NavigationLink
 									href={`/buy-press-on-nails/${p.handle}`}
 									className="relative block h-112.5 rounded-3xl overflow-hidden max-md:h-100"
 								>
@@ -89,7 +91,7 @@ const FeaturedProducts = ({products}: Props) => {
 										fetchPriority={i === 0 ? 'high' : 'auto'}
 										loading={i === 0 ? 'eager' : 'lazy'}
 									/>
-								</Link>
+								</NavigationLink>
 							</div>
 						))}
 					</div>
@@ -100,8 +102,8 @@ const FeaturedProducts = ({products}: Props) => {
 						<button
 							key={index}
 							onClick={() => emblaApi?.scrollTo(index)}
-							className="flex items-center justify-center p-2"
-							aria-label={`Go to slide ${index + 1}`}
+							className="flex items-center justify-center p-2 cursor-pointer"
+							aria-label={t('goToImage', {number: index + 1})}
 							aria-current={selectedIndex === index ? 'true' : undefined}
 						>
 							<span

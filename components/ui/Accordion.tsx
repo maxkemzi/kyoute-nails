@@ -18,7 +18,7 @@ const Accordion = ({title, children}: Props) => {
 	return (
 		<div className="shadow-border rounded-2xl">
 			<button
-				className="flex items-center justify-between p-4 gap-2 w-full text-left"
+				className="flex items-center justify-between p-4 gap-2 w-full text-left cursor-pointer"
 				onClick={toggleIsOpen}
 				type="button"
 			>

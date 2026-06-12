@@ -1,8 +1,11 @@
 import {DoubleLeafIcon} from '@/components/icons';
 import {ResponsiveIcon, Section, Typography} from '@/components/ui';
+import {getTranslations} from 'next-intl/server';
 import Image from 'next/image';
 
-const AboutMe = () => {
+const AboutMe = async () => {
+	const t = await getTranslations('AboutMe');
+
 	return (
 		<Section>
 			<div className="container container-sm">
@@ -12,36 +15,22 @@ const AboutMe = () => {
 						width={300}
 						height={309}
 						src="/portrait.jpg"
-						alt="portrait"
+						alt={t('myPortrait')}
 						fetchPriority="high"
 						loading="eager"
 					/>
 					<div>
 						<Typography className="mb-4" variant="h2">
-							About me
+							{t('title')}
 						</Typography>
-						<Typography className="mb-2">
-							I am originally from Ukraine and have been interested in
-							the beauty service industry since childhood. I hold five
-							professional certifications: – two in manicure – two in
-							pedicure – one in nail extensions. Over the years, I have
-							gained practical experience and continuously improved my
-							technical skills.
-						</Typography>
-						<Typography>
-							Kyoute Nails was created to provide accessible,
-							high-quality press-on nail designs for those who want
-							beautiful results quickly and conveniently. My goal is to
-							combine professional standards with modern design, so every
-							client receives a product that looks polished, neat, and
-							uplifting.
-						</Typography>
+						<Typography className="mb-2">{t('description1')}</Typography>
+						<Typography>{t('description2')}</Typography>
 					</div>
 				</div>
 
 				<div>
 					<Typography className="mb-6" variant="h3" weight="bold">
-						Certificates
+						{t('certificates')}
 					</Typography>
 					<div className="relative grid grid-cols-6 gap-4 max-md:grid-cols-2 max-xs:grid-cols-1">
 						<div className="col-span-3 bg-surface h-62.5 rounded-3xl max-md:col-span-1" />

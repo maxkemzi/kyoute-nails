@@ -2,15 +2,17 @@
 
 import {TEMP_LINE_PREFIX} from '@/lib/cart';
 import {useCart} from '@/lib/cart/cartContext';
+import {formatPrice} from '@/lib/shopify';
+import {useTranslations} from 'next-intl';
 import Image from 'next/image';
-import Link from 'next/link';
 import {useEffect} from 'react';
 import {Lock, Minus, Plus, Trash, X} from 'react-feather';
 import {twJoin} from 'tailwind-merge';
+import NavigationLink from '../NavigationLink';
 import {Button, Typography} from '../ui';
-import {formatPrice} from '@/lib/shopify';
 
 const CartSidebar = () => {
+	const t = useTranslations('CartSidebar');
 	const {
 		cart,
 		isOpen,
@@ -49,7 +51,7 @@ const CartSidebar = () => {
 				)}
 			/>
 			<aside
-				aria-label="Shopping cart"
+				aria-label={t('title')}
 				className={twJoin(
 					'fixed right-0 top-0 bottom-0 z-50 max-w-90 w-full flex flex-col bg-background transition-transform',
 					isOpen ? 'translate-x-0' : 'translate-x-full',
@@ -57,12 +59,13 @@ const CartSidebar = () => {
 			>
 				<div className="flex justify-between gap-4 px-7 py-4 shadow-border max-md:px-4">
 					<Typography variant="h4" as="h2">
-						Shopping bag
+						{t('title')}
 					</Typography>
 					<button
+						className="cursor-pointer"
 						onClick={closeCart}
 						type="button"
-						aria-label="Close cart"
+						aria-label={t('closeCart')}
 					>
 						<X />
 					</button>
@@ -71,7 +74,7 @@ const CartSidebar = () => {
 					<div className="h-full p-7 overflow-y-auto max-md:p-4">
 						{lines.length === 0 ? (
 							<div className="flex flex-col items-center justify-center h-full gap-3 text-center">
-								<Typography>Your bag is empty.</Typography>
+								<Typography>{t('empty')}</Typography>
 							</div>
 						) : (
 							<div className="flex flex-col gap-4">
@@ -86,7 +89,7 @@ const CartSidebar = () => {
 									return (
 										<div key={line.id} className="flex gap-4">
 											{!isTemp && image ? (
-												<Link
+												<NavigationLink
 													className="relative w-16 h-16 shrink-0 rounded-lg overflow-hidden"
 													href={`/buy-press-on-nails/${product.handle}`}
 													onClick={closeCart}
@@ -97,7 +100,7 @@ const CartSidebar = () => {
 														fill
 														alt={image.altText ?? product.title}
 													/>
-												</Link>
+												</NavigationLink>
 											) : (
 												<div className="w-16 h-16 shrink-0 animate-pulse bg-surface rounded-lg" />
 											)}
@@ -127,11 +130,12 @@ const CartSidebar = () => {
 																) : null}
 															</div>
 															<button
+																className="cursor-pointer"
 																onClick={() =>
 																	removeItem(line.id)
 																}
 																type="button"
-																aria-label="Remove item"
+																aria-label={t('removeItem')}
 															>
 																<Trash
 																	className="text-primary"
@@ -144,7 +148,7 @@ const CartSidebar = () => {
 															<div className="flex gap-2.5 items-center">
 																<button
 																	className={twJoin(
-																		'relative w-4 h-4 border rounded-md flex justify-center items-center',
+																		'relative w-4 h-4 border rounded-md flex justify-center items-center cursor-pointer',
 																		line.quantity <= 1
 																			? 'border-disabled'
 																			: 'border-primary',
@@ -156,7 +160,9 @@ const CartSidebar = () => {
 																		)
 																	}
 																	disabled={line.quantity <= 1}
-																	aria-label="Decrease quantity"
+																	aria-label={t(
+																		'decreaseQuantity',
+																	)}
 																>
 																	<Minus
 																		className={
@@ -178,7 +184,7 @@ const CartSidebar = () => {
 
 																<button
 																	className={twJoin(
-																		'relative w-4 h-4 border rounded-md flex justify-center items-center',
+																		'relative w-4 h-4 border rounded-md flex justify-center items-center cursor-pointer',
 																		maxQtyReached
 																			? 'border-disabled'
 																			: 'border-primary',
@@ -190,7 +196,9 @@ const CartSidebar = () => {
 																		)
 																	}
 																	disabled={maxQtyReached}
-																	aria-label="Increase quantity"
+																	aria-label={t(
+																		'increaseQuantity',
+																	)}
 																>
 																	<Plus
 																		className={
@@ -234,7 +242,7 @@ const CartSidebar = () => {
 				{lines.length > 0 && cart ? (
 					<div className="px-7 py-4 shadow-border max-md:px-4">
 						<div className="flex justify-between gap-4 mb-4">
-							<Typography weight="semibold">Subtotal:</Typography>
+							<Typography weight="semibold">{t('subtotal')}:</Typography>
 							{isAddingNewItem ? (
 								<div className="w-16 h-6 bg-surface animate-pulse rounded-lg" />
 							) : (
@@ -247,11 +255,11 @@ const CartSidebar = () => {
 							)}
 						</div>
 						<Button className="w-full mb-2" onClick={checkout}>
-							Checkout
+							{t('checkout')}
 						</Button>
 						<Typography className="flex justify-center items-center gap-2">
 							<Lock size={16} />
-							Secure checkout
+							{t('secureCheckout')}
 						</Typography>
 					</div>
 				) : null}

@@ -55,14 +55,6 @@
 	--color-leaf: var(--color-light-green);
 }
 
-button {
-	cursor: pointer;
-}
-
-button:disabled {
-	cursor: default;
-}
-
 .container {
 	width: 100%;
 	margin: 0 auto;

@@ -30,8 +30,8 @@ const DropdownItem = ({
 		<li role="menuitem">
 			<button
 				className={twMerge(
-					'w-full text-left px-3 py-1.5 hover:text-primary',
-					isSelected && 'text-primary',
+					'w-full text-left px-3 py-1.5 cursor-pointer hover:text-primary',
+					isSelected && 'text-primary cursor-default',
 					buttonClassName,
 				)}
 				onClick={handleSelect}

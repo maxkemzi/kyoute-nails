@@ -1,6 +1,7 @@
 'use client';
 
 import useEmblaCarousel from 'embla-carousel-react';
+import {useTranslations} from 'next-intl';
 import Image from 'next/image';
 import {useCallback, useEffect} from 'react';
 import {X} from 'react-feather';
@@ -20,6 +21,8 @@ interface Props {
 }
 
 const Lightbox = ({images, initialIndex = 0, isOpen, onClose}: Props) => {
+	const t = useTranslations('Lightbox');
+	const tImageSlider = useTranslations('imageSlider');
 	const [emblaRef, emblaApi] = useEmblaCarousel({
 		loop: true,
 		startIndex: initialIndex,
@@ -55,8 +58,8 @@ const Lightbox = ({images, initialIndex = 0, isOpen, onClose}: Props) => {
 			{/* Close button */}
 			<button
 				onClick={onClose}
-				className="absolute top-4 right-4 z-20 size-12 flex items-center justify-center rounded-full bg-background/60 hover:bg-background/80 text-background-foreground hover:text-primary transition-colors"
-				aria-label="Close"
+				className="absolute top-4 right-4 z-20 size-12 flex items-center justify-center cursor-pointer rounded-full bg-background/60 hover:bg-background/80 text-background-foreground hover:text-primary transition-colors"
+				aria-label={t('closeGallery')}
 			>
 				<X size={24} />
 			</button>
@@ -71,7 +74,7 @@ const Lightbox = ({images, initialIndex = 0, isOpen, onClose}: Props) => {
 						className="absolute top-0 bottom-0 left-0 pl-12 pr-4 z-10 flex items-center max-md:pl-8 max-xs:pl-4"
 						direction="left"
 						onClick={scrollPrev}
-						aria-label="Previous image"
+						aria-label={tImageSlider('previousImage')}
 					/>
 				) : null}
 
@@ -99,7 +102,7 @@ const Lightbox = ({images, initialIndex = 0, isOpen, onClose}: Props) => {
 						className="absolute top-0 bottom-0 right-0 pr-12 pl-4 z-10 flex items-center max-md:pr-8 max-xs:pr-4"
 						direction="right"
 						onClick={scrollNext}
-						aria-label="Next image"
+						aria-label={tImageSlider('nextImage')}
 					/>
 				) : null}
 			</div>

@@ -59,7 +59,7 @@ const Dropdown = ({
 		<DropdownContext value={{value, onClose: close}}>
 			<div ref={ref} className={twMerge('relative', className)}>
 				<button
-					className="w-full"
+					className="w-full cursor-pointer"
 					onClick={toggle}
 					aria-haspopup="menu"
 					aria-expanded={isOpen}

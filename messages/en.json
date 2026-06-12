@@ -1,0 +1,153 @@
+{
+	"common": {
+		"loading": "Loading...",
+		"previousImage": "Previous image",
+		"nextImage": "Next image"
+	},
+	"imageSlider": {
+		"previousImage": "Previous image",
+		"nextImage": "Next image",
+		"goToImage": "Go to image {number}"
+	},
+	"Error": {
+		"somethingWentWrong": "Something went wrong",
+		"tryAgain": "Try again"
+	},
+	"NotFound": {
+		"pageNotFound": "Page not found"
+	},
+	"Header": {
+		"navbar": {
+			"links": {
+				"home": "Home",
+				"buyPressOnNails": "Buy press-on nails",
+				"guides": "Guides",
+				"aboutMe": "About me"
+			},
+			"openMenu": "Open menu",
+			"closeMenu": "Close menu"
+		}
+	},
+	"LogoLink": {
+		"goToHomePage": "Go to home page"
+	},
+	"Home": {
+		"hero": {
+			"subtitle": "Happiness grows where",
+			"titleStart": "Nails Shine",
+			"titleConjunction": "&",
+			"titleEnd": "Flowers Bloom",
+			"openInstagramPage": "Open Instagram page"
+		}
+	},
+	"BuyPressOnNails": {
+		"title": "Buy Press-On Nails",
+		"loadMore": "Load more",
+		"sort": {
+			"label": "Sort by",
+			"options": {
+				"featured": "Featured",
+				"priceAsc": "Price: Low to High",
+				"priceDesc": "Price: High to Low",
+				"newest": "Newest"
+			}
+		}
+	},
+	"PressOnNailsDetails": {
+		"description": "Description",
+		"reviews": {
+			"title": "Reviews",
+			"noReviews": "No reviews yet."
+		}
+	},
+	"AddToCartButton": {
+		"addToCart": "Add to cart",
+		"outOfStock": "Out of stock",
+		"maxQuantityReached": "Max quantity reached"
+	},
+	"ReviewCard": {
+		"verified": "Verified",
+		"reviewPhoto": "Review photo"
+	},
+	"StarRating": {
+		"count": "{count, plural, one {# review} other {# reviews}}"
+	},
+	"Guides": {
+		"title": "Guides",
+		"content": {
+			"method": "Method",
+			"howToMeasure": {
+				"title": "How to measure your nails",
+				"flexibleTape": {
+					"title": "Flexible measuring tape",
+					"step1": "At the widest part of your nail bed, place the flexible measuring tape from one edge to the other, following the natural curve of your nail.",
+					"step2": "Record your measurement and repeat for each nail."
+				},
+				"stickyTape": {
+					"title": "Sticky tape",
+					"step1": "Paste sticky tape over the widest part of your nail bed, following its natural curve.",
+					"step2": "Use a pen to mark both edges of the tape at the widest point of your nail bed.",
+					"step3": "Remove the tape and use a ruler to measure the marked distance.",
+					"step4": "Record your measurement and repeat for each nail."
+				}
+			}
+		}
+	},
+	"AboutMe": {
+		"title": "About me",
+		"description1": "I am originally from Ukraine and have been interested in the beauty service industry since childhood. I hold five professional certifications: – two in manicure – two in pedicure – one in nail extensions. Over the years, I have gained practical experience and continuously improved my technical skills.",
+		"description2": "Kyoute Nails was created to provide accessible, high-quality press-on nail designs for those who want beautiful results quickly and conveniently. My goal is to combine professional standards with modern design, so every client receives a product that looks polished, neat, and uplifting.",
+		"certificates": "Certificates",
+		"myPortrait": "My portrait"
+	},
+	"CartSidebar": {
+		"title": "Shopping bag",
+		"empty": "Your bag is empty.",
+		"subtotal": "Subtotal",
+		"checkout": "Checkout",
+		"secureCheckout": "Secure checkout",
+		"removeItem": "Remove item",
+		"decreaseQuantity": "Decrease quantity",
+		"increaseQuantity": "Increase quantity",
+		"openCart": "Open cart",
+		"closeCart": "Close cart"
+	},
+	"Footer": {
+		"navbar": {
+			"contact": "Contact",
+			"shipping": "Shipping",
+			"refund": "Refund",
+			"termsAndConditions": "Terms and conditions",
+			"privacyPolicy": "Privacy policy"
+		}
+	},
+	"Contact": {
+		"title": "Contact",
+		"subtitleStart": "You can contact me via the form below or write me a DM on",
+		"subtitleInstagram": "my instagram",
+		"fields": {
+			"email": {
+				"label": "Email",
+				"placeholder": "Your email address"
+			},
+			"name": {
+				"label": "Name",
+				"placeholder": "Your name"
+			},
+			"message": {
+				"label": "Message",
+				"placeholder": "Your message"
+			},
+			"privacyPolicy": {
+				"labelStart": "I agree that my data will be processed in accordance with the",
+				"labelLink": "privacy policy",
+				"labelEnd": "."
+			}
+		},
+		"send": "Send"
+	},
+	"Lightbox": {
+		"openGallery": "Open image gallery",
+		"closeGallery": "Close image gallery"
+	}
+}

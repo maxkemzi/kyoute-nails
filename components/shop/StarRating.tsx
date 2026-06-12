@@ -1,5 +1,8 @@
+'use client';
+
 import {Typography} from '@/components/ui';
 import {ShopifyProduct} from '@/lib/shopify';
+import {useTranslations} from 'next-intl';
 import {Star} from 'react-feather';
 import {twMerge} from 'tailwind-merge';
 
@@ -16,6 +19,7 @@ const StarRating = ({
 	variant = 'full',
 	showCount = true,
 }: Props) => {
+	const t = useTranslations('StarRating');
 	const {value, count} = rating;
 
 	if (variant === 'compact') {
@@ -54,7 +58,7 @@ const StarRating = ({
 			</div>
 			{showCount ? (
 				<Typography className="text-background-foreground/60">
-					({count} {count === 1 ? 'review' : 'reviews'})
+					({t('count', {count})})
 				</Typography>
 			) : null}
 		</div>

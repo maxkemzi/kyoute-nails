@@ -4,6 +4,7 @@ import {ArrowButton} from '@/components/ui';
 import {useLightbox} from '@/lib/lightbox';
 import {ShopifyImage} from '@/lib/shopify';
 import useEmblaCarousel from 'embla-carousel-react';
+import {useTranslations} from 'next-intl';
 import Image from 'next/image';
 import {useCallback, useEffect, useState} from 'react';
 import {twJoin} from 'tailwind-merge';
@@ -14,6 +15,8 @@ interface Props {
 }
 
 const ImageSlider = ({images, title}: Props) => {
+	const t = useTranslations('imageSlider');
+	const tLightbox = useTranslations('Lightbox');
 	const [emblaRef, emblaApi] = useEmblaCarousel({loop: true});
 	const [selectedIndex, setSelectedIndex] = useState(0);
 	const {openLightbox} = useLightbox();
@@ -44,9 +47,11 @@ const ImageSlider = ({images, title}: Props) => {
 
 	if (images.length === 1) {
 		return (
-			<div
-				className="h-189 relative rounded-3xl overflow-hidden cursor-zoom-in"
+			<button
+				className="w-full h-189 relative rounded-3xl overflow-hidden cursor-zoom-in"
 				onClick={() => openLightbox(lightboxImages, 0)}
+				aria-label={tLightbox('openGallery')}
+				type="button"
 			>
 				<Image
 					className="object-cover"
@@ -56,7 +61,7 @@ const ImageSlider = ({images, title}: Props) => {
 					fetchPriority="high"
 					loading="eager"
 				/>
-			</div>
+			</button>
 		);
 	}
 
@@ -67,13 +72,15 @@ const ImageSlider = ({images, title}: Props) => {
 					className="absolute top-0 bottom-0 left-0 z-10 px-4 flex items-center"
 					direction="left"
 					onClick={scrollPrev}
-					aria-label="Previous image"
+					aria-label={t('previousImage')}
 				/>
 
-				<div
-					className="overflow-hidden h-189 cursor-zoom-in max-lg:h-[656px] max-md:h-[556px] max-xs:h-[456px]"
+				<button
+					className="w-full overflow-hidden h-189 cursor-zoom-in max-lg:h-164 max-md:h-139 max-xs:h-114"
 					ref={emblaRef}
 					onClick={() => openLightbox(lightboxImages, selectedIndex)}
+					aria-label={tLightbox('openGallery')}
+					type="button"
 				>
 					<div className="flex h-full">
 						{images.map((image, index) => (
@@ -89,13 +96,13 @@ const ImageSlider = ({images, title}: Props) => {
 							</div>
 						))}
 					</div>
-				</div>
+				</button>
 
 				<ArrowButton
 					className="absolute top-0 bottom-0 right-0 z-10 px-4 flex items-center"
 					direction="right"
 					onClick={scrollNext}
-					aria-label="Next image"
+					aria-label={t('nextImage')}
 				/>
 			</div>
 
@@ -106,11 +113,13 @@ const ImageSlider = ({images, title}: Props) => {
 						key={index}
 						onClick={() => scrollTo(index)}
 						className={twJoin(
-							'relative size-20 rounded-xl overflow-hidden shrink-0 border-2 transition-colors max-md:size-18 max-xs:size-16',
+							'relative size-20 rounded-xl overflow-hidden shrink-0 border-2 cursor-pointer transition-colors max-md:size-18 max-xs:size-16',
 							selectedIndex === index
 								? 'border-primary'
 								: 'border-transparent transition-opacity opacity-60 hover:opacity-100',
 						)}
+						aria-label={t('goToImage', {number: index + 1})}
+						aria-current={selectedIndex === index ? 'true' : undefined}
 					>
 						<Image
 							className="object-cover"

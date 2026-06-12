@@ -1,13 +1,15 @@
 import type {NextConfig} from 'next';
+import createNextIntlPlugin from 'next-intl/plugin';
 
 const nextConfig: NextConfig = {
-	/* config options here */
 	images: {
 		remotePatterns: [
 			{protocol: 'https', hostname: 'cdn.shopify.com'},
 			{protocol: 'https', hostname: 'judgeme.imgix.net'},
 		],
 	},
+	allowedDevOrigins: ['10.116.75.190'],
 };
 
-export default nextConfig;
+const withNextIntl = createNextIntlPlugin('./app/i18n/request.ts');
+export default withNextIntl(nextConfig);

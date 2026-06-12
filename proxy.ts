@@ -1,10 +1,11 @@
-import {createProxy} from 'next-i18next/proxy';
-import i18nConfig from './i18n.config';
+import createMiddleware from 'next-intl/middleware';
+import {routing} from './app/i18n/routing';
 
-export const proxy = createProxy(i18nConfig);
+export default createMiddleware(routing);
 
 export const config = {
-	matcher: [
-		'/((?!api|_next/static|_next/image|assets|favicon.ico|sw.js|site.webmanifest).*)',
-	],
+	// Match all pathnames except for
+	// - … if they start with `/api`, `/trpc`, `/_next` or `/_vercel`
+	// - … the ones containing a dot (e.g. `favicon.ico`)
+	matcher: '/((?!api|trpc|_next|_vercel|.*\\..*).*)',
 };
