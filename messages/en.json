@@ -4,6 +4,13 @@
 		"previousImage": "Previous image",
 		"nextImage": "Next image"
 	},
+	"cart": {
+		"failedToInitialize": "Failed to initialize cart. Please refresh the page",
+		"failedToRestore": "Failed to restore cart. Please refresh the page",
+		"failedToRemoveItem": "Failed to remove item from cart",
+		"failedToUpdateItem": "Failed to update item in cart",
+		"failedToAddItem": "Failed to add item to cart"
+	},
 	"imageSlider": {
 		"previousImage": "Previous image",
 		"nextImage": "Next image",
