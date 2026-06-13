@@ -12,7 +12,7 @@ const Guides = async () => {
 				</Typography>
 
 				<div>
-					<Accordion title="How to measure your nails">
+					<Accordion title={t('content.howToMeasure.title')}>
 						<ul className="flex flex-col gap-4">
 							<li>
 								<div className="flex gap-2 flex-wrap mb-4">

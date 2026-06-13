@@ -65,7 +65,7 @@ const Navbar = () => {
 					</NavLink>
 				</li>
 				<li>
-					<NavLink onClick={close} href="/buy-press-on-nailss">
+					<NavLink onClick={close} href="/buy-press-on-nails">
 						{t('links.buyPressOnNails')}
 					</NavLink>
 				</li>

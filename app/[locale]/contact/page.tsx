@@ -19,7 +19,7 @@ const Contact = async () => {
 					>
 						{t('subtitleStart')}{' '}
 						<a
-							className="pb-0.5 border-b italic text-nowrap"
+							className="pb-0.5 border-b italic text-nowrap capitalize"
 							href="https://www.instagram.com/kyoute_nailsriga"
 							target="_blank"
 							rel="noreferrer noopenner"
