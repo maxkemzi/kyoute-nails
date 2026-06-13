@@ -46,3 +46,8 @@ export const withRetry = async <T>(
 		throw e;
 	}
 };
+
+export const localeToShopifyLanguage = (locale: string): string => {
+	const map: Record<string, string> = {en: 'EN', ru: 'RU'};
+	return map[locale] ?? 'EN';
+};

@@ -1,5 +1,6 @@
 import {getProducts, PRODUCTS_PER_PAGE, sortMap} from '@/lib/shopify';
 import ProductGrid from './ProductGrid';
+import {getLocale} from 'next-intl/server';
 
 interface Props {
 	sortParam: keyof typeof sortMap;
@@ -8,12 +9,13 @@ interface Props {
 const ProductFeed = async ({sortParam}: Props) => {
 	const {sortKey, reverse} = sortMap[sortParam];
 
-	const {products, pageInfo} = await getProducts(
-		PRODUCTS_PER_PAGE,
-		null,
+	const locale = await getLocale();
+	const {products, pageInfo} = await getProducts({
+		first: PRODUCTS_PER_PAGE,
 		sortKey,
 		reverse,
-	);
+		locale,
+	});
 
 	return (
 		<ProductGrid

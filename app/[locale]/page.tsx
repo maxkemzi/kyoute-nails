@@ -7,10 +7,11 @@ import {getTranslations} from 'next-intl/server';
 import {Instagram} from 'react-feather';
 import FeaturedProducts from './FeaturedProducts';
 
-const Home = async () => {
+const Home = async ({params}: {params: Promise<{locale: string}>}) => {
+	const {locale} = await params;
 	const t = await getTranslations('Home');
 	const {sortKey, reverse} = sortMap.featured;
-	const {products} = await getProducts(3, null, sortKey, reverse);
+	const {products} = await getProducts({first: 3, sortKey, reverse, locale});
 
 	return (
 		<div>

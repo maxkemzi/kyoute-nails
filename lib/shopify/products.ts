@@ -2,7 +2,7 @@
 
 import {unstable_cache} from 'next/cache';
 import {shopifyFetch} from './client';
-import {parseProductRating} from './helpers';
+import {localeToShopifyLanguage, parseProductRating} from './helpers';
 import type {ShopifyProduct, ProductsResponse, ProductResponse} from './types';
 
 const PRODUCT_FIELDS = `
@@ -55,35 +55,47 @@ const PRODUCT_FIELDS = `
   }
 `;
 
+interface GetProductsOptions {
+	first?: number;
+	after?: string;
+	sortKey?: string;
+	reverse?: boolean;
+	locale: string;
+}
+
 export const getProducts = unstable_cache(
-	async (
+	async ({
 		first = 12,
-		after?: string | null,
-		sortKey?: string,
+		after,
+		sortKey,
 		reverse = false,
-	): Promise<{
+		locale,
+	}: GetProductsOptions): Promise<{
 		products: ShopifyProduct[];
 		pageInfo: {hasNextPage: boolean; endCursor: string | null};
 	}> => {
+		const language = localeToShopifyLanguage(locale);
+
 		const query = `
-		query GetProducts($first: Int!, $after: String, $sortKey: ProductSortKeys!, $reverse: Boolean!) {
-			products(first: $first, after: $after, sortKey: $sortKey, reverse: $reverse, query: "available_for_sale:true") {
-				pageInfo {
-					hasNextPage
-					endCursor
-				}
-				edges {
-					node { ${PRODUCT_FIELDS} }
+			query GetProducts($first: Int!, $after: String, $sortKey: ProductSortKeys!, $reverse: Boolean!, $language: LanguageCode!) @inContext(language: $language) {
+				products(first: $first, after: $after, sortKey: $sortKey, reverse: $reverse, query: "available_for_sale:true") {
+					pageInfo {
+						hasNextPage
+						endCursor
+					}
+					edges {
+						node { ${PRODUCT_FIELDS} }
+					}
 				}
 			}
-		}
-  `;
+		`;
 
 		const data = await shopifyFetch<ProductsResponse>(query, {
 			first,
 			after,
 			sortKey,
 			reverse,
+			language,
 		});
 
 		return {
@@ -91,21 +103,26 @@ export const getProducts = unstable_cache(
 			pageInfo: data.products.pageInfo,
 		};
 	},
-	['prdocuts'],
+	['products'],
 	{revalidate: 3600, tags: ['products']},
 );
 
 export const getProductByHandle = unstable_cache(
-	async (handle: string): Promise<ShopifyProduct | null> => {
-		const query = `
-    query GetProduct($handle: String!) {
-      product(handle: $handle) {
-        ${PRODUCT_FIELDS}
-      }
-    }
-  `;
+	async (handle: string, locale: string): Promise<ShopifyProduct | null> => {
+		const language = localeToShopifyLanguage(locale);
 
-		const data = await shopifyFetch<ProductResponse>(query, {handle});
+		const query = `
+			query GetProduct($handle: String!, $language: LanguageCode!) @inContext(language: $language) {
+				product(handle: $handle) {
+				${PRODUCT_FIELDS}
+				}
+			}
+		`;
+
+		const data = await shopifyFetch<ProductResponse>(query, {
+			handle,
+			language,
+		});
 		if (!data.product) return null;
 
 		const {metafields, ...rest} = data.product;

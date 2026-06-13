@@ -9,7 +9,7 @@ import {
 	sortMap,
 } from '@/lib/shopify';
 import {FlowerIcon} from '@phosphor-icons/react/dist/ssr';
-import {useTranslations} from 'next-intl';
+import {useLocale, useTranslations} from 'next-intl';
 import {useSearchParams} from 'next/navigation';
 import {useState} from 'react';
 
@@ -24,6 +24,7 @@ const ProductGrid = ({
 	initialCursor,
 	initialHasNextPage,
 }: Props) => {
+	const locale = useLocale();
 	const t = useTranslations('BuyPressOnNails');
 	const tCommon = useTranslations('common');
 	const searchParams = useSearchParams();
@@ -39,12 +40,13 @@ const ProductGrid = ({
 
 		setIsLoading(true);
 		const {sortKey, reverse} = sortMap[sortParam];
-		const {products: newProducts, pageInfo} = await getProducts(
-			PRODUCTS_PER_PAGE,
-			cursor,
+		const {products: newProducts, pageInfo} = await getProducts({
+			first: PRODUCTS_PER_PAGE,
+			after: cursor,
 			sortKey,
 			reverse,
-		);
+			locale,
+		});
 		setProducts(prev => [...prev, ...newProducts]);
 		setCursor(pageInfo.endCursor);
 		setHasNextPage(pageInfo.hasNextPage);

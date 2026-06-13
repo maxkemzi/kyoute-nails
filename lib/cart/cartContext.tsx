@@ -20,7 +20,7 @@ import {
 } from '../shopify';
 import {toast} from '../toast';
 import {applyAddTempLine, applyRemoveLine, applyUpdateLine} from './helpers';
-import {useTranslations} from 'next-intl';
+import {useLocale, useTranslations} from 'next-intl';
 
 const CART_ID_KEY = 'shopify_cart_id';
 
@@ -41,6 +41,7 @@ interface CartContextValue {
 const CartContext = createContext<CartContextValue | null>(null);
 
 export function CartProvider({children}: {children: ReactNode}) {
+	const locale = useLocale();
 	const t = useTranslations('cart');
 	const [cart, setCart] = useState<Cart | null>(null);
 	const [isOpen, setIsOpen] = useState(false);
@@ -56,14 +57,14 @@ export function CartProvider({children}: {children: ReactNode}) {
 			try {
 				const storedId = localStorage.getItem(CART_ID_KEY);
 				if (storedId) {
-					const existing = await getCart(storedId);
+					const existing = await getCart(storedId, locale);
 					if (existing) {
 						setCart(existing);
 						return;
 					}
 					localStorage.removeItem(CART_ID_KEY);
 				}
-				const newCart = await createCart();
+				const newCart = await createCart(locale);
 				localStorage.setItem(CART_ID_KEY, newCart.id);
 				setCart(newCart);
 			} catch {
@@ -74,7 +75,7 @@ export function CartProvider({children}: {children: ReactNode}) {
 		};
 
 		initCart();
-	}, [t]);
+	}, [locale, t]);
 
 	const openCart = useCallback(() => setIsOpen(true), []);
 	const closeCart = useCallback(() => setIsOpen(false), []);
@@ -111,7 +112,7 @@ export function CartProvider({children}: {children: ReactNode}) {
 	const revertCart = useCallback(
 		async (cartId: string) => {
 			try {
-				const reverted = await getCart(cartId);
+				const reverted = await getCart(cartId, locale);
 				if (reverted) setCart(reverted);
 			} catch {
 				toast.error(t('failedToRestore'));
@@ -131,7 +132,7 @@ export function CartProvider({children}: {children: ReactNode}) {
 
 			addLoadingItem(lineId);
 			try {
-				const updated = await removeFromCart(cart.id, [lineId]);
+				const updated = await removeFromCart(cart.id, [lineId], locale);
 				if (controller.signal.aborted) return;
 
 				pendingRemovals.current.delete(lineId);
@@ -152,6 +153,7 @@ export function CartProvider({children}: {children: ReactNode}) {
 			cart,
 			cleanupController,
 			getAbortController,
+			locale,
 			revertCart,
 			t,
 		],
@@ -178,6 +180,7 @@ export function CartProvider({children}: {children: ReactNode}) {
 					cart.id,
 					lineId,
 					quantity,
+					locale,
 					controller.signal,
 				);
 				if (controller.signal.aborted) return;
@@ -195,6 +198,7 @@ export function CartProvider({children}: {children: ReactNode}) {
 			cart,
 			cleanupController,
 			getAbortController,
+			locale,
 			removeItem,
 			revertCart,
 			t,
@@ -226,7 +230,12 @@ export function CartProvider({children}: {children: ReactNode}) {
 			addLoadingItem(variantId);
 			setIsAddingNewItem(true);
 			try {
-				const updated = await addToCart(cart.id, variantId, quantity);
+				const updated = await addToCart(
+					cart.id,
+					variantId,
+					quantity,
+					locale,
+				);
 				setCart(updated);
 			} catch (e) {
 				if (isAbortError(e)) return;
@@ -240,6 +249,7 @@ export function CartProvider({children}: {children: ReactNode}) {
 		[
 			addLoadingItem,
 			cart,
+			locale,
 			openCart,
 			removeLoadingItem,
 			revertCart,

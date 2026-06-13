@@ -10,11 +10,11 @@ import {getTranslations} from 'next-intl/server';
 const PressOnNailsDetails = async ({
 	params,
 }: {
-	params: Promise<{handle: string}>;
+	params: Promise<{handle: string; locale: string}>;
 }) => {
-	const {handle} = await params;
+	const {handle, locale} = await params;
 
-	const product = await getProductByHandle(handle);
+	const product = await getProductByHandle(handle, locale);
 	if (!product) notFound();
 
 	const t = await getTranslations('PressOnNailsDetails');
