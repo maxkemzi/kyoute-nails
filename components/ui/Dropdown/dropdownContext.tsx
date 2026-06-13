@@ -7,6 +7,11 @@ interface DropdownContextValue {
 	onClose?: () => void;
 }
 
-export const DropdownContext = createContext<DropdownContextValue>({});
+export const DropdownContext = createContext<DropdownContextValue | null>(null);
 
-export const useDropdownContext = () => useContext(DropdownContext);
+export const useDropdownContext = () => {
+	const ctx = useContext(DropdownContext);
+	if (!ctx)
+		throw new Error('useDropdownContext must be used inside <Dropdown>');
+	return ctx;
+};

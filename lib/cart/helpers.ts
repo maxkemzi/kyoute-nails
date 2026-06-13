@@ -1,6 +1,20 @@
 import {Cart, CartLine} from '../shopify';
 import {TEMP_LINE_PREFIX} from './constants';
 
+const calcSubtotal = (
+	edges: Cart['lines']['edges'],
+	overrides: Record<string, number> = {},
+): string =>
+	edges
+		.reduce(
+			(sum, {node}) =>
+				sum +
+				(overrides[node.id] ?? node.quantity) *
+					Number(node.merchandise.price.amount),
+			0,
+		)
+		.toFixed(2);
+
 export const applyRemoveLine = (cart: Cart, lineId: string): Cart => {
 	const removed = cart.lines.edges.find(({node}) => node.id === lineId);
 	return {
@@ -9,17 +23,7 @@ export const applyRemoveLine = (cart: Cart, lineId: string): Cart => {
 			...cart.cost,
 			subtotalAmount: {
 				...cart.cost.subtotalAmount,
-				amount: cart.lines.edges
-					.reduce(
-						(sum, {node}) =>
-							node.id === lineId
-								? sum
-								: sum +
-									node.quantity *
-										Number(node.merchandise.price.amount),
-						0,
-					)
-					.toFixed(2),
+				amount: calcSubtotal(cart.lines.edges, {[lineId]: 0}),
 			},
 		},
 		totalQuantity: cart.totalQuantity - (removed?.node.quantity ?? 0),
@@ -40,17 +44,7 @@ export const applyUpdateLine = (
 			...cart.cost,
 			subtotalAmount: {
 				...cart.cost.subtotalAmount,
-				amount: cart.lines.edges
-					.reduce(
-						(sum, {node}) =>
-							node.id === lineId
-								? sum + quantity * Number(node.merchandise.price.amount)
-								: sum +
-									node.quantity *
-										Number(node.merchandise.price.amount),
-						0,
-					)
-					.toFixed(2),
+				amount: calcSubtotal(cart.lines.edges, {[lineId]: quantity}),
 			},
 		},
 		totalQuantity: cart.lines.edges.reduce(

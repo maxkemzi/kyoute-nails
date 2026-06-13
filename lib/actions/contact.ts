@@ -58,7 +58,8 @@ export const sendContactEmail = async (
 			html: `<p>${message}</p>`,
 		});
 		return {success: true};
-	} catch {
+	} catch (e) {
+		console.error('[contact] Failed to send email:', e);
 		return {
 			error: 'Failed to send email. Please try again.',
 			values: result.data,
