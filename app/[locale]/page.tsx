@@ -96,15 +96,9 @@ const Home = async ({params}: {params: Promise<{locale: string}>}) => {
 						</Typography>
 						<Typography variant="h1">
 							{t('hero.titleStart')}{' '}
-							<Typography
-								as="span"
-								variant="h3"
-								weight="normal"
-								italic
-								letterSpacing="wide"
-							>
+							<span className="lowercase">
 								{t('hero.titleConjunction')}
-							</Typography>{' '}
+							</span>{' '}
 							{t('hero.titleEnd')}
 						</Typography>
 					</div>
