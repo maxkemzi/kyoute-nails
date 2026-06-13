@@ -1,153 +1,171 @@
 {
 	"common": {
-		"loading": "Loading...",
-		"previousImage": "Previous image",
-		"nextImage": "Next image"
+		"loading": "Загрузка...",
+		"previousImage": "Предыдущее изображение",
+		"nextImage": "Следующее изображение"
+	},
+	"cart": {
+		"failedToInitialize": "Не удалось инициализировать корзину. Пожалуйста, обновите страницу",
+		"failedToRestore": "Не удалось восстановить корзину. Пожалуйста, обновите страницу",
+		"failedToRemoveItem": "Не удалось удалить товар из корзины",
+		"failedToUpdateItem": "Не удалось обновить товар в корзине",
+		"failedToAddItem": "Не удалось добавить товар в корзину"
 	},
 	"imageSlider": {
-		"previousImage": "Previous image",
-		"nextImage": "Next image",
-		"goToImage": "Go to image {number}"
+		"previousImage": "Предыдущее изображение",
+		"nextImage": "Следующее изображение",
+		"goToImage": "Перейти к изображению {number}"
 	},
 	"Error": {
-		"somethingWentWrong": "Something went wrong",
-		"tryAgain": "Try again"
+		"somethingWentWrong": "Что-то пошло не так",
+		"tryAgain": "Попробовать снова"
 	},
 	"NotFound": {
-		"pageNotFound": "Page not found"
+		"pageNotFound": "Страница не найдена"
 	},
 	"Header": {
 		"navbar": {
 			"links": {
-				"home": "Home",
-				"buyPressOnNails": "Buy press-on nails",
-				"guides": "Guides",
-				"aboutMe": "About me"
+				"home": "Главная",
+				"buyPressOnNails": "Купить накладные ногти",
+				"guides": "Руководства",
+				"aboutMe": "Обо мне"
 			},
-			"openMenu": "Open menu",
-			"closeMenu": "Close menu"
+			"openMenu": "Открыть меню",
+			"closeMenu": "Закрыть меню"
 		}
 	},
 	"LogoLink": {
-		"goToHomePage": "Go to home page"
+		"goToHomePage": "Перейти на главную страницу"
 	},
 	"Home": {
 		"hero": {
-			"subtitle": "Happiness grows where",
-			"titleStart": "Nails Shine",
-			"titleConjunction": "&",
-			"titleEnd": "Flowers Bloom",
-			"openInstagramPage": "Open Instagram page"
+			"subtitle": "Счастье растёт там, где",
+			"titleStart": "Сияют ногти",
+			"titleConjunction": "и",
+			"titleEnd": "Цветут цветы",
+			"openInstagramPage": "Открыть страницу в Instagram"
 		}
 	},
 	"BuyPressOnNails": {
-		"title": "Buy Press-On Nails",
-		"loadMore": "Load more",
+		"title": "Купить накладные ногти",
+		"loadMore": "Загрузить ещё",
 		"sort": {
-			"label": "Sort by",
+			"label": "Сортировать по",
 			"options": {
-				"featured": "Featured",
-				"priceAsc": "Price: Low to High",
-				"priceDesc": "Price: High to Low",
-				"newest": "Newest"
+				"featured": "Рекомендуемые",
+				"priceAsc": "Цена: по возрастанию",
+				"priceDesc": "Цена: по убыванию",
+				"newest": "Новинки"
 			}
 		}
 	},
 	"PressOnNailsDetails": {
-		"description": "Description",
+		"description": "Описание",
 		"reviews": {
-			"title": "Reviews",
-			"noReviews": "No reviews yet."
+			"title": "Отзывы",
+			"noReviews": "Отзывов пока нет."
 		}
 	},
 	"AddToCartButton": {
-		"addToCart": "Add to cart",
-		"outOfStock": "Out of stock",
-		"maxQuantityReached": "Max quantity reached"
+		"addToCart": "Добавить в корзину",
+		"outOfStock": "Нет в наличии",
+		"maxQuantityReached": "Достигнуто максимальное количество"
 	},
 	"ReviewCard": {
-		"verified": "Verified",
-		"reviewPhoto": "Review photo"
+		"verified": "Подтверждено",
+		"reviewPhoto": "Фото отзыва"
 	},
 	"StarRating": {
-		"count": "{count, plural, one {# review} other {# reviews}}"
+		"count": "{count, plural, one {# отзыв} few {# отзыва} many {# отзывов} other {# отзыва}}"
 	},
 	"Guides": {
-		"title": "Guides",
+		"title": "Руководства",
 		"content": {
-			"method": "Method",
+			"method": "Метод",
 			"howToMeasure": {
-				"title": "How to measure your nails",
+				"title": "Как измерить ногти",
 				"flexibleTape": {
-					"title": "Flexible measuring tape",
-					"step1": "At the widest part of your nail bed, place the flexible measuring tape from one edge to the other, following the natural curve of your nail.",
-					"step2": "Record your measurement and repeat for each nail."
+					"title": "Гибкая измерительная лента",
+					"step1": "В самой широкой части ногтевого ложа приложите гибкую ленту от одного края до другого, следуя естественному изгибу ногтя.",
+					"step2": "Запишите измерение и повторите для каждого ногтя."
 				},
 				"stickyTape": {
-					"title": "Sticky tape",
-					"step1": "Paste sticky tape over the widest part of your nail bed, following its natural curve.",
-					"step2": "Use a pen to mark both edges of the tape at the widest point of your nail bed.",
-					"step3": "Remove the tape and use a ruler to measure the marked distance.",
-					"step4": "Record your measurement and repeat for each nail."
+					"title": "Липкая лента",
+					"step1": "Приклейте липкую ленту на самую широкую часть ногтевого ложа, следуя его естественному изгибу.",
+					"step2": "С помощью ручки отметьте оба края ленты в самой широкой точке ногтевого ложа.",
+					"step3": "Снимите ленту и измерьте отмеченное расстояние линейкой.",
+					"step4": "Запишите измерение и повторите для каждого ногтя."
 				}
 			}
 		}
 	},
 	"AboutMe": {
-		"title": "About me",
-		"description1": "I am originally from Ukraine and have been interested in the beauty service industry since childhood. I hold five professional certifications: – two in manicure – two in pedicure – one in nail extensions. Over the years, I have gained practical experience and continuously improved my technical skills.",
-		"description2": "Kyoute Nails was created to provide accessible, high-quality press-on nail designs for those who want beautiful results quickly and conveniently. My goal is to combine professional standards with modern design, so every client receives a product that looks polished, neat, and uplifting.",
-		"certificates": "Certificates",
-		"myPortrait": "My portrait"
+		"title": "Обо мне",
+		"description1": "Я родом из Украины и с детства интересуюсь индустрией красоты. У меня пять профессиональных сертификатов: – два по маникюру – два по педикюру – один по наращиванию ногтей. За эти годы я накопила практический опыт и постоянно совершенствую свои технические навыки.",
+		"description2": "Kyoute Nails был создан для того, чтобы предоставить доступные высококачественные дизайны накладных ногтей тем, кто хочет получить красивый результат быстро и удобно. Моя цель — сочетать профессиональные стандарты с современным дизайном, чтобы каждый клиент получал продукт, который выглядит аккуратно, стильно и поднимает настроение.",
+		"certificates": "Сертификаты",
+		"myPortrait": "Мой портрет"
 	},
 	"CartSidebar": {
-		"title": "Shopping bag",
-		"empty": "Your bag is empty.",
-		"subtotal": "Subtotal",
-		"checkout": "Checkout",
-		"secureCheckout": "Secure checkout",
-		"removeItem": "Remove item",
-		"decreaseQuantity": "Decrease quantity",
-		"increaseQuantity": "Increase quantity",
-		"openCart": "Open cart",
-		"closeCart": "Close cart"
+		"title": "Корзина",
+		"empty": "Ваша корзина пуста.",
+		"subtotal": "Итого",
+		"checkout": "Оформить заказ",
+		"secureCheckout": "Безопасная оплата",
+		"removeItem": "Удалить товар",
+		"decreaseQuantity": "Уменьшить количество",
+		"increaseQuantity": "Увеличить количество",
+		"openCart": "Открыть корзину",
+		"closeCart": "Закрыть корзину"
 	},
 	"Footer": {
 		"navbar": {
-			"contact": "Contact",
-			"shipping": "Shipping",
-			"refund": "Refund",
-			"termsAndConditions": "Terms and conditions",
-			"privacyPolicy": "Privacy policy"
+			"contact": "Контакты",
+			"shipping": "Доставка",
+			"refund": "Возврат",
+			"termsAndConditions": "Условия использования",
+			"privacyPolicy": "Политика конфиденциальности"
 		}
 	},
 	"Contact": {
-		"title": "Contact",
-		"subtitleStart": "You can contact me via the form below or write me a DM on",
-		"subtitleInstagram": "my instagram",
-		"fields": {
-			"email": {
-				"label": "Email",
-				"placeholder": "Your email address"
+		"title": "Контакты",
+		"subtitleStart": "Вы можете связаться со мной через форму ниже или написать мне в Direct на",
+		"subtitleInstagram": "мой Instagram",
+		"form": {
+			"fields": {
+				"email": {
+					"label": "Email",
+					"placeholder": "Ваш адрес электронной почты",
+					"required": "Email обязателен",
+					"invalid": "Неверный адрес электронной почты"
+				},
+				"name": {
+					"label": "Имя",
+					"placeholder": "Ваше имя",
+					"required": "Имя обязательно",
+					"tooLong": "Имя слишком длинное (максимум 100 символов)"
+				},
+				"message": {
+					"label": "Сообщение",
+					"placeholder": "Ваше сообщение",
+					"required": "Сообщение обязательно",
+					"tooShort": "Сообщение слишком короткое (минимум 10 символов)",
+					"tooLong": "Сообщение слишком длинное (максимум 1000 символов)"
+				},
+				"privacy": {
+					"label": "Я согласен(а) на обработку моих данных в соответствии с политикой конфиденциальности.",
+					"checkboxLabel": "Да",
+					"mustAgree": "Необходимо согласиться с политикой конфиденциальности"
+				}
 			},
-			"name": {
-				"label": "Name",
-				"placeholder": "Your name"
-			},
-			"message": {
-				"label": "Message",
-				"placeholder": "Your message"
-			},
-			"privacyPolicy": {
-				"labelStart": "I agree that my data will be processed in accordance with the",
-				"labelLink": "privacy policy",
-				"labelEnd": "."
-			}
-		},
-		"send": "Send"
+			"error": "Не удалось отправить сообщение. Пожалуйста, попробуйте снова",
+			"success": "Сообщение успешно отправлено",
+			"send": "Отправить"
+		}
 	},
 	"Lightbox": {
-		"openGallery": "Open image gallery",
-		"closeGallery": "Close image gallery"
+		"openGallery": "Открыть галерею изображений",
+		"closeGallery": "Закрыть галерею изображений"
 	}
 }
