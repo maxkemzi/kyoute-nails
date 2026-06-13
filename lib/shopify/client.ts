@@ -1,3 +1,4 @@
+import {env} from '@/config';
 import {isRetryableError, withRetry} from './helpers';
 
 const isBrowser = typeof window !== 'undefined';
@@ -17,8 +18,8 @@ export async function shopifyFetch<T>(
 	signal?: AbortSignal,
 	retries = SHOPIFY_RETRY_COUNT,
 ): Promise<T> {
-	const domain = process.env.SHOPIFY_STORE_DOMAIN as string;
-	const token = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN as string;
+	const domain = env.SHOPIFY_STORE_DOMAIN;
+	const token = env.SHOPIFY_STOREFRONT_ACCESS_TOKEN;
 
 	const timeout = AbortSignal.timeout(SHOPIFY_TIMEOUT_MS);
 	const combinedSignal = signal ? AbortSignal.any([signal, timeout]) : timeout;

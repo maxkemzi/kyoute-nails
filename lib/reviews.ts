@@ -1,3 +1,6 @@
+'use server';
+
+import {env} from '@/config';
 import {unstable_cache} from 'next/cache';
 
 export interface JudgeMeReview {
@@ -19,11 +22,11 @@ export interface JudgeMeResponse {
 	current_page: number;
 }
 
-const API_TOKEN = process.env.JUDGEME_PRIVATE_API_TOKEN as string;
+const API_TOKEN = env.JUDGEME_PRIVATE_API_TOKEN;
 
 const getJudgeMeProductId = async (handle: string): Promise<number | null> => {
 	const response = await fetch(
-		`https://api.judge.me/api/v1/products/-1?shop_domain=${process.env.SHOPIFY_STORE_DOMAIN}&handle=${handle}`,
+		`https://api.judge.me/api/v1/products/-1?shop_domain=${env.SHOPIFY_STORE_DOMAIN}&handle=${handle}`,
 		{
 			headers: {'X-Api-Token': API_TOKEN},
 			next: {revalidate: 24 * 3600},
@@ -41,7 +44,7 @@ export const getProductReviews = unstable_cache(
 		const id = await getJudgeMeProductId(handle);
 
 		const response = await fetch(
-			`https://api.judge.me/api/v1/reviews?shop_domain=${process.env.SHOPIFY_STORE_DOMAIN}&product_id=${id}&per_page=10`,
+			`https://api.judge.me/api/v1/reviews?shop_domain=${env.SHOPIFY_STORE_DOMAIN}&product_id=${id}&per_page=10`,
 			{headers: {'X-Api-Token': API_TOKEN}, next: {revalidate: 3600}},
 		);
 

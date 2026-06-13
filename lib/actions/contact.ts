@@ -3,13 +3,14 @@
 import {ContactFormState, contactSchema} from '@/lib/schemas';
 import z from 'zod';
 import nodemailer from 'nodemailer';
+import {env} from '@/config';
 
 const transporter = nodemailer.createTransport({
-	host: process.env.SMTP_HOST,
-	port: Number(process.env.SMTP_PORT),
+	host: env.SMTP_HOST,
+	port: env.SMTP_PORT,
 	auth: {
-		user: process.env.SMTP_USER,
-		pass: process.env.SMTP_PASSWORD,
+		user: env.SMTP_USER,
+		pass: env.SMTP_PASSWORD,
 	},
 });
 
@@ -50,8 +51,8 @@ export const sendContactEmail = async (
 
 	try {
 		await sendMailWithRetry({
-			from: `"${name}" <${process.env.SMTP_USER}>`,
-			to: process.env.CONTACT_EMAIL,
+			from: `"${name}" <${env.SMTP_USER}>`,
+			to: env.CONTACT_EMAIL,
 			replyTo: email,
 			subject: `New message from ${name}`,
 			text: message,

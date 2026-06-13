@@ -1,7 +1,8 @@
+import {env} from '@/config';
 import {NextRequest, NextResponse} from 'next/server';
 
-const domain = process.env.SHOPIFY_STORE_DOMAIN!;
-const token = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
+const domain = env.SHOPIFY_STORE_DOMAIN!;
+const token = env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
 
 export async function POST(req: NextRequest) {
 	const {query, variables} = await req.json();
