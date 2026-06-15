@@ -1,6 +1,7 @@
-import {AlertCircle, CheckCircle, Icon, Info} from 'react-feather';
-import {twMerge} from 'tailwind-merge';
+import {AlertCircle, CheckCircle, Icon, Info, X} from 'react-feather';
+import {twJoin, twMerge} from 'tailwind-merge';
 import Typography, {TypographyProps} from './Typography/Typography';
+import {toast} from 'sonner';
 
 interface Props {
 	id: string | number;
@@ -37,7 +38,7 @@ const VARIANT_TO_BORDER_COLOR_MAP: Record<Props['variant'], string> = {
 	info: 'border-info/30',
 };
 
-const Toast = ({title, variant}: Props) => {
+const Toast = ({id, title, variant}: Props) => {
 	const Icon = VARIANT_TO_ICON_MAP[variant];
 
 	return (
@@ -48,22 +49,31 @@ const Toast = ({title, variant}: Props) => {
 			)}
 		>
 			<div
-				className={twMerge(
-					'py-3 px-4 flex items-center gap-4',
+				className={twJoin(
+					'py-3 px-4 flex justify-between items-center gap-4 max-xs:gap-3 max-xs:px-3',
 					VARIANT_TO_BG_MAP[variant],
 				)}
 			>
-				<Icon
-					className="shrink-0"
-					color={VARIANT_TO_ICON_COLOR_MAP[variant]}
-					size={18}
-				/>
-				<Typography
-					color={VARIANT_TO_TITLE_COLOR_MAP[variant]}
-					weight="medium"
+				<div className=" flex items-center gap-4 max-xs:gap-3">
+					<Icon
+						className="shrink-0"
+						color={VARIANT_TO_ICON_COLOR_MAP[variant]}
+						size={18}
+					/>
+					<Typography
+						color={VARIANT_TO_TITLE_COLOR_MAP[variant]}
+						weight="medium"
+					>
+						{title}
+					</Typography>
+				</div>
+				<button
+					onClick={() => toast.dismiss(id)}
+					aria-label="Close toast"
+					type="button"
 				>
-					{title}
-				</Typography>
+					<X className="text-background-foreground/60" size={16} />
+				</button>
 			</div>
 		</div>
 	);
