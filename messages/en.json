@@ -109,7 +109,7 @@
 	},
 	"CartSidebar": {
 		"title": "Shopping bag",
-		"empty": "Your bag is empty.",
+		"empty": "Your bag is empty",
 		"subtotal": "Subtotal",
 		"checkout": "Checkout",
 		"secureCheckout": "Secure checkout",

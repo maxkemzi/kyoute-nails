@@ -73,11 +73,11 @@ const FeaturedProducts = ({products}: Props) => {
 			{/* Slider */}
 			<div className="hidden max-md:block">
 				<div className="overflow-hidden rounded-3xl" ref={emblaRef}>
-					<div className="flex">
+					<div className="flex -ml-3">
 						{loopedProducts.map((p, i) => (
 							<div
 								key={`${p.id}-${i}`}
-								className="flex-[0_0_calc(50%-6px)] ml-3 max-xs:flex-[0_0_100%]"
+								className="flex-[0_0_50%] pl-3 max-xs:flex-[0_0_100%]"
 							>
 								<NavigationLink
 									href={`/buy-press-on-nails/${p.handle}`}
