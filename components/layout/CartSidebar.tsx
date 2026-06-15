@@ -213,12 +213,12 @@ const CartSidebar = () => {
 												) : (
 													<>
 														<div className="flex-1 flex justify-between gap-4 mb-2">
-															<div className="flex-1 bg-surface animate-pulse rounded-lg" />
-															<div className="flex-1 bg-surface animate-pulse rounded-lg" />
+															<div className="w-1/2 h-6 bg-surface animate-pulse rounded-lg" />
+															<div className="w-4 h-4 bg-surface animate-pulse rounded-md" />
 														</div>
 														<div className="flex-1 flex justify-between gap-4">
-															<div className="flex-1 bg-surface animate-pulse rounded-lg" />
-															<div className="flex-1 bg-surface animate-pulse rounded-lg" />
+															<div className="w-19 h-6 bg-surface animate-pulse rounded-lg" />
+															<div className="w-15 h-6 bg-surface animate-pulse rounded-lg" />
 														</div>
 													</>
 												)}

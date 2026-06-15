@@ -48,7 +48,7 @@ const ImageSlider = ({images, title}: Props) => {
 	if (images.length === 1) {
 		return (
 			<button
-				className="w-full h-189 relative rounded-3xl overflow-hidden cursor-zoom-in"
+				className="w-full h-189 relative rounded-3xl overflow-hidden cursor-zoom-in max-lg:h-164 max-md:h-139 max-xs:h-114"
 				onClick={() => openLightbox(lightboxImages, 0)}
 				aria-label={tLightbox('openGallery')}
 				type="button"
