@@ -43,7 +43,7 @@ const Toast = ({title, variant}: Props) => {
 	return (
 		<div
 			className={twMerge(
-				'w-80 overflow-hidden bg-background rounded-xl border',
+				'w-80 overflow-hidden bg-background rounded-xl border max-xxs:w-full',
 				VARIANT_TO_BORDER_COLOR_MAP[variant],
 			)}
 		>

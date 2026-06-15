@@ -76,3 +76,21 @@
 .container-lg {
 	max-width: 1472px;
 }
+
+@media (max-width: 600px) {
+	[data-sonner-toaster] {
+		left: auto !important;
+		right: var(--mobile-offset-right) !important;
+		width: var(--width) !important;
+	}
+
+	[data-sonner-toaster] [data-sonner-toast] {
+		left: auto !important;
+	}
+}
+
+@media (max-width: 360px) {
+	[data-sonner-toaster] {
+		width: 100% !important;
+	}
+}
