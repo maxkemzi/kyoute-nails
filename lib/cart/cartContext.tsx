@@ -168,6 +168,21 @@ export function CartProvider({children}: {children: ReactNode}) {
 				return;
 			}
 
+			const existingLine = cart.lines.edges.find(
+				({node}) => node.id === lineId,
+			)?.node;
+
+			if (existingLine) {
+				const {quantityAvailable} = existingLine.merchandise;
+				const maxQty = Math.min(quantityAvailable, 99);
+				const maxQtyReached = quantity > maxQty;
+
+				if (maxQtyReached) {
+					toast.info(t('maxQuantityReached'));
+					return;
+				}
+			}
+
 			setCart(prev =>
 				prev ? applyUpdateLine(prev, lineId, quantity) : prev,
 			);
@@ -211,15 +226,12 @@ export function CartProvider({children}: {children: ReactNode}) {
 
 			openCart();
 
-			const existingEdge = cart.lines.edges.find(
+			const existingLine = cart.lines.edges.find(
 				({node}) => node.merchandise.id === variantId,
-			);
+			)?.node;
 
-			if (existingEdge) {
-				updateItem(
-					existingEdge.node.id,
-					existingEdge.node.quantity + quantity,
-				);
+			if (existingLine) {
+				updateItem(existingLine.id, existingLine.quantity + quantity);
 				return;
 			}
 

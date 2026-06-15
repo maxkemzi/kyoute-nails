@@ -148,7 +148,7 @@ const CartSidebar = () => {
 															<div className="flex gap-2.5 items-center">
 																<button
 																	className={twJoin(
-																		'relative w-4 h-4 border rounded-md flex justify-center items-center cursor-pointer',
+																		'relative w-4 h-4 border rounded-md flex justify-center items-center cursor-pointer disabled:cursor-default',
 																		line.quantity <= 1
 																			? 'border-disabled'
 																			: 'border-primary',
@@ -184,10 +184,7 @@ const CartSidebar = () => {
 
 																<button
 																	className={twJoin(
-																		'relative w-4 h-4 border rounded-md flex justify-center items-center cursor-pointer',
-																		maxQtyReached
-																			? 'border-disabled'
-																			: 'border-primary',
+																		'relative w-4 h-4 border border-primary rounded-md flex justify-center items-center cursor-pointer disabled:cursor-default',
 																	)}
 																	onClick={() =>
 																		updateItem(
@@ -195,17 +192,12 @@ const CartSidebar = () => {
 																			line.quantity + 1,
 																		)
 																	}
-																	disabled={maxQtyReached}
 																	aria-label={t(
 																		'increaseQuantity',
 																	)}
 																>
 																	<Plus
-																		className={
-																			maxQtyReached
-																				? 'text-disabled'
-																				: 'text-primary'
-																		}
+																		className="text-primary"
 																		size={12}
 																	/>
 																</button>

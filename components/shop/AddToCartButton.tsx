@@ -20,19 +20,7 @@ const AddToCartButton = (props: Props) => {
 	} = props;
 
 	const t = useTranslations('AddToCartButton');
-	const {addItem, loadingItems, cart} = useCart();
-
-	const line = cart?.lines.edges.find(
-		({node}) => node.merchandise.id === variantId,
-	)?.node;
-
-	let maxQty;
-	let maxQtyReached;
-
-	if (line) {
-		maxQty = Math.min(line?.merchandise.quantityAvailable, 99);
-		maxQtyReached = line.quantity >= maxQty;
-	}
+	const {addItem, loadingItems} = useCart();
 
 	if (!availableForSale) {
 		return (
@@ -46,10 +34,10 @@ const AddToCartButton = (props: Props) => {
 		<Button
 			className={className}
 			onClick={() => addItem(variantId)}
-			isDisabled={loadingItems.has(variantId) || maxQtyReached}
+			isDisabled={loadingItems.has(variantId)}
 			variant={buttonVariant}
 		>
-			{maxQtyReached ? t('maxQuantityReached') : t('addToCart')}
+			{t('addToCart')}
 		</Button>
 	);
 };

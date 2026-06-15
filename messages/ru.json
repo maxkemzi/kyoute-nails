@@ -9,7 +9,8 @@
 		"failedToRestore": "Не удалось восстановить корзину. Пожалуйста, обновите страницу",
 		"failedToRemoveItem": "Не удалось удалить товар из корзины",
 		"failedToUpdateItem": "Не удалось обновить товар в корзине",
-		"failedToAddItem": "Не удалось добавить товар в корзину"
+		"failedToAddItem": "Не удалось добавить товар в корзину",
+		"maxQuantityReached": "Достигнуто максимально доступное количество"
 	},
 	"imageSlider": {
 		"previousImage": "Предыдущее изображение",
@@ -40,10 +41,10 @@
 	},
 	"Home": {
 		"hero": {
-			"subtitle": "Счастье растёт там, где",
+			"subtitle": "Счастье расцветает там, где",
 			"titleStart": "Сияют ногти",
 			"titleConjunction": "и",
-			"titleEnd": "Цветут цветы",
+			"titleEnd": "Царит красота",
 			"openInstagramPage": "Открыть страницу в Instagram"
 		}
 	},
@@ -69,8 +70,7 @@
 	},
 	"AddToCartButton": {
 		"addToCart": "Добавить в корзину",
-		"outOfStock": "Нет в наличии",
-		"maxQuantityReached": "Достигнуто максимальное количество"
+		"outOfStock": "Нет в наличии"
 	},
 	"ReviewCard": {
 		"verified": "Подтверждено",

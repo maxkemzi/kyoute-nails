@@ -9,7 +9,8 @@
 		"failedToRestore": "Failed to restore cart. Please refresh the page",
 		"failedToRemoveItem": "Failed to remove item from cart",
 		"failedToUpdateItem": "Failed to update item in cart",
-		"failedToAddItem": "Failed to add item to cart"
+		"failedToAddItem": "Failed to add item to cart",
+		"maxQuantityReached": "Max available quantity reached"
 	},
 	"imageSlider": {
 		"previousImage": "Previous image",
@@ -69,8 +70,7 @@
 	},
 	"AddToCartButton": {
 		"addToCart": "Add to cart",
-		"outOfStock": "Out of stock",
-		"maxQuantityReached": "Max quantity reached"
+		"outOfStock": "Out of stock"
 	},
 	"ReviewCard": {
 		"verified": "Verified",
