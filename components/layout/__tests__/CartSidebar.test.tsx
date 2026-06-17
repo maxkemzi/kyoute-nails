@@ -3,7 +3,8 @@
  */
 
 import {useCart} from '@/lib/cart/cartContext';
-import {fireEvent, render, screen} from '@testing-library/react';
+import {fireEvent, screen} from '@testing-library/react';
+import {render} from '@/test.utils';
 import CartSidebar from '../CartSidebar';
 
 jest.mock('@/lib/cart/cartContext');
@@ -93,7 +94,7 @@ describe('CartSidebar', () => {
 		ctx.cart.totalQuantity = 0;
 		mockUseCart.mockReturnValue(ctx);
 		render(<CartSidebar />);
-		expect(screen.getByText('Your bag is empty.')).toBeInTheDocument();
+		expect(screen.getByText('Your bag is empty')).toBeInTheDocument();
 	});
 
 	it('renders nothing when cart is null', () => {

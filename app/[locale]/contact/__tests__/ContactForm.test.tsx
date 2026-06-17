@@ -2,7 +2,8 @@
  * @jest-environment jsdom
  */
 
-import {render, screen, fireEvent, waitFor} from '@testing-library/react';
+import {screen, fireEvent, waitFor} from '@testing-library/react';
+import {render} from '@/test.utils';
 import ContactForm from '../ContactForm';
 import userEvent from '@testing-library/user-event';
 
@@ -87,7 +88,9 @@ describe('ContactForm', () => {
 		const messageInput = screen.getByPlaceholderText('Your message');
 		fireEvent.blur(messageInput, {target: {value: 'short'}});
 		await waitFor(() => {
-			expect(screen.getByText('Message is too short')).toBeInTheDocument();
+			expect(
+				screen.getByText('Message is too short (minimum 10 characters)'),
+			).toBeInTheDocument();
 		});
 	});
 
@@ -171,7 +174,7 @@ describe('ContactForm', () => {
 		);
 		await waitFor(() => {
 			expect(toast.error).toHaveBeenCalledWith(
-				'Failed to send email. Please try again',
+				'Failed to send message. Please try again',
 			);
 		});
 	});
@@ -179,7 +182,7 @@ describe('ContactForm', () => {
 	it('shows server validation errors', async () => {
 		mockedAction.mockResolvedValue({
 			errors: {
-				email: {errors: ['Invalid email address']},
+				email: {errors: ['email.invalid']},
 			},
 			values: {
 				email: 'bad',
