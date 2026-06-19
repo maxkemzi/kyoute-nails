@@ -21,7 +21,7 @@ const Footer = async () => {
 							<NavLink href="/shipping">{t('navbar.shipping')}</NavLink>
 						</li>
 						<li>
-							<NavLink href="/">{t('navbar.refund')}</NavLink>
+							<NavLink href="/refund">{t('navbar.refund')}</NavLink>
 						</li>
 						<li>
 							<NavLink href="/">

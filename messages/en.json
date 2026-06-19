@@ -224,5 +224,36 @@
 			"title": "Shipping Issues",
 			"body": "If your order hasn't arrived within the expected timeframe, please contact us and we'll help track it down or arrange a replacement."
 		}
+	},
+	"Refund": {
+		"title": "Refund Policy",
+		"meta": {
+			"title": "Refund Policy",
+			"description": "Return window, eligibility, and refund process for Kyoute Nails orders."
+		},
+		"returnWindow": {
+			"title": "Return Window",
+			"body": "You have 14 days from the date of delivery to request a return, in line with EU consumer protection law."
+		},
+		"eligibility": {
+			"title": "Eligibility",
+			"body": "Items must be unused, unopened, and in their original packaging to qualify for a return. Press-on nails that have been worn or removed from their packaging cannot be returned for hygiene reasons."
+		},
+		"customOrders": {
+			"title": "Custom Orders",
+			"body": "Custom press-on nail sets made to your specifications are final sale and cannot be returned unless defective."
+		},
+		"howToReturn": {
+			"title": "How to Return",
+			"body": "Contact us via the contact form with your order number to start a return. We'll provide instructions and a return address."
+		},
+		"refundProcess": {
+			"title": "Refund Process",
+			"body": "Once we receive and inspect your return, we'll process your refund within 5-7 business days to your original payment method."
+		},
+		"damagedItems": {
+			"title": "Damaged or Incorrect Items",
+			"body": "If you received a damaged or incorrect item, contact us within 48 hours of delivery with photos, and we'll arrange a replacement or full refund at no extra cost."
+		}
 	}
 }
