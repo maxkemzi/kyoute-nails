@@ -91,6 +91,7 @@ const Lightbox = ({images, initialIndex = 0, isOpen, onClose}: Props) => {
 										index === initialIndex ? 'high' : 'auto'
 									}
 									loading={index === initialIndex ? 'eager' : 'lazy'}
+									sizes="100vw"
 								/>
 							</div>
 						))}

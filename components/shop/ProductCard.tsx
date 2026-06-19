@@ -24,6 +24,7 @@ const ProductCard = ({product}: Props) => {
 					src={image.url}
 					fill
 					alt={image.altText || title}
+					sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
 					fetchPriority="high"
 					loading="eager"
 				/>

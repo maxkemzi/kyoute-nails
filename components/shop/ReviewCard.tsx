@@ -63,7 +63,7 @@ const ReviewCard = ({review}: Props) => {
 						<button
 							key={index}
 							onClick={() => openLightbox(lightboxImages, index)}
-							className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 cursor-zoom-in"
+							className="relative size-20 rounded-lg overflow-hidden shrink-0 cursor-zoom-in"
 							aria-label={tLightbox('openGallery')}
 							type="button"
 						>
@@ -74,6 +74,7 @@ const ReviewCard = ({review}: Props) => {
 								alt={`${t('reviewPhoto')} ${index + 1}`}
 								fetchPriority="high"
 								loading="eager"
+								sizes="80px"
 							/>
 						</button>
 					))}

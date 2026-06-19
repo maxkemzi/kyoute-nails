@@ -64,6 +64,7 @@ const FeaturedProducts = ({products}: Props) => {
 								alt={image.altText || title}
 								fetchPriority="high"
 								loading="eager"
+								sizes="33vw"
 							/>
 						</NavigationLink>
 					);
@@ -90,6 +91,7 @@ const FeaturedProducts = ({products}: Props) => {
 										alt={p.title}
 										fetchPriority={i === 0 ? 'high' : 'auto'}
 										loading={i === 0 ? 'eager' : 'lazy'}
+										sizes="(max-width: 480px) 100vw, 50vw"
 									/>
 								</NavigationLink>
 							</div>

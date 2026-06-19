@@ -79,12 +79,9 @@ const CartSidebar = () => {
 						) : (
 							<div className="flex flex-col gap-4">
 								{lines.map(line => {
-									const {product, price, title, quantityAvailable} =
-										line.merchandise;
+									const {product, price, title} = line.merchandise;
 									const image = product.images.edges[0]?.node;
 									const isTemp = line.id.startsWith(TEMP_LINE_PREFIX);
-									const maxQty = Math.min(quantityAvailable, 99);
-									const maxQtyReached = line.quantity >= maxQty;
 
 									return (
 										<div key={line.id} className="flex gap-4">
@@ -99,6 +96,7 @@ const CartSidebar = () => {
 														src={image.url}
 														fill
 														alt={image.altText ?? product.title}
+														sizes="64px"
 													/>
 												</NavigationLink>
 											) : (

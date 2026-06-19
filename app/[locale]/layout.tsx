@@ -54,7 +54,7 @@ export default async function LocaleLayout({
 		<html
 			className={`${inter.variable} h-full antialiased scroll-smooth`}
 			lang={locale}
-			data-scroll-behaviour="smooth"
+			data-scroll-behavior="smooth"
 		>
 			<head>
 				<link rel="preconnect" href="https://cdn.shopify.com" />

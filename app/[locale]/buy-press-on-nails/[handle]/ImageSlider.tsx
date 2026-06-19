@@ -60,6 +60,7 @@ const ImageSlider = ({images, title}: Props) => {
 					alt={images[0].altText || title}
 					fetchPriority="high"
 					loading="eager"
+					sizes="(max-width: 768px) 100vw, 50vw"
 				/>
 			</button>
 		);
@@ -92,6 +93,7 @@ const ImageSlider = ({images, title}: Props) => {
 									alt={image.altText || title}
 									fetchPriority={index === 0 ? 'high' : 'auto'}
 									loading={index === 0 ? 'eager' : 'lazy'}
+									sizes="(max-width: 768px) 100vw, 50vw"
 								/>
 							</div>
 						))}
@@ -128,6 +130,7 @@ const ImageSlider = ({images, title}: Props) => {
 							alt={image.altText || title}
 							fetchPriority="high"
 							loading="eager"
+							sizes="80px"
 						/>
 					</button>
 				))}
