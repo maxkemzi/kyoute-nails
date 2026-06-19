@@ -193,5 +193,36 @@
 	"Lightbox": {
 		"openGallery": "Open image gallery",
 		"closeGallery": "Close image gallery"
+	},
+	"Shipping": {
+		"title": "Shipping",
+		"meta": {
+			"title": "Shipping",
+			"description": "Shipping areas, processing times, and delivery costs for Kyoute Nails orders."
+		},
+		"areas": {
+			"title": "Shipping Areas",
+			"body": "We currently ship within Latvia only. We're working on expanding to other Baltic countries soon."
+		},
+		"processingTime": {
+			"title": "Processing Time",
+			"body": "Orders are processed within 1-3 business days. Custom press-on sets may take up to 5 business days due to handmade production."
+		},
+		"deliveryTime": {
+			"title": "Delivery Time",
+			"body": "Once shipped, standard delivery within Latvia takes 1-3 business days via Omniva or DPD parcel lockers."
+		},
+		"cost": {
+			"title": "Shipping Cost",
+			"body": "Shipping costs €3.50 for standard delivery. Free shipping is available on orders over €50."
+		},
+		"tracking": {
+			"title": "Order Tracking",
+			"body": "You'll receive a tracking number by email once your order ships, so you can follow its journey to your door."
+		},
+		"issues": {
+			"title": "Shipping Issues",
+			"body": "If your order hasn't arrived within the expected timeframe, please contact us and we'll help track it down or arrange a replacement."
+		}
 	}
 }
