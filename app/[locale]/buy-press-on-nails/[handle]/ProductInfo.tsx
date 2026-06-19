@@ -57,7 +57,7 @@ const ProductInfo = async ({
 						<Typography>{description}</Typography>
 					</div>
 
-					<div id="reviews">
+					<div id="reviews" className="scroll-mt-15">
 						<Suspense fallback={<ReviewsSectionSkeleton />}>
 							<ReviewsSection handle={handle} rating={rating} />
 						</Suspense>

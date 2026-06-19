@@ -68,6 +68,7 @@ const Toast = ({id, title, variant}: Props) => {
 					</Typography>
 				</div>
 				<button
+					className="cursor-pointer"
 					onClick={() => toast.dismiss(id)}
 					aria-label="Close toast"
 					type="button"
