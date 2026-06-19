@@ -1,0 +1,8 @@
+services:
+   kyoute-nails:
+      image: maxkemzi/kyoute-nails
+      build:
+         context: ./
+      env_file:
+         - ./.env.production
+      restart: unless-stopped

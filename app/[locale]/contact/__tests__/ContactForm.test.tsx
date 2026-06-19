@@ -83,6 +83,17 @@ describe('ContactForm', () => {
 		});
 	});
 
+	it('shows name error on blur with long name', async () => {
+		render(<ContactForm />);
+		const nameInput = screen.getByPlaceholderText('Your name');
+		fireEvent.blur(nameInput, {target: {value: 'a'.repeat(101)}});
+		await waitFor(() => {
+			expect(
+				screen.getByText('Name is too long (maximum 100 characters)'),
+			).toBeInTheDocument();
+		});
+	});
+
 	it('shows message error on blur with short message', async () => {
 		render(<ContactForm />);
 		const messageInput = screen.getByPlaceholderText('Your message');
@@ -90,6 +101,17 @@ describe('ContactForm', () => {
 		await waitFor(() => {
 			expect(
 				screen.getByText('Message is too short (minimum 10 characters)'),
+			).toBeInTheDocument();
+		});
+	});
+
+	it('shows message error on blur with long message', async () => {
+		render(<ContactForm />);
+		const messageInput = screen.getByPlaceholderText('Your message');
+		fireEvent.blur(messageInput, {target: {value: 'a'.repeat(1001)}});
+		await waitFor(() => {
+			expect(
+				screen.getByText('Message is too long (maximum 1000 characters)'),
 			).toBeInTheDocument();
 		});
 	});
