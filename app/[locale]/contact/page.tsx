@@ -1,6 +1,21 @@
 import {Section, Typography} from '@/components/ui';
 import ContactForm from './ContactForm';
 import {getTranslations} from 'next-intl/server';
+import {Metadata} from 'next';
+
+export const generateMetadata = async ({
+	params,
+}: {
+	params: Promise<{locale: string}>;
+}): Promise<Metadata> => {
+	const {locale} = await params;
+	const t = await getTranslations({locale, namespace: 'Contact'});
+
+	return {
+		title: t('meta.title'),
+		description: t('meta.description'),
+	};
+};
 
 const Contact = async () => {
 	const t = await getTranslations('Contact');

@@ -5,6 +5,21 @@ import {Suspense} from 'react';
 import ProductFeed from './ProductFeed';
 import ProductGridSkeleton from './ProductGridSkeleton';
 import SortDropdown from './SortDropdown';
+import {Metadata} from 'next';
+
+export const generateMetadata = async ({
+	params,
+}: {
+	params: Promise<{locale: string}>;
+}): Promise<Metadata> => {
+	const {locale} = await params;
+	const t = await getTranslations({locale, namespace: 'BuyPressOnNails'});
+
+	return {
+		title: t('meta.title'),
+		description: t('meta.description'),
+	};
+};
 
 const BuyPressOnNails = async ({
 	searchParams,

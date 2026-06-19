@@ -1,7 +1,22 @@
 import {DoubleLeafIcon} from '@/components/icons';
 import {ResponsiveIcon, Section, Typography} from '@/components/ui';
+import {Metadata} from 'next';
 import {getTranslations} from 'next-intl/server';
 import Image from 'next/image';
+
+export const generateMetadata = async ({
+	params,
+}: {
+	params: Promise<{locale: string}>;
+}): Promise<Metadata> => {
+	const {locale} = await params;
+	const t = await getTranslations({locale, namespace: 'AboutMe'});
+
+	return {
+		title: t('meta.title'),
+		description: t('meta.description'),
+	};
+};
 
 const AboutMe = async () => {
 	const t = await getTranslations('AboutMe');

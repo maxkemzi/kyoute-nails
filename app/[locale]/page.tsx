@@ -6,6 +6,21 @@ import {LeafIcon} from '@phosphor-icons/react/dist/ssr';
 import {getTranslations} from 'next-intl/server';
 import {Instagram} from 'react-feather';
 import FeaturedProducts from './FeaturedProducts';
+import {Metadata} from 'next';
+
+export const generateMetadata = async ({
+	params,
+}: {
+	params: Promise<{locale: string}>;
+}): Promise<Metadata> => {
+	const {locale} = await params;
+	const t = await getTranslations({locale, namespace: 'Home'});
+
+	return {
+		title: t('meta.title'),
+		description: t('meta.description'),
+	};
+};
 
 const Home = async ({params}: {params: Promise<{locale: string}>}) => {
 	const {locale} = await params;

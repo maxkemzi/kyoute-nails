@@ -1,5 +1,8 @@
 {
 	"common": {
+		"meta": {
+			"description": "Handmade press-on nails delivered across Latvia. Browse unique designs, shop online, and find sizing guides at Kyoute Nails."
+		},
 		"loading": "Loading...",
 		"previousImage": "Previous image",
 		"nextImage": "Next image"
@@ -40,6 +43,10 @@
 		"goToHomePage": "Go to home page"
 	},
 	"Home": {
+		"meta": {
+			"title": "Kyoute Nails — Press-On Nails in Latvia",
+			"description": "Beautiful handmade press-on nails delivered across Latvia. Unique designs for every occasion."
+		},
 		"hero": {
 			"subtitle": "Happiness grows where",
 			"titleStart": "Nails Shine",
@@ -49,6 +56,10 @@
 		}
 	},
 	"BuyPressOnNails": {
+		"meta": {
+			"title": "Buy Press-On Nails",
+			"description": "Shop handmade press-on nails in a range of shapes and sizes. Salon-quality designs, easy to apply, delivered across Latvia."
+		},
 		"title": "Buy Press-On Nails",
 		"loadMore": "Load more",
 		"sort": {
@@ -62,6 +73,9 @@
 		}
 	},
 	"PressOnNailsDetails": {
+		"meta": {
+			"description": "Shop {title} — premium press-on nails for {price}. Handmade designs, easy application, fast delivery in Latvia."
+		},
 		"description": "Description",
 		"reviews": {
 			"title": "Reviews",
@@ -80,6 +94,10 @@
 		"count": "{count, plural, one {# review} other {# reviews}}"
 	},
 	"Guides": {
+		"meta": {
+			"title": "Guides",
+			"description": "Learn how to measure, apply, and care for your press-on nails with our step-by-step guides."
+		},
 		"title": "Guides",
 		"content": {
 			"method": "Method",
@@ -101,6 +119,10 @@
 		}
 	},
 	"AboutMe": {
+		"meta": {
+			"title": "About Me",
+			"description": "Meet the nail artist behind Kyoute Nails — certified in manicure, pedicure, and nail extensions, creating press-on nails with a professional touch."
+		},
 		"title": "About me",
 		"description1": "I am originally from Ukraine and have been interested in the beauty service industry since childhood. I hold five professional certifications: – two in manicure – two in pedicure – one in nail extensions. Over the years, I have gained practical experience and continuously improved my technical skills.",
 		"description2": "Kyoute Nails was created to provide accessible, high-quality press-on nail designs for those who want beautiful results quickly and conveniently. My goal is to combine professional standards with modern design, so every client receives a product that looks polished, neat, and uplifting.",
@@ -129,6 +151,10 @@
 		}
 	},
 	"Contact": {
+		"meta": {
+			"title": "Contact",
+			"description": "Get in touch with Kyoute Nails for questions, custom orders, or support. Reach out via the contact form or Instagram."
+		},
 		"title": "Contact",
 		"subtitleStart": "You can contact me via the form below or write me a DM on",
 		"subtitleInstagram": "my instagram",
