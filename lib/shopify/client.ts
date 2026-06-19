@@ -3,7 +3,7 @@ import {isRetryableError, withRetry} from './helpers';
 
 const isBrowser = typeof window !== 'undefined';
 const SHOPIFY_TIMEOUT_MS = 5000;
-const SHOPIFY_RETRY_COUNT = 1;
+const SHOPIFY_RETRY_COUNT = 2;
 
 class ShopifyError extends Error {
 	constructor(message: string) {
@@ -46,6 +46,10 @@ export async function shopifyFetch<T>(
 	);
 
 	if (!response.ok) {
+		if (retries > 0 && [502, 503, 504].includes(response.status)) {
+			await new Promise(res => setTimeout(res, 300));
+			return shopifyFetch(query, variables, signal, retries - 1);
+		}
 		throw new ShopifyError(`Shopify API error: ${response.status}`);
 	}
 
