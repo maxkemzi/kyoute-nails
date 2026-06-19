@@ -298,5 +298,53 @@
 			"title": "Contact Us",
 			"body": "If you have any questions about these Terms and Conditions, please contact us through our contact page."
 		}
+	},
+	"PrivacyPolicy": {
+		"title": "Privacy Policy",
+		"titleShort": "Privacy Policy",
+		"meta": {
+			"title": "Privacy Policy",
+			"description": "How Kyoute Nails collects, uses, and protects your personal data in accordance with GDPR."
+		},
+		"introduction": {
+			"title": "Introduction",
+			"body": "This Privacy Policy explains how Kyoute Nails collects, uses, and protects your personal data when you visit our website or make a purchase, in accordance with the EU General Data Protection Regulation (GDPR)."
+		},
+		"dataCollected": {
+			"title": "Data We Collect",
+			"body": "We collect information you provide directly, such as your name, email address, shipping address, and order details, as well as data collected automatically through cookies and analytics tools."
+		},
+		"howWeUseData": {
+			"title": "How We Use Your Data",
+			"body": "We use your data to process orders, communicate with you about your purchases, respond to inquiries, and improve our website and services."
+		},
+		"thirdParties": {
+			"title": "Third-Party Services",
+			"body": "We share data with trusted third parties necessary to operate our store, including Shopify for order processing, payment providers, and shipping carriers. These providers are bound by their own privacy obligations."
+		},
+		"cookies": {
+			"title": "Cookies",
+			"body": "We use cookies and similar technologies to enhance your browsing experience, remember your preferences, and analyze website traffic. You can control cookie settings through your browser."
+		},
+		"dataRetention": {
+			"title": "Data Retention",
+			"body": "We retain your personal data only as long as necessary to fulfill the purposes outlined in this policy, including legal, accounting, or reporting requirements."
+		},
+		"yourRights": {
+			"title": "Your Rights",
+			"body": "Under GDPR, you have the right to access, correct, delete, or restrict the use of your personal data, and to request a copy of the data we hold about you. Contact us to exercise these rights."
+		},
+		"security": {
+			"title": "Data Security",
+			"body": "We implement appropriate technical and organizational measures to protect your personal data against unauthorized access, loss, or misuse."
+		},
+		"changes": {
+			"title": "Changes to This Policy",
+			"body": "We may update this Privacy Policy periodically. Any changes will be posted on this page with an updated revision date."
+		},
+		"contact": {
+			"title": "Contact Us",
+			"body": "If you have questions about this Privacy Policy or how your data is handled, please contact us through our contact page."
+		}
 	}
 }

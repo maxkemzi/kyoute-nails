@@ -29,7 +29,9 @@ const Footer = async () => {
 							</NavLink>
 						</li>
 						<li>
-							<NavLink href="/">{t('navbar.privacyPolicy')}</NavLink>
+							<NavLink href="/privacy-policy">
+								{t('navbar.privacyPolicy')}
+							</NavLink>
 						</li>
 					</ul>
 				</nav>
