@@ -73,7 +73,8 @@ const Home = async ({params}: {params: Promise<{locale: string}>}) => {
 								</a>
 							</div>
 						</div>
-						<div className="relative flex items-center px-12 max-md:px-4 max-xs:px-2">
+						<div className="relative flex items-center gap-7 px-12 max-md:px-4 max-xs:px-2">
+							<div className="w-4 h-4 bg-background rounded-full max-md:hidden" />
 							<div className="w-4 h-4 bg-background rounded-full max-md:hidden" />
 
 							<ResponsiveIcon
