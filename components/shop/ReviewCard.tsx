@@ -15,6 +15,7 @@ interface Props {
 const ReviewCard = ({review}: Props) => {
 	const {reviewer, rating, body, title, pictures, verified, created_at} =
 		review;
+	console.log(review);
 
 	const t = useTranslations('ReviewCard');
 	const tLightbox = useTranslations('Lightbox');
@@ -26,6 +27,8 @@ const ReviewCard = ({review}: Props) => {
 		altText: t('reviewPhoto'),
 	}));
 
+	console.log(verified);
+
 	return (
 		<div className="flex flex-col gap-2 p-4 shadow-border rounded-2xl">
 			<div className="flex items-center justify-between gap-4">
@@ -33,14 +36,20 @@ const ReviewCard = ({review}: Props) => {
 					<Typography weight="medium" truncate>
 						{reviewer.name}
 					</Typography>
-					{verified === 'buyer' ? (
+					{[
+						'confirmed-buyer',
+						'buyer',
+						'verified-purchase',
+						'semi-verified-purchase',
+						'admin',
+					].includes(verified) ? (
 						<Typography
 							className="flex gap-1 items-center bg-success/15 px-2 py-0.5 rounded-xl"
 							color="success"
 							variant="body2"
 						>
 							<Check size={16} />
-							{t('verified')}
+							<span className="max-xs:hidden">{t('verified')}</span>
 						</Typography>
 					) : null}
 				</div>
