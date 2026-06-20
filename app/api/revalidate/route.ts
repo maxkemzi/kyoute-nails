@@ -9,7 +9,11 @@ export async function POST(req: NextRequest) {
 		return new Response('Unauthorized', {status: 401});
 	}
 
-	const {tag} = await req.json();
+	let tag: string | undefined;
+	try {
+		const body = await req.json();
+		tag = body?.tag;
+	} catch {}
 
 	if (tag === 'reviews') revalidateTag('reviews', 'max');
 	else if (tag === 'products') revalidateTag('products', 'max');
