@@ -1,6 +1,6 @@
-import {StarRating, ReviewCard} from '@/components/shop';
+import {ReviewCard, StarRating} from '@/components/shop';
 import {Typography} from '@/components/ui';
-import {getProductReviews} from '@/lib/reviews';
+import {getProductReviewsSafe} from '@/lib/reviews';
 import {ShopifyProduct} from '@/lib/shopify';
 import {getTranslations} from 'next-intl/server';
 
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const ReviewsSection = async ({handle, rating}: Props) => {
-	const {reviews} = await getProductReviews(handle);
+	const {reviews} = await getProductReviewsSafe(handle);
 
 	const t = await getTranslations('PressOnNailsDetails');
 

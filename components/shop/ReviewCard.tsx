@@ -15,7 +15,6 @@ interface Props {
 const ReviewCard = ({review}: Props) => {
 	const {reviewer, rating, body, title, pictures, verified, created_at} =
 		review;
-	console.log(review);
 
 	const t = useTranslations('ReviewCard');
 	const tLightbox = useTranslations('Lightbox');
@@ -26,8 +25,6 @@ const ReviewCard = ({review}: Props) => {
 		url: p.urls.original,
 		altText: t('reviewPhoto'),
 	}));
-
-	console.log(verified);
 
 	return (
 		<div className="flex flex-col gap-2 p-4 shadow-border rounded-2xl">

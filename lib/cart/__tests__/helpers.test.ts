@@ -20,6 +20,7 @@ const mockCart = (): Cart => ({
 						id: 'variant-1',
 						title: 'M',
 						price: {amount: '20.00', currencyCode: 'EUR'},
+						quantityAvailable: 99,
 						product: {
 							title: 'Koyuki',
 							handle: 'koyuki',
@@ -36,6 +37,7 @@ const mockCart = (): Cart => ({
 						id: 'variant-2',
 						title: 'L',
 						price: {amount: '20.00', currencyCode: 'EUR'},
+						quantityAvailable: 99,
 						product: {
 							title: 'Yuliana',
 							handle: 'yuliana',

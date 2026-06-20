@@ -1,5 +1,5 @@
 import {env} from '@/config';
-import {isRetryableError, withRetry} from './helpers';
+import {fetchWithRetry, isRetryableError} from '../retry';
 
 const isBrowser = typeof window !== 'undefined';
 const SHOPIFY_TIMEOUT_MS = 5000;
@@ -28,7 +28,7 @@ export async function shopifyFetch<T>(
 		? '/api/shopify'
 		: `https://${domain}/api/2026-04/graphql.json`;
 
-	const response = await withRetry(
+	const response = await fetchWithRetry(
 		() =>
 			fetch(url, {
 				method: 'POST',
@@ -46,10 +46,6 @@ export async function shopifyFetch<T>(
 	);
 
 	if (!response.ok) {
-		if (retries > 0 && [502, 503, 504].includes(response.status)) {
-			await new Promise(res => setTimeout(res, 300));
-			return shopifyFetch(query, variables, signal, retries - 1);
-		}
 		throw new ShopifyError(`Shopify API error: ${response.status}`);
 	}
 
