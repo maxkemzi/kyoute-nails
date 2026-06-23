@@ -24,7 +24,7 @@ const Button = (props: Props) => {
 	return (
 		<button
 			className={twMerge(
-				'py-3.5 px-7 rounded-xl cursor-pointer',
+				'py-3.5 px-7 rounded-xl cursor-pointer max-xs:py-2.5 max-xs:px-6',
 				variant === 'solid' && 'bg-primary text-primary-foreground',
 				variant === 'outline' &&
 					'bg-background border border-border transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground',

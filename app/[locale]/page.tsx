@@ -1,6 +1,6 @@
-import {LogoLink} from '@/components';
+import {LogoLink, NavigationLink} from '@/components';
 import {DoubleLeafIcon} from '@/components/icons';
-import {ResponsiveIcon, Section, Typography} from '@/components/ui';
+import {Button, ResponsiveIcon, Section, Typography} from '@/components/ui';
 import {getProducts, sortMap} from '@/lib/shopify';
 import {LeafIcon} from '@phosphor-icons/react/dist/ssr';
 import {getTranslations} from 'next-intl/server';
@@ -110,13 +110,17 @@ const Home = async ({params}: {params: Promise<{locale: string}>}) => {
 						>
 							{t('hero.subtitle')}
 						</Typography>
-						<Typography variant="h1">
+						<Typography className="mb-7 max-xs:mb-4" variant="h1">
 							{t('hero.titleStart')}{' '}
 							<span className="lowercase">
 								{t('hero.titleConjunction')}
 							</span>{' '}
 							{t('hero.titleEnd')}
 						</Typography>
+
+						<NavigationLink href="/buy-press-on-nails">
+							<Button>{t('hero.shopNow')}</Button>
+						</NavigationLink>
 					</div>
 
 					<FeaturedProducts products={products} />
