@@ -5,6 +5,7 @@ import {Menu, X} from 'react-feather';
 import {twJoin, twMerge} from 'tailwind-merge';
 import NavLink from './NavLink';
 import {useTranslations} from 'next-intl';
+import {Button} from '@/components/ui';
 
 const Navbar = () => {
 	const t = useTranslations('Header.navbar');
@@ -50,9 +51,9 @@ const Navbar = () => {
 					isOpen ? 'max-md:translate-x-0' : 'max-md:-translate-x-full',
 				)}
 			>
-				<li>
+				<li className="hidden max-md:list-item">
 					<button
-						className="hidden max-md:inline-block cursor-pointer"
+						className="cursor-pointer"
 						onClick={close}
 						aria-label={t('closeMenu')}
 					>
