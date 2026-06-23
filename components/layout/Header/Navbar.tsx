@@ -5,7 +5,8 @@ import {Menu, X} from 'react-feather';
 import {twJoin, twMerge} from 'tailwind-merge';
 import NavLink from './NavLink';
 import {useTranslations} from 'next-intl';
-import {Button} from '@/components/ui';
+import {Button, Typography} from '@/components/ui';
+import BookLink from './BookLink';
 
 const Navbar = () => {
 	const t = useTranslations('Header.navbar');
@@ -79,6 +80,9 @@ const Navbar = () => {
 					<NavLink onClick={close} href="/about-me">
 						{t('links.aboutMe')}
 					</NavLink>
+				</li>
+				<li>
+					<BookLink />
 				</li>
 			</ul>
 		</nav>

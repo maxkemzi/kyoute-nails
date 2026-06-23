@@ -31,9 +31,10 @@
 		"navbar": {
 			"links": {
 				"home": "Главная",
-				"buyPressOnNails": "Купить накладные ногти",
+				"buyPressOnNails": "Магазин",
 				"guides": "Руководства",
-				"aboutMe": "Обо мне"
+				"aboutMe": "Обо мне",
+				"book": "Записаться"
 			},
 			"openMenu": "Открыть меню",
 			"closeMenu": "Закрыть меню"

@@ -31,9 +31,10 @@
 		"navbar": {
 			"links": {
 				"home": "Home",
-				"buyPressOnNails": "Buy press-on nails",
+				"buyPressOnNails": "Shop",
 				"guides": "Guides",
-				"aboutMe": "About me"
+				"aboutMe": "About me",
+				"book": "Book a visit"
 			},
 			"openMenu": "Open menu",
 			"closeMenu": "Close menu"
