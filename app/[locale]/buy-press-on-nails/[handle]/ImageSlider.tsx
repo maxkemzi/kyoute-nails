@@ -67,8 +67,8 @@ const ImageSlider = ({images, title}: Props) => {
 	}
 
 	return (
-		<div className="flex flex-col items-start gap-3 max-md:gap-2">
-			<div className="w-full relative rounded-3xl overflow-hidden">
+		<div>
+			<div className="relative">
 				<ArrowButton
 					className="absolute top-0 bottom-0 left-0 z-10 px-4 flex items-center"
 					direction="left"
@@ -76,16 +76,19 @@ const ImageSlider = ({images, title}: Props) => {
 					aria-label={t('previousImage')}
 				/>
 
-				<button
-					className="w-full overflow-hidden h-189 cursor-zoom-in max-lg:h-164 max-md:h-139 max-xs:h-114"
+				<div
+					className="overflow-hidden rounded-3xl h-189 max-lg:h-164 max-md:h-139 max-xs:h-114"
 					ref={emblaRef}
-					onClick={() => openLightbox(lightboxImages, selectedIndex)}
-					aria-label={tLightbox('openGallery')}
-					type="button"
 				>
 					<div className="flex h-full">
 						{images.map((image, index) => (
-							<div key={index} className="flex-[0_0_100%] relative">
+							<button
+								key={index}
+								className="flex-[0_0_100%] relative cursor-zoom-in"
+								onClick={() => openLightbox(lightboxImages, index)}
+								aria-label={tLightbox('openGallery')}
+								type="button"
+							>
 								<Image
 									className="object-cover"
 									fill
@@ -95,10 +98,10 @@ const ImageSlider = ({images, title}: Props) => {
 									loading={index === 0 ? 'eager' : 'lazy'}
 									sizes="(max-width: 768px) 100vw, 50vw"
 								/>
-							</div>
+							</button>
 						))}
 					</div>
-				</button>
+				</div>
 
 				<ArrowButton
 					className="absolute top-0 bottom-0 right-0 z-10 px-4 flex items-center"
@@ -109,7 +112,7 @@ const ImageSlider = ({images, title}: Props) => {
 			</div>
 
 			{/* Thumbnails */}
-			<div className="w-full flex gap-3 overflow-x-auto scrollbar-none max-md:gap-2">
+			<div className="mt-3 flex flex-wrap gap-3 max-md:flex-nowrap max-md:overflow-x-auto max-md:gap-2 max-md:mt-2">
 				{images.map((image, index) => (
 					<button
 						key={index}
