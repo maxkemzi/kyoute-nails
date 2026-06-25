@@ -3,6 +3,7 @@ import {ResponsiveIcon, Section, Typography} from '@/components/ui';
 import {Metadata} from 'next';
 import {getTranslations} from 'next-intl/server';
 import Image from 'next/image';
+import CertificateGrid from './CertificateGrid';
 
 export const generateMetadata = async ({
 	params,
@@ -47,29 +48,7 @@ const AboutMe = async () => {
 					<Typography className="mb-6" variant="h3" weight="bold">
 						{t('certificates')}
 					</Typography>
-					<div className="relative grid grid-cols-6 gap-4 max-md:grid-cols-2 max-xs:grid-cols-1">
-						<div className="col-span-3 bg-surface h-62.5 rounded-3xl max-md:col-span-1" />
-						<div className="col-span-3 bg-surface h-62.5 rounded-3xl max-md:col-span-1" />
-						<div className="col-span-2 bg-surface h-62.5 rounded-3xl max-md:col-span-1" />
-						<div className="col-span-2 bg-surface h-62.5 rounded-3xl max-md:col-span-1" />
-						<div className="col-span-2 bg-surface h-62.5 rounded-3xl max-md:col-span-1" />
-
-						<ResponsiveIcon
-							className="absolute -top-1 right-1 -translate-y-1/2 translate-x-1/2 -scale-x-100 -rotate-100 -z-1 text-leaf"
-							icon={DoubleLeafIcon}
-							size={40}
-							mdSize={36}
-							xsSize={32}
-						/>
-
-						<ResponsiveIcon
-							className="absolute -bottom-1 left-1 translate-y-1/2 -translate-x-1/2 -z-1 text-leaf"
-							icon={DoubleLeafIcon}
-							size={40}
-							mdSize={36}
-							xsSize={32}
-						/>
-					</div>
+					<CertificateGrid />
 				</div>
 			</div>
 		</Section>
