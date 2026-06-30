@@ -26,6 +26,7 @@ The project was built to combine real e-commerce engineering challenges (cart st
 ## Tech Stack
 
 **Frontend**
+
 - [Next.js 16](https://nextjs.org/) (App Router)
 - [React 19](https://react.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
@@ -34,22 +35,25 @@ The project was built to combine real e-commerce engineering challenges (cart st
 - [Embla Carousel](https://www.embla-carousel.com/) — sliders and carousels
 
 **Commerce & Data**
+
 - [Shopify Storefront API](https://shopify.dev/docs/api/storefront) (GraphQL)
 - [Judge.me](https://judge.me/) — product reviews
 
 **Validation & Forms**
+
 - [Zod](https://zod.dev/)
 - Next.js Server Actions
 
 **Testing**
+
 - [Jest](https://jestjs.io/)
 - [React Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
 
 **Infrastructure**
+
 - Docker & Docker Compose
 - Nginx (reverse proxy)
 - AWS Lightsail
-- Cloudflare (proxy & DNS)
 - Let's Encrypt (SSL)
 
 ## Architecture Highlights
@@ -81,13 +85,15 @@ npm install
 Create a `.env.local` file:
 
 ```bash
-SHOPIFY_STORE_DOMAIN=your-store.myshopify.com
-SHOPIFY_STOREFRONT_ACCESS_TOKEN=your_storefront_token
-JUDGEME_PRIVATE_API_TOKEN=your_judgeme_token
-REVALIDATE_SECRET=your_secret
-SMTP_HOST=your_smtp_host
-SMTP_USER=your_smtp_user
-SMTP_PASSWORD=your_smtp_password
+SHOPIFY_STORE_DOMAIN=shopify_store_domain
+SHOPIFY_STOREFRONT_ACCESS_TOKEN=shopify_storefront_access_token
+SMTP_HOST=smtp_host
+SMTP_PORT=smtp_port
+SMTP_USER=smtp_user
+SMTP_PASSWORD=smtp_password
+CONTACT_EMAIL=contact_email
+JUDGEME_PRIVATE_API_TOKEN=judgme_api_token
+REVALIDATE_SECRET=revalidate_secret
 ```
 
 ### Run locally
@@ -106,7 +112,7 @@ npm test
 
 ## Deployment
 
-The project is deployed via Docker Compose alongside other projects on a single AWS Lightsail instance, behind Nginx and Cloudflare's proxy. SSL is handled via Let's Encrypt with automatic renewal.
+The project is deployed via Docker Compose alongside other projects on a single AWS Lightsail instance, behind Nginx. SSL is handled via Let's Encrypt with automatic renewal.
 
 ```bash
 docker compose up -d --build
