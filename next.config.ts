@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
 	images: {
 		remotePatterns: [
 			{protocol: 'https', hostname: 'cdn.shopify.com'},
-			{protocol: 'https', hostname: 'judgeme.imgix.net'},
+			{protocol: 'https', hostname: 'review-images.judge.me'},
 		],
 	},
 	allowedDevOrigins: ['10.116.75.190'],
